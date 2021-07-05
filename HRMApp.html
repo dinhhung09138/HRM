@@ -4,32 +4,140 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>HRM - Add Type</title>
-
-		<link rel="shortcut icon" href="./HRM/assets/images/icons/favicon.png">
-
 		<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:100,100i,300,300i,400,400i,500,500i,700,700i,800,800i,900,900i&amp;display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;display=swap" rel="stylesheet">
-
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
-
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/semantic.min.css" rel="stylesheet" type="text/css">
-
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/pe-icon-7-stroke.css" rel="stylesheet" type="text/css">
-
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/themify-icons.css" rel="stylesheet" type="text/css">
-
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/flash.css" rel="stylesheet" type="text/css">
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/bootstrap-toggle.min.css" rel="stylesheet" type="text/css">
-
-		<link href="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/css/custom.css" rel="stylesheet" type="text/css">
-		
-		<script src="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/js/jquery-3.4.1.min.js?v=3.4.1" type="text/javascript"></script>
-
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		<link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+		<link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="assets/css/custom.css" rel="stylesheet" />
+		<style>
+			.img-circle {
+				border-radius: 50%;
+			}
+			.user-panel .image img {
+				width: 100%;
+				max-width: 65px;
+				max-height: 65px;
+				border: 2px solid rgba(255,255,255,.1);
+				padding: 5px;
+			}
+			.user-panel .info {
+				padding: 5px 5px 5px 15px;
+				line-height: 1;
+			}
+			.user-panel .info p {
+    font-weight: 500;
+    margin-bottom: 9px;
+    color: #fff;
+    margin: 5px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.user-panel .info a {
+    text-decoration: none;
+    padding-right: 5px;
+    margin-top: 3px;
+    font-size: 11px;
+}
+.user-panel .info a .fa, .user-panel .info a .ion, .user-panel .info a .glyphicon {
+    margin-right: 3px;
+}
+			@media (min-width: 768px) {
+				.navbar-nav {
+					float: left;
+					margin: 0;
+				}
+				.navbar-nav>li {
+					float: left;
+				}
+				.navbar-nav>li>a {
+					padding-top: 15px;
+					padding-bottom: 15px;
+				}
+				.navbar-static-top {
+					border-radius: 0;
+				}
+			}
+			@media (max-width: 991px) {
+				.navbar-custom-menu .navbar-nav {
+					margin: 0;
+					float: left;
+				}
+				.navbar-custom-menu .navbar-nav>li {
+					float: left;
+				}
+				.navbar-custom-menu>.navbar-nav>li {
+					position: static;
+				}
+				.main-header .navbar-custom-menu a, .main-header .navbar-right a {
+					color: inherit;
+					background: 0 0;
+				}
+				.navbar-custom-menu .navbar-nav>li>a {
+					padding-top: 11px;
+					padding-bottom: 11px;
+				}
+				.navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
+					position: absolute;
+					right: 5%;
+					left: auto;
+					border: 1px solid #ddd;
+					background: #fff;
+				}
+			}
+			@media (max-width: 767px) {
+				.main-header {
+					position: relative;
+				}
+				.main-header .logo, .main-header .navbar {
+					width: 100%;
+					float: none;
+				}
+				.main-header .navbar {
+					margin: 0;
+				}
+				.main-header .logo, .main-header .navbar {
+					width: 100%;
+					float: none;
+				}
+				.main-header .navbar-custom-menu {
+					float: right;
+				}
+				.navbar-custom-menu>.navbar-nav {
+					float: right;
+				}
+			}
+			.main-sidebar {
+				position: absolute;
+				top: 0;
+				left: 0;
+				padding-top: 60px;
+				min-height: 100%;
+				width: 250px;
+				z-index: 810;
+				font-family: alegreya sans,sans-serif;
+				-webkit-transition: -webkit-transform .3s ease-in-out,width .3s ease-in-out;
+				-webkit-transition: width .3s ease-in-out,-webkit-transform .3s ease-in-out;
+				transition: width .3s ease-in-out,-webkit-transform .3s ease-in-out;
+				transition: transform .3s ease-in-out,width .3s ease-in-out;
+				transition: transform .3s ease-in-out,width .3s ease-in-out,-webkit-transform .3s ease-in-out;
+				background-color: #2c3136;
+			}
+			.sidebar {
+				padding-bottom: 10px;
+			}	
+			.user-panel {
+				position: relative;
+				width: 100%;
+				padding: 20px 10px;
+				overflow: hidden;
+			}
+			.sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
+				white-space: nowrap;
+				overflow: hidden;
+			}
+		</style>
 
 	</head>
 	<body class="sidebar-mini  pace-done">
@@ -55,11 +163,11 @@
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
 							<li class="dropdown messages-menu">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<a id="messageMenu" href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
 									<i class="pe-7s-mail"></i>
 									<span class="label label-success">0</span>
 								</a>
-								<ul class="dropdown-menu">
+								<ul class="dropdown-menu" aria-labelledby="messageMenu">
 									<li>
 										<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
 											<ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
@@ -72,8 +180,10 @@
 								</ul>
 							</li>
 							<li class="dropdown dropdown-user">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="pe-7s-settings"></i></a>
-								<ul class="dropdown-menu">
+								<a id="userMenu" href="#" class="dropdown-toggle" data-toggle="dropdown" data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="pe-7s-settings"></i>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="userMenu">
 									<li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home/profile"><i class="pe-7s-users"></i> Profile</a></li>
 									<li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home/setting"><i class="pe-7s-settings"></i> Setting</a></li>
 									<li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/logout"><i class="pe-7s-key"></i> Logout</a></li>
@@ -87,7 +197,7 @@
 				<div class="sidebar" style="height: auto;">
 					<div class="user-panel text-center">
 						<div class="image">
-							<img src="./HRM/assets/images/user/profile_img.png" class="img-circle" alt="User Image">
+							<img src="./assets/img/user/profile_img.png" class="img-circle" alt="User Image">
 						</div>
 						<div class="info">
 							<p>jhon Anderson</p>
@@ -224,6 +334,16 @@
 									</div>
 								</div>
 								<div class="panel-body">
+									<div class="dropdown">
+										<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+										  Dropdown
+										</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+										  <li><button class="dropdown-item" type="button">Action</button></li>
+										  <li><button class="dropdown-item" type="button">Another action</button></li>
+										  <li><button class="dropdown-item" type="button">Something else here</button></li>
+										</ul>
+									  </div>
 								</div>
 							</div>
 						</div>
@@ -241,16 +361,8 @@
 				</footer>
 			</div>
 		</div>
-		<script src="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/js/jquery-ui.min.js" type="text/javascript"></script>
-		<script src="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/js/bootstrap.min.js" type="text/javascript"></script>
-		<script src="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/js/pace.min.js" type="text/javascript"></script>
-		<script src="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-		<script src="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/js/frame.js" type="text/javascript"></script>
-		<script src="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/js/custom.js" type="text/javascript"></script>
-
-
-		<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;rayId&quot;:&quot;66a0bb81bf665676&quot;,&quot;token&quot;:&quot;4e0c83f93d3046d09e1031a529120ea1&quot;,&quot;version&quot;:&quot;2021.6.0&quot;,&quot;si&quot;:10}"></script>
-
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	
 
 		<div id="toTop" class="btn back-top">
 			<span class="ti-arrow-up"></span>
