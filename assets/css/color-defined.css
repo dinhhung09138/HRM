@@ -1,0 +1,120 @@
+
+.color-green {
+	color: #37a000!important
+}
+
+.color-red {
+	color: #e5343d!important
+}
+
+.color-violet {
+	color: #8e23e0!important
+}
+
+.color-gray {
+	color: #9a9a9a!important
+}
+
+.color-yellow {
+	color: #ffb61e!important
+}
+
+.color-info {
+	color: #62d0f1!important
+}
+
+.text-white {
+	color: #fff!important
+}
+
+.text-muted {
+	color: #9a9a9a!important
+}
+
+.text-primary {
+	color: #428bca!important
+}
+
+.text-success {
+	color: #37a000!important
+}
+
+.text-info {
+	color: #62d0f1!important
+}
+
+.text-warning {
+	color: #ffb61e!important
+}
+
+.text-danger {
+	color: #e5343d!important
+}
+
+.text-inverse {
+	color: #3b3e47!important
+}
+
+.text-purple {
+	color: #5b69bc!important
+}
+
+.text-pink {
+	color: #ff8acc!important
+}
+
+.text-black {
+	color: #000!important
+}
+
+.text-violet {
+	color: #8e23e0!important
+}
+
+.border-all {
+	border: 1px solid #e4e5e7!important
+}
+
+.border-btm {
+	border-bottom: 1px solid #e4e5e7!important
+}
+
+.border-green {
+	border-color: #37a000!important
+}
+
+.border-red {
+	border-color: #e5343d!important
+}
+
+.border-violet {
+	border-color: #8e23e0!important
+}
+
+.border-gray {
+	border-color: #9a9a9a!important
+}
+
+.border-yellow {
+	border-color: #ffb61e!important
+}
+
+.bg-green {
+	background: #37a000!important
+}
+
+.bg-red {
+	background: #e5343d!important
+}
+
+.bg-violet {
+	background: #8e23e0!important
+}
+
+.bg-gray {
+	background: #9a9a9a!important
+}
+
+.bg-yellow {
+	background: #ffb61e!important
+}
