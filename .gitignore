@@ -50,3 +50,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+src/HRM/HRM.Application/obj/
+src/HRM/HRM.Constant/obj/
+src/HRM/HRM.Database/bin/
+src/HRM/HRM.Database/obj/
+src/HRM/HRM.Domain/obj/
+src/HRM/HRM.Constant/bin/
+src/HRM/HRM.Infrastructure/obj/
+src/HRM/HRM.Infrastructure/bin/
+src/HRM/HRM.Domain/bin/
+src/HRM/HRM.Application/bin/
