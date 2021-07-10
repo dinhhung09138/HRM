@@ -4,4 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HRM.Constant\HRM.Constant.csproj" />
+    <ProjectReference Include="..\HRM.Database\HRM.Database.csproj" />
+    <ProjectReference Include="..\HRM.Domain\HRM.Domain.csproj" />
+    <ProjectReference Include="..\HRM.Infrastructure\HRM.Infrastructure.csproj" />
+    <ProjectReference Include="..\HRM.Model\HRM.Model.csproj" />
+  </ItemGroup>
+
 </Project>
