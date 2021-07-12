@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.School
+namespace HRM.Database
 {
     class SchoolRepository
     {

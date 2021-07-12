@@ -8,5 +8,6 @@ namespace HRM.Database.Certificated
 {
     class CertificatedConfiguration
     {
+
     }
 }
