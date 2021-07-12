@@ -18,4 +18,17 @@
     <ProjectReference Include="..\HRM.Domain\HRM.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Certificated\" />
+    <Folder Include="Major\" />
+    <Folder Include="District\" />
+    <Folder Include="MaritalStatus\" />
+    <Folder Include="CommonCodeType\" />
+    <Folder Include="CommonCode\" />
+    <Folder Include="File\" />
+    <Folder Include="ProfessionalQualification\" />
+    <Folder Include="School\" />
+    <Folder Include="Province\" />
+  </ItemGroup>
+
 </Project>
