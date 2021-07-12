@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.ProfessionalQualification
+namespace HRM.Database
 {
-    class ProfessionalQualificationExpression
+    public class ProfessionalQualificationExpression
     {
     }
 }

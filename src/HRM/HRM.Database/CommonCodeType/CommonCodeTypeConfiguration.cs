@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.CommonCodeType
+namespace HRM.Database
 {
-    class CommonCodeTypeConfiguration
+    public class CommonCodeTypeConfiguration
     {
     }
 }

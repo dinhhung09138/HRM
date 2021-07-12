@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HRM.Database
 {
-    class SchoolRepository
+    public class SchoolRepository
     {
     }
 }

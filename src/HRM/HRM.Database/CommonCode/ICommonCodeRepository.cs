@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.CommonCode
+namespace HRM.Database
 {
-    interface ICommonCodeRepository
+    public interface ICommonCodeRepository
     {
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.MaritalStatus
+namespace HRM.Database
 {
-    class IMaritalStatusRepository
+    public interface IMaritalStatusRepository
     {
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.District
+namespace HRM.Database
 {
-    class DistrictConfiguration
+    public class DistrictConfiguration
     {
     }
 }

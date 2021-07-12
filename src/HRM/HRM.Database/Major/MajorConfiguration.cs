@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.Major
+namespace HRM.Database
 {
-    class MajorConfiguration
+    public class MajorConfiguration
     {
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.Province
+namespace HRM.Database
 {
-    class IProvinceRepository
+    public interface IProvinceRepository
     {
     }
 }

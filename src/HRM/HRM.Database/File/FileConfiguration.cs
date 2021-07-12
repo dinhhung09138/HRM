@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.File
+namespace HRM.Database
 {
-    class FileConfiguration
+    public class FileConfiguration
     {
     }
 }

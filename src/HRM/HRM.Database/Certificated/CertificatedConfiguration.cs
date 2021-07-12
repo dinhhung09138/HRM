@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.Certificated
+namespace HRM.Database
 {
-    class CertificatedConfiguration
+    public class CertificatedConfiguration
     {
 
     }
