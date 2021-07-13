@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HRM.Database.Context
+namespace HRM.Database
 {
     public sealed class Context : DbContext
     {

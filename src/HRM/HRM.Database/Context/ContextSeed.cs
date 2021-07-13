@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HRM.Database.Context
+namespace HRM.Database
 {
     public static class ContextSeed
     {

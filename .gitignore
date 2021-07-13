@@ -60,3 +60,5 @@ src/HRM/HRM.Infrastructure/obj/
 src/HRM/HRM.Infrastructure/bin/
 src/HRM/HRM.Domain/bin/
 src/HRM/HRM.Application/bin/
+src/HRM/HRM.Api/bin/
+src/HRM/HRM.Api/obj/

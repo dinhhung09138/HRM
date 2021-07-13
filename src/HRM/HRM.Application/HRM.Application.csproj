@@ -11,5 +11,4 @@
     <ProjectReference Include="..\HRM.Infrastructure\HRM.Infrastructure.csproj" />
     <ProjectReference Include="..\HRM.Model\HRM.Model.csproj" />
   </ItemGroup>
-
 </Project>
