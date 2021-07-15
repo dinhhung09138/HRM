@@ -1,0 +1,14 @@
+﻿@if (IsShow == true)
+{
+    <a class="btn btn-xs btn-success" onclick="@OnClick"><i class="fa fa-pencil"></i></a>
+}
+
+@code {
+
+    [Parameter]
+    public bool IsShow { get; set; } = true;
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+}

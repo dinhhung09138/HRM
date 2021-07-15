@@ -1,0 +1,15 @@
+﻿@if (IsShow == true)
+{
+    <button type="button" class="btn btn-success w-md m-b-5" onclick="@OnClick">Save</button>
+}
+
+
+@code {
+
+    [Parameter]
+    public bool IsShow { get; set; } = true;
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+}
