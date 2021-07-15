@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HRM.Model;
-using HRM.Domain;
+using HRM.Model.Common;
+using HRM.Domain.Common;
 
 namespace HRM.Database.Common
 {

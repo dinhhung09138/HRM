@@ -17,21 +17,27 @@ namespace HRM.Database.HR
             builder.HasOne(m => m.Employee).WithMany().HasForeignKey(m => m.EmployeeId).OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.CommendationId).IsRequired();
-            builder.HasOne(m => m.Commendation).WithMany().HasForeignKey(m => m.CommendationId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(m => m.Commendation).WithMany()
+                   .HasForeignKey(m => m.CommendationId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.Date).IsRequired();
 
             builder.Property(m => m.Comment).HasMaxLength(250).IsRequired();
 
             builder.Property(m => m.ProposerId).IsRequired();
-            builder.HasOne(m => m.Proposer).WithMany().HasForeignKey(m => m.ProposerId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(m => m.Proposer).WithMany()
+                   .HasForeignKey(m => m.ProposerId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.ProposeDate).IsRequired();
 
             builder.Property(m => m.ApprovedStatus).IsRequired();
 
             builder.Property(m => m.ApprovedBy);
-            builder.HasOne(m => m.Approve).WithMany().HasForeignKey(m => m.ApprovedBy).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(m => m.Approver).WithMany()
+                   .HasForeignKey(m => m.ApprovedBy)
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.ApprovedDate);
 

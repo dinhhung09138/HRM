@@ -67,7 +67,7 @@ namespace HRM.Domain.HR
 
         public long? ApprovedBy { get; set; }
 
-        public Employee Approve { get; set; }
+        public Employee Approver { get; set; }
 
         public DateTime? ApprovedDate { get; set; }
 

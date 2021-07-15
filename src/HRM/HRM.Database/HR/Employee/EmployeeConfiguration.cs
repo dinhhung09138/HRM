@@ -34,14 +34,14 @@ namespace HRM.Database.HR
 
             builder.Property(m => m.WorkingPhone).HasMaxLength(20).IsRequired();
 
-            builder.Property(m => m.EmployeeWorkingStatusId).IsRequired();
+            builder.Property(m => m.EmployeeWorkingStatusId);
             builder.HasOne(m => m.EmployeeWorkingStatus).WithMany()
                    .HasForeignKey(m => m.EmployeeWorkingStatusId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.CurrentPositionId);
             builder.HasOne(m => m.Position).WithMany()
-                   .HasForeignKey(m => m.CurrentDepartmentId)
+                   .HasForeignKey(m => m.CurrentPositionId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.CurrentDepartmentId);

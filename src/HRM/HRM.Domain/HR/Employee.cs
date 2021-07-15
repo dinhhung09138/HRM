@@ -104,6 +104,28 @@ namespace HRM.Domain.HR
         [Required]
         public byte[] RowVersion { get; set; }
 
-        public virtual List<EmployeeBank> BankAccounts { get; set; }
+        public virtual List<EmployeeBank> EmployeeBanks { get; set; }
+
+        public virtual List<EmployeeCertificate> EmployeeCertificates { get; set; }
+
+        public virtual List<EmployeeCommendation> EmployeeCommendations { get; set; }
+
+        public virtual List<EmployeeContact> EmployeeContacts { get; set; }
+
+        public virtual List<EmployeeContract> EmployeeContracts { get; set; }
+
+        public virtual List<EmployeeDependency> EmployeeDependencys { get; set; }
+
+        public virtual List<EmployeeDiscipline> EmployeeDisciplines { get; set; }
+
+        public virtual List<EmployeeEducation> EmployeeEducations { get; set; }
+
+        public virtual List<EmployeeIdentification> EmployeeIdentifications { get; set; }
+
+        public virtual EmployeeInfo EmployeeInfo { get; set; }
+
+        public virtual List<EmployeeLeaveSetting> EmployeeLeaveSettings { get; set; }
+
+        public virtual List<EmployeeRelationship> EmployeeRelationships { get; set; }
     }
 }

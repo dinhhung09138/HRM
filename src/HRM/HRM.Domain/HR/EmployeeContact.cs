@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using DotNetCore.Domain;
+using HRM.Domain.Common;
 
 namespace HRM.Domain.HR
 {
@@ -98,7 +99,9 @@ namespace HRM.Domain.HR
 
         //TODO
         public long? TemporaryWardId { get; set; }
-        //TODO
+
+        public Ward TemporaryWard { get; set; }
+
         public long? TemporaryDistrictId { get; set; }
         //TODO
         public long? TemporaryProvinceId { get; set; }

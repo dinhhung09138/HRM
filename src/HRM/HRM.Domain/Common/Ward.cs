@@ -9,13 +9,20 @@ namespace HRM.Domain.Common
     /// </summary>
     public class Ward : Entity<long>
     {
-        public Ward(long id, string name, long districtId, int precedence, bool isActive)
+        public Ward(
+            string name,
+            long districtId,
+            int precedence,
+            bool isActive,
+            long createBy,
+            DateTime createDate)
         {
-            Id = id;
             Name = name;
             DistrictId = districtId;
             Precedence = precedence;
             IsActive = isActive;
+            CreateBy = createBy;
+            CreateDate = createDate;
         }
 
         [Required]
@@ -25,6 +32,8 @@ namespace HRM.Domain.Common
         [Required]
         public long DistrictId { get; set; }
 
+        public District District { get; set; }
+
         [Required]
         public int Precedence { get; set; }
 
@@ -32,14 +41,14 @@ namespace HRM.Domain.Common
         public bool IsActive { get; set; }
 
         [Required]
-        public int CreateBy { get; set; }
+        public long CreateBy { get; set; }
 
         [Required]
         public DateTime CreateDate { get; set; }
 
         public DateTime? UpdateDate { get; set; }
 
-        public int? UpdateBy { get; set; }
+        public long? UpdateBy { get; set; }
 
         [Required]
         public bool Deleted { get; set; }
