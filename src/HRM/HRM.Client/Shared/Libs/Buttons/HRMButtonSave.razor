@@ -1,10 +1,16 @@
 ﻿@if (IsShow == true)
 {
-    <button type="button" class="btn btn-success w-md m-b-5" onclick="@OnClick">Save</button>
+    <button type="@(IsSubmit ? "submit" : "button")" class="btn btn-success w-md m-b-5" onclick="@OnClick">@Text</button>
 }
 
 
 @code {
+
+    [Parameter]
+    public bool IsSubmit { get; set; } = false;
+
+    [Parameter]
+    public string Text { get; set; } = "Save";
 
     [Parameter]
     public bool IsShow { get; set; } = true;

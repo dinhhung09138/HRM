@@ -1,20 +1,29 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <h1>Hello, world!</h1>
 
-Welcome to your new app.
+        Welcome to your new app.
+        <SurveyPrompt Title="How is Blazor working for you?" />
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+        <HRMButtonSave OnClick="Click" IsShow="true" IsSubmit="false" />
+        <HRMButtonSave OnClick="Click" IsShow="true" IsSubmit="true" />
+        <HRMButtonReset OnClick="Click" IsShow="true" />
+        <br />
+        <HRMButtonIconEdit OnClick="Click" />
+        <HRMButtonIconDelete OnClick="Click" />
+        <HRMButtonIconAdd OnClick="Click" />
+        <br />
+        <EditForm Model="model">
+            <InputText @bind-Value="@model" class="form-control" />
+        </EditForm>
+        <br />
+        <HRMPanel Title="Panel title" />
+    </div>
+</div>
 
-<HRMButtonSave OnClick="Click" IsShow="true"/>
-<HRMButtonReset OnClick="Click" IsShow="true"/>
-<HRMButtonIconEdit OnClick="Click"/>
-<HRMButtonIconDelete OnClick="Click" />
-<HRMButtonIconAdd OnClick="Click" />
 
-<EditForm Model="model">
-    <InputText @bind-Value="@model" class="form-control" />
-</EditForm>
 
 
 @code {
