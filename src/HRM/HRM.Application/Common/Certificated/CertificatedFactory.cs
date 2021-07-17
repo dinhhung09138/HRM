@@ -8,7 +8,7 @@ namespace HRM.Application.Common
     {
         public Certificated Create(CertificatedModel model)
         {
-            var item = new Certificated(model.Id, model.Name, model.Precedence, model.IsActive, model.CreateBy, DateTime.Now, model.UpdateBy, DateTime.Now);
+            var item = new Certificated(model.Id, model.Name, model.Precedence, model.IsActive, model.CreateBy, DateTime.Now, null, null);
             return item;
         }
 

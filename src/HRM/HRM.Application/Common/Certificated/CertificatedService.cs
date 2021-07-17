@@ -85,6 +85,8 @@ namespace HRM.Application.Common
 
                 await _certificatedRepository.DeleteAsync(md);
 
+                await _unitOfWork.SaveChangesAsync();
+
                 return Result.Success();
             }
             catch (Exception ex)
@@ -105,6 +107,8 @@ namespace HRM.Application.Common
             var md = _certificatedFactory.Create(model);
 
             await _certificatedRepository.SaveAsync(md, true);
+
+            await _unitOfWork.SaveChangesAsync();
 
             return Result.Success();
         }

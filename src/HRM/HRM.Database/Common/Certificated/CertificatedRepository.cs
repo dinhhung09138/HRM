@@ -28,11 +28,11 @@ namespace HRM.Database.Common
                 query = query.Where(m => m.Name.ToLower().Contains(paramters.TextSearch));
             }
 
-            var e = new GridParameters()
-            {
-                Order = paramters.Order,
-                Page = paramters.Page
-            };
+            //var e = new GridParameters()
+            //{
+            //    Order = paramters.Order,
+            //    Page = paramters.Page
+            //};
 
             var grid = query.Select(CertificatedExpression.GridAsync).GridAsync(paramters);
 
