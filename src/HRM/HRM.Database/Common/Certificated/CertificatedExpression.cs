@@ -7,7 +7,21 @@ using System.Linq.Expressions;
 
 namespace HRM.Database.Common
 {
-    public class CertificatedExpression
+    public static class CertificatedExpression
     {
+        public static Expression<Func<Certificated, CertificatedModel>> FindByIdAsync => m => new CertificatedModel()
+        {
+            Id = m.Id,
+            Name = m.Name,
+            IsActive = m.IsActive,
+            Precedence = m.Precedence,
+            Deleted = m.Deleted
+        };
+
+        public static Expression<Func<Certificated, CertificatedGridModel>> GridAsync => m => new CertificatedGridModel()
+        {
+            Id = m.Id,
+            Name = m.Name
+        };
     }
 }

@@ -23,4 +23,8 @@
     <ProjectReference Include="..\HRM.Model\HRM.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\HR\" />
+  </ItemGroup>
+
 </Project>
