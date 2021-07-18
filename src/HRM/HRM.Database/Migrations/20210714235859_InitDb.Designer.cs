@@ -95,9 +95,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("ProvinceId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ProvinceId1")
-                        .HasColumnType("bigint");
-
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -113,8 +110,6 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProvinceId");
-
-                    b.HasIndex("ProvinceId1");
 
                     b.ToTable("District", "dbo");
                 });
@@ -434,9 +429,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("DistrictId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("DistrictId1")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -463,8 +455,6 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DistrictId");
-
-                    b.HasIndex("DistrictId1");
 
                     b.ToTable("Ward", "dbo");
                 });
@@ -818,9 +808,6 @@ namespace HRM.Database.Migrations
                     b.Property<long?>("EmployeeWorkingStatusId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EmployeeWorkingStatusId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("FingerSignNumber")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -828,9 +815,6 @@ namespace HRM.Database.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<long?>("PositionId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("ProbationDate")
                         .HasColumnType("datetime2");
@@ -868,10 +852,6 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("EmployeeWorkingStatusId");
 
-                    b.HasIndex("EmployeeWorkingStatusId1");
-
-                    b.HasIndex("PositionId");
-
                     b.ToTable("Employee", "dbo");
                 });
 
@@ -900,9 +880,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("BankId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("BankId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("CreateBy")
                         .HasColumnType("bigint");
 
@@ -913,9 +890,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<long>("EmployeeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("EmployeeId1")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")
@@ -937,11 +911,7 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("BankId");
 
-                    b.HasIndex("BankId1");
-
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("EmployeeBank", "dbo");
                 });
@@ -956,9 +926,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("CertificatedId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("CertificatedId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("CreateBy")
                         .HasColumnType("bigint");
 
@@ -971,9 +938,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("EmployeeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EmployeeId1")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -984,9 +948,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("rowversion");
 
                     b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("SchoolId1")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("UpdateBy")
@@ -1002,15 +963,9 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("CertificatedId");
 
-                    b.HasIndex("CertificatedId1");
-
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("EmployeeId1");
-
                     b.HasIndex("SchoolId");
-
-                    b.HasIndex("SchoolId1");
 
                     b.ToTable("EmployeeCertificate", "dbo");
                 });
@@ -1034,9 +989,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("CommendationId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("CommendationId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1055,9 +1007,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<long>("EmployeeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("EmployeeId1")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")
@@ -1087,11 +1036,7 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("CommendationId");
 
-                    b.HasIndex("CommendationId1");
-
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.HasIndex("ProposerId");
 
@@ -1119,9 +1064,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<long>("EmployeeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("EmployeeId1")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Facebook")
@@ -1205,8 +1147,6 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("EmployeeId1");
-
                     b.HasIndex("TemporaryWardId");
 
                     b.ToTable("EmployeeContact", "dbo");
@@ -1242,9 +1182,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<long>("EmployeeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("EmployeeId1")
                         .HasColumnType("bigint");
 
                     b.Property<long>("EmployeeProcessId")
@@ -1283,8 +1220,6 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("EmployeeId1");
-
                     b.HasIndex("EmployeeProcessId");
 
                     b.ToTable("EmployeeContract", "dbo");
@@ -1312,9 +1247,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("EmployeeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EmployeeId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -1324,9 +1256,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<long>("RelationshipTypeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("RelationshipTypeId1")
                         .HasColumnType("bigint");
 
                     b.Property<byte[]>("RowVersion")
@@ -1345,11 +1274,7 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("EmployeeId1");
-
                     b.HasIndex("RelationshipTypeId");
-
-                    b.HasIndex("RelationshipTypeId1");
 
                     b.ToTable("EmployeeDependency", "dbo");
                 });
@@ -1393,9 +1318,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("EmployeeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EmployeeId1")
-                        .HasColumnType("bigint");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -1433,8 +1355,6 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("EmployeeId1");
-
                     b.HasIndex("ProposerId");
 
                     b.ToTable("EmployeeDiscipline", "dbo");
@@ -1459,13 +1379,7 @@ namespace HRM.Database.Migrations
                     b.Property<long>("EducationId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EducationId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("EmployeeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("EmployeeId1")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")
@@ -1474,19 +1388,10 @@ namespace HRM.Database.Migrations
                     b.Property<long>("MajorId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("MajorId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("ModelOfStudyId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ModelOfStudyId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("RankingId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("RankingId1")
                         .HasColumnType("bigint");
 
                     b.Property<byte[]>("RowVersion")
@@ -1496,9 +1401,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("rowversion");
 
                     b.Property<long>("SchoolId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("SchoolId1")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("UpdateBy")
@@ -1514,27 +1416,15 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("EducationId");
 
-                    b.HasIndex("EducationId1");
-
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.HasIndex("MajorId");
 
-                    b.HasIndex("MajorId1");
-
                     b.HasIndex("ModelOfStudyId");
-
-                    b.HasIndex("ModelOfStudyId1");
 
                     b.HasIndex("RankingId");
 
-                    b.HasIndex("RankingId1");
-
                     b.HasIndex("SchoolId");
-
-                    b.HasIndex("SchoolId1");
 
                     b.ToTable("EmployeeEducation", "dbo");
                 });
@@ -1566,16 +1456,10 @@ namespace HRM.Database.Migrations
                     b.Property<long>("EmployeeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EmployeeId1")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("IdentificationTypeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("IdentificationTypeId1")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")
@@ -1586,9 +1470,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<long>("PlaceId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ProvinceId")
                         .HasColumnType("bigint");
 
                     b.Property<byte[]>("RowVersion")
@@ -1607,15 +1488,9 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("EmployeeId1");
-
                     b.HasIndex("IdentificationTypeId");
 
-                    b.HasIndex("IdentificationTypeId1");
-
                     b.HasIndex("PlaceId");
-
-                    b.HasIndex("ProvinceId");
 
                     b.ToTable("EmployeeIdentification", "dbo");
                 });
@@ -1648,9 +1523,6 @@ namespace HRM.Database.Migrations
                     b.Property<long?>("EthnicityId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EthnicityId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(70)
@@ -1665,25 +1537,13 @@ namespace HRM.Database.Migrations
                     b.Property<long?>("MaritalStatusId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("MaritalStatusId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("NationalityId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("NationalityId1")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("ProfessionalQualificationId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ProfessionalQualificationId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("ReligionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ReligionId1")
                         .HasColumnType("bigint");
 
                     b.Property<byte[]>("RowVersion")
@@ -1705,23 +1565,13 @@ namespace HRM.Database.Migrations
 
                     b.HasIndex("EthnicityId");
 
-                    b.HasIndex("EthnicityId1");
-
                     b.HasIndex("MaritalStatusId");
-
-                    b.HasIndex("MaritalStatusId1");
 
                     b.HasIndex("NationalityId");
 
-                    b.HasIndex("NationalityId1");
-
                     b.HasIndex("ProfessionalQualificationId");
 
-                    b.HasIndex("ProfessionalQualificationId1");
-
                     b.HasIndex("ReligionId");
-
-                    b.HasIndex("ReligionId1");
 
                     b.ToTable("EmployeeInfo", "dbo");
                 });
@@ -1821,9 +1671,6 @@ namespace HRM.Database.Migrations
                     b.Property<long>("EmployeeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("EmployeeId1")
-                        .HasColumnType("bigint");
-
                     b.Property<float>("NumOfDay")
                         .HasColumnType("real");
 
@@ -1845,8 +1692,6 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("EmployeeLeaveSetting", "dbo");
                 });
@@ -1873,9 +1718,6 @@ namespace HRM.Database.Migrations
                         .HasColumnType("bit");
 
                     b.Property<long>("EmployeeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("EmployeeId1")
                         .HasColumnType("bigint");
 
                     b.Property<string>("FullName")
@@ -1909,8 +1751,6 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.HasIndex("RelationshipTypeId");
 
@@ -2385,14 +2225,10 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.Common.District", b =>
                 {
                     b.HasOne("HRM.Domain.Common.Province", "Province")
-                        .WithMany()
+                        .WithMany("Districts")
                         .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.Common.Province", null)
-                        .WithMany("Districts")
-                        .HasForeignKey("ProvinceId1");
 
                     b.Navigation("Province");
                 });
@@ -2400,14 +2236,10 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.Common.Ward", b =>
                 {
                     b.HasOne("HRM.Domain.Common.District", "District")
-                        .WithMany()
+                        .WithMany("Wards")
                         .HasForeignKey("DistrictId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.Common.District", null)
-                        .WithMany("Wards")
-                        .HasForeignKey("DistrictId1");
 
                     b.Navigation("District");
                 });
@@ -2420,22 +2252,14 @@ namespace HRM.Database.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.Position", "Position")
-                        .WithMany()
+                        .WithMany("Employees")
                         .HasForeignKey("CurrentPositionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.EmployeeWorkingStatus", "EmployeeWorkingStatus")
-                        .WithMany()
+                        .WithMany("Employees")
                         .HasForeignKey("EmployeeWorkingStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("HRM.Domain.HR.EmployeeWorkingStatus", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("EmployeeWorkingStatusId1");
-
-                    b.HasOne("HRM.Domain.HR.Position", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("PositionId");
 
                     b.Navigation("Department");
 
@@ -2447,24 +2271,16 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeBank", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Bank", "Bank")
-                        .WithMany()
+                        .WithMany("EmployeeBanks")
                         .HasForeignKey("BankId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.Bank", null)
-                        .WithMany("EmployeeBanks")
-                        .HasForeignKey("BankId1");
-
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeBanks")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeBanks")
-                        .HasForeignKey("EmployeeId1");
 
                     b.Navigation("Bank");
 
@@ -2474,34 +2290,22 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeCertificate", b =>
                 {
                     b.HasOne("HRM.Domain.Common.Certificated", "Certificated")
-                        .WithMany()
+                        .WithMany("EmployeeCertificates")
                         .HasForeignKey("CertificatedId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.Common.Certificated", null)
-                        .WithMany("EmployeeCertificates")
-                        .HasForeignKey("CertificatedId1");
-
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeCertificates")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeCertificates")
-                        .HasForeignKey("EmployeeId1");
-
                     b.HasOne("HRM.Domain.Common.School", "School")
-                        .WithMany()
+                        .WithMany("EmployeeCertificates")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.Common.School", null)
-                        .WithMany("EmployeeCertificates")
-                        .HasForeignKey("SchoolId1");
 
                     b.Navigation("Certificated");
 
@@ -2518,24 +2322,16 @@ namespace HRM.Database.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.Commendation", "Commendation")
-                        .WithMany()
+                        .WithMany("EmployeeCommendations")
                         .HasForeignKey("CommendationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.Commendation", null)
-                        .WithMany("EmployeeCommendations")
-                        .HasForeignKey("CommendationId1");
-
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeCommendations")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeCommendations")
-                        .HasForeignKey("EmployeeId1");
 
                     b.HasOne("HRM.Domain.HR.Employee", "Proposer")
                         .WithMany()
@@ -2555,14 +2351,10 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeContact", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeContacts")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeContacts")
-                        .HasForeignKey("EmployeeId1");
 
                     b.HasOne("HRM.Domain.Common.Ward", "TemporaryWard")
                         .WithMany()
@@ -2582,14 +2374,10 @@ namespace HRM.Database.Migrations
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeContracts")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeContracts")
-                        .HasForeignKey("EmployeeId1");
 
                     b.HasOne("HRM.Domain.HR.Employee", "EmployeeProcess")
                         .WithMany()
@@ -2607,24 +2395,16 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeDependency", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeDependencys")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeDependencys")
-                        .HasForeignKey("EmployeeId1");
-
                     b.HasOne("HRM.Domain.HR.RelationshipType", "RelationshipType")
-                        .WithMany()
+                        .WithMany("EmployeeDependencies")
                         .HasForeignKey("RelationshipTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.HR.RelationshipType", null)
-                        .WithMany("EmployeeDependencies")
-                        .HasForeignKey("RelationshipTypeId1");
 
                     b.Navigation("Employee");
 
@@ -2645,14 +2425,10 @@ namespace HRM.Database.Migrations
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeDisciplines")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeDisciplines")
-                        .HasForeignKey("EmployeeId1");
 
                     b.HasOne("HRM.Domain.HR.Employee", "Proposer")
                         .WithMany()
@@ -2672,64 +2448,40 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeEducation", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Education", "Education")
-                        .WithMany()
+                        .WithMany("EmployeeEducations")
                         .HasForeignKey("EducationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.Education", null)
-                        .WithMany("EmployeeEducations")
-                        .HasForeignKey("EducationId1");
-
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeEducations")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeEducations")
-                        .HasForeignKey("EmployeeId1");
-
                     b.HasOne("HRM.Domain.Common.Major", "Major")
-                        .WithMany()
+                        .WithMany("EmployeeEducations")
                         .HasForeignKey("MajorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.Common.Major", null)
-                        .WithMany("EmployeeEducations")
-                        .HasForeignKey("MajorId1");
-
                     b.HasOne("HRM.Domain.HR.ModelOfStudy", "ModelOfStudy")
-                        .WithMany()
+                        .WithMany("EmployeeEducations")
                         .HasForeignKey("ModelOfStudyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.ModelOfStudy", null)
-                        .WithMany("EmployeeEducations")
-                        .HasForeignKey("ModelOfStudyId1");
-
                     b.HasOne("HRM.Domain.HR.Ranking", "Ranking")
-                        .WithMany()
+                        .WithMany("EmployeeEducations")
                         .HasForeignKey("RankingId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.Ranking", null)
-                        .WithMany("EmployeeEducations")
-                        .HasForeignKey("RankingId1");
-
                     b.HasOne("HRM.Domain.Common.School", "School")
-                        .WithMany()
+                        .WithMany("EmployeeEducations")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.Common.School", null)
-                        .WithMany("EmployeeEducations")
-                        .HasForeignKey("SchoolId1");
 
                     b.Navigation("Education");
 
@@ -2747,34 +2499,22 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeIdentification", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeIdentifications")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeIdentifications")
-                        .HasForeignKey("EmployeeId1");
-
                     b.HasOne("HRM.Domain.HR.IdentificationType", "IdentificationType")
-                        .WithMany()
+                        .WithMany("EmployeeIdentifications")
                         .HasForeignKey("IdentificationTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HRM.Domain.HR.IdentificationType", null)
-                        .WithMany("EmployeeIdentifications")
-                        .HasForeignKey("IdentificationTypeId1");
-
                     b.HasOne("HRM.Domain.Common.Province", "Place")
-                        .WithMany()
+                        .WithMany("EmployeeIdentifications")
                         .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.Common.Province", null)
-                        .WithMany("EmployeeIdentifications")
-                        .HasForeignKey("ProvinceId");
 
                     b.Navigation("Employee");
 
@@ -2792,49 +2532,29 @@ namespace HRM.Database.Migrations
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Ethnicity", "Ethnicity")
-                        .WithMany()
+                        .WithMany("EmployeeInfos")
                         .HasForeignKey("EthnicityId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("HRM.Domain.HR.Ethnicity", null)
-                        .WithMany("EmployeeInfos")
-                        .HasForeignKey("EthnicityId1");
-
                     b.HasOne("HRM.Domain.Common.MaritalStatus", "MaritalStatus")
-                        .WithMany()
+                        .WithMany("EmployeeInfos")
                         .HasForeignKey("MaritalStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("HRM.Domain.Common.MaritalStatus", null)
-                        .WithMany("EmployeeInfos")
-                        .HasForeignKey("MaritalStatusId1");
-
                     b.HasOne("HRM.Domain.HR.Nationality", "Nationality")
-                        .WithMany()
+                        .WithMany("EmployeeInfos")
                         .HasForeignKey("NationalityId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("HRM.Domain.HR.Nationality", null)
-                        .WithMany("EmployeeInfos")
-                        .HasForeignKey("NationalityId1");
-
                     b.HasOne("HRM.Domain.Common.ProfessionalQualification", "ProfessionalQualification")
-                        .WithMany()
+                        .WithMany("EmployeeInfos")
                         .HasForeignKey("ProfessionalQualificationId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("HRM.Domain.Common.ProfessionalQualification", null)
-                        .WithMany("EmployeeInfos")
-                        .HasForeignKey("ProfessionalQualificationId1");
-
                     b.HasOne("HRM.Domain.HR.Religion", "Religion")
-                        .WithMany()
+                        .WithMany("EmployeeInfos")
                         .HasForeignKey("ReligionId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("HRM.Domain.HR.Religion", null)
-                        .WithMany("EmployeeInfos")
-                        .HasForeignKey("ReligionId1");
 
                     b.Navigation("Employee");
 
@@ -2887,14 +2607,10 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeLeaveSetting", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeLeaveSettings")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeLeaveSettings")
-                        .HasForeignKey("EmployeeId1");
 
                     b.Navigation("Employee");
                 });
@@ -2902,14 +2618,10 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeRelationship", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeRelationships")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("HRM.Domain.HR.Employee", null)
-                        .WithMany("EmployeeRelationships")
-                        .HasForeignKey("EmployeeId1");
 
                     b.HasOne("HRM.Domain.HR.RelationshipType", "RelationshipType")
                         .WithMany()
