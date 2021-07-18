@@ -12,6 +12,8 @@ using HRM.Application.Common;
 using HRM.Application.HR;
 using HRM.Database.Common;
 using HRM.Database.HR;
+using Microsoft.Extensions.Caching.Memory;
+using HRM.Infrastructure.Services;
 
 namespace HRM.Api
 {
@@ -39,6 +41,8 @@ namespace HRM.Api
         public static void AddServices(this IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IMemoryCache, MemoryCache>();
+            services.AddScoped<IMemoryCaching, MemoryCaching>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ICertificatedRepository, CertificatedRepository>();
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();

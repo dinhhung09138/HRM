@@ -9,21 +9,27 @@ using System.Threading.Tasks;
 using DotNetCore.Results;
 using DotNetCore.Objects;
 using HRM.Infrastructure.Extension;
+using HRM.Infrastructure.Services;
 
 namespace HRM.Application.Common
 {
-    public class CertificatedService : ICertificatedService
+    public sealed class CertificatedService : ICertificatedService
     {
+        private readonly string _cacheKey = "certificated";
+
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMemoryCaching _memoryCache;
         private readonly ICertificatedFactory _certificatedFactory;
         private readonly ICertificatedRepository _certificatedRepository;
 
         public CertificatedService(
             IUnitOfWork unitOfWork,
+            IMemoryCaching memoryCache,
             ICertificatedFactory certificatedFactory,
             ICertificatedRepository certificatedRepository)
         {
             _unitOfWork = unitOfWork;
+            _memoryCache = memoryCache;
             _certificatedFactory = certificatedFactory;
             _certificatedRepository = certificatedRepository;
         }
@@ -73,6 +79,10 @@ namespace HRM.Application.Common
             catch (Exception ex)
             {
                 return Result.Fail(ex.Message);
+            }
+            finally
+            {
+                _memoryCache.RemoveFromCache(_cacheKey);
             }
         }
 
