@@ -82,6 +82,7 @@ namespace HRM.Application.Common
             }
             finally
             {
+                //TODO
                 _memoryCache.RemoveFromCache(_cacheKey);
             }
         }
@@ -90,8 +91,16 @@ namespace HRM.Application.Common
         {
             try
             {
-                var md = _certificatedFactory.Update(model);
+                var md = await _certificatedRepository.GetAsync(model.Id);
+
+                if (md == null)
+                {
+                    return Result.Fail(Constant.Message.ItemNotFound);
+                }
+
                 md.Deleted = true;
+                md.UpdateBy = model.UpdateBy;
+                md.UpdateDate = DateTime.Now;
 
                 await _certificatedRepository.DeleteAsync(md);
 
@@ -125,15 +134,24 @@ namespace HRM.Application.Common
 
         private async Task<IResult> Update(CertificatedModel model)
         {
+            var md = await _certificatedRepository.GetAsync(model.Id);
+
+            if (md == null)
+            {
+                return Result.Fail(Constant.Message.ItemNotFound);
+            }
+            
             var validation = await new UpdateCertificatedModelValidator().ValidateAsync(model);
             if (validation.IsValid == false)
             {
                 return Result.Fail(validation.Errors.GetErrorMessage());
             }
 
-            var md = _certificatedFactory.Update(model);
+            var item = _certificatedFactory.Update(model);
 
-            await _certificatedRepository.SaveAsync(md, true);
+            await _certificatedRepository.SaveAsync(item, false);
+
+            await _unitOfWork.SaveChangesAsync();
 
             return Result.Success();
         }

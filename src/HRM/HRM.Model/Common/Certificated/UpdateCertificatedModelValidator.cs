@@ -6,6 +6,8 @@
         {
             Id();
             Name();
+            Precedence();
+            IsActive();
         }
     }
 }

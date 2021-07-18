@@ -14,5 +14,15 @@ namespace HRM.Model.Common
             RuleFor(m => m.Name).NotEmpty().NotNull();
             RuleFor(m => m.Name).MaximumLength(150);
         }
+
+        public void Precedence()
+        {
+            RuleFor(m => m.Precedence).NotNull();
+        }
+
+        public void IsActive()
+        {
+            RuleFor(m => m.IsActive).NotNull();
+        }
     }
 }

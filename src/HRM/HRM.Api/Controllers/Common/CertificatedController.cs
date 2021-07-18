@@ -2,9 +2,6 @@
 using HRM.Model.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HRM.Api.Controllers.Common
@@ -48,7 +45,5 @@ namespace HRM.Api.Controllers.Common
             model.UpdateBy = base.EmployeeId;
             return Ok(await _certificatedService.DeleteAsync(model));
         }
-
-
     }
 }

@@ -6,6 +6,8 @@ namespace HRM.Model.Common
         public CreateCertificatedModelValidator()
         {
             Name();
+            Precedence();
+            IsActive();
         }
     }
 }

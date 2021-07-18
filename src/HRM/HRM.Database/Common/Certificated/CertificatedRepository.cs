@@ -16,7 +16,7 @@ namespace HRM.Database.Common
 
         public async Task<CertificatedModel> FindByIdAsync(long id)
         {
-            return await Queryable.Where(m => m.Id == id).Select(CertificatedExpression.FindByIdAsync).FirstOrDefaultAsync();
+            return await Queryable.Where(m => m.Id == id && m.Deleted == false).Select(CertificatedExpression.FindByIdAsync).FirstOrDefaultAsync();
         }
 
         public Task<Grid<CertificatedGridModel>> GridAsync(CertificatedGridParameterModel paramters)
@@ -54,7 +54,6 @@ namespace HRM.Database.Common
 
             return true;
         }
-
 
         public async Task<bool> DeleteAsync(Certificated model)
         {
