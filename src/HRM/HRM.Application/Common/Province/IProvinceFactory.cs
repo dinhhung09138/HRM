@@ -10,5 +10,8 @@ namespace HRM.Application.Common
 {
     public interface IProvinceFactory
     {
+        Province Create(ProvinceModel model);
+
+        Province Update(ProvinceModel model);
     }
 }
