@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HRM.Database
 {
-    public static class MessageConstant
+    internal static class MessageConstant
     {
         public static string SchemaName = "dbo";
     }

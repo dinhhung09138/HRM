@@ -12,19 +12,26 @@ namespace HRM.Domain.Common
     public class District : Entity<long>
     {
         public District(
+            long id,
             string name,
             long provinceId,
             int precedence,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             Name = name;
             ProvinceId = provinceId;
             Precedence = precedence;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            Deleted = false;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [Required]
