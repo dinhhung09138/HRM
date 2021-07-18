@@ -10,5 +10,8 @@ namespace HRM.Application.Common
 {
     public interface IDistrictFactory
     {
+        District Create(DistrictModel model);
+
+        District Update(DistrictModel model);
     }
 }
