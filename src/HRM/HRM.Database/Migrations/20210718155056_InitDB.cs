@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HRM.Database.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -570,24 +570,24 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_Employee", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_Department_CurrentDepartmentId",
+                        name: "FK_Employee_CurrentDepartmentId",
                         column: x => x.CurrentDepartmentId,
                         principalSchema: "dbo",
                         principalTable: "Department",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Employee_EmployeeWorkingStatus_EmployeeWorkingStatusId",
-                        column: x => x.EmployeeWorkingStatusId,
-                        principalSchema: "dbo",
-                        principalTable: "EmployeeWorkingStatus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Employee_Position_CurrentPositionId",
+                        name: "FK_Employee_CurrentPositionId",
                         column: x => x.CurrentPositionId,
                         principalSchema: "dbo",
                         principalTable: "Position",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Employee_EmployeeWorkingStatusId",
+                        column: x => x.EmployeeWorkingStatusId,
+                        principalSchema: "dbo",
+                        principalTable: "EmployeeWorkingStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -614,7 +614,7 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_District", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_District_Province_ProvinceId",
+                        name: "FK_District_ProvinceId",
                         column: x => x.ProvinceId,
                         principalSchema: "dbo",
                         principalTable: "Province",
@@ -646,14 +646,14 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeBank", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeBank_Bank_BankId",
+                        name: "FK_EmployeeBank_BankId",
                         column: x => x.BankId,
                         principalSchema: "dbo",
                         principalTable: "Bank",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeBank_Employee_EmployeeId",
+                        name: "FK_EmployeeBank_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
@@ -684,21 +684,21 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeCertificate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeCertificate_Certificated_CertificatedId",
+                        name: "FK_EmployeeCertificate_CertificatedId",
                         column: x => x.CertificatedId,
                         principalSchema: "dbo",
                         principalTable: "Certificated",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeCertificate_Employee_EmployeeId",
+                        name: "FK_EmployeeCertificate_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeCertificate_School_SchoolId",
+                        name: "FK_EmployeeCertificate_SchoolId",
                         column: x => x.SchoolId,
                         principalSchema: "dbo",
                         principalTable: "School",
@@ -734,28 +734,28 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeCommendation", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeCommendation_Commendation_CommendationId",
-                        column: x => x.CommendationId,
-                        principalSchema: "dbo",
-                        principalTable: "Commendation",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_EmployeeCommendation_Employee_ApprovedBy",
+                        name: "FK_EmployeeCommendation_ApprovedBy",
                         column: x => x.ApprovedBy,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeCommendation_Employee_EmployeeId",
+                        name: "FK_EmployeeCommendation_CommendationId",
+                        column: x => x.CommendationId,
+                        principalSchema: "dbo",
+                        principalTable: "Commendation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EmployeeCommendation_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeCommendation_Employee_ProposerId",
+                        name: "FK_EmployeeCommendation_ProposerId",
                         column: x => x.ProposerId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
@@ -791,21 +791,21 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeContract", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeContract_ContractType_ContractTypeId",
+                        name: "FK_EmployeeContract_ContractTypeId",
                         column: x => x.ContractTypeId,
                         principalSchema: "dbo",
                         principalTable: "ContractType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeContract_Employee_EmployeeId",
+                        name: "FK_EmployeeContract_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeContract_Employee_EmployeeProcessId",
+                        name: "FK_EmployeeContract_EmployeeProcessId",
                         column: x => x.EmployeeProcessId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
@@ -836,14 +836,14 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeDependency", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeDependency_Employee_EmployeeId",
+                        name: "FK_EmployeeDependency_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeDependency_RelationshipType_RelationshipTypeId",
+                        name: "FK_EmployeeDependency_RelationshipTypeId",
                         column: x => x.RelationshipTypeId,
                         principalSchema: "dbo",
                         principalTable: "RelationshipType",
@@ -881,27 +881,27 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeDiscipline", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeDiscipline_Discipline_DisciplineId",
-                        column: x => x.DisciplineId,
-                        principalTable: "Discipline",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_EmployeeDiscipline_Employee_ApprovedBy",
+                        name: "FK_EmployeeDiscipline_ApprovedBy",
                         column: x => x.ApprovedBy,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeDiscipline_Employee_EmployeeId",
+                        name: "FK_EmployeeDiscipline_DisciplineId",
+                        column: x => x.DisciplineId,
+                        principalTable: "Discipline",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EmployeeDiscipline_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeDiscipline_Employee_ProposerId",
+                        name: "FK_EmployeeDiscipline_ProposerId",
                         column: x => x.ProposerId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
@@ -935,42 +935,42 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeEducation", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeEducation_Education_EducationId",
+                        name: "FK_EmployeeEducation_EducationId",
                         column: x => x.EducationId,
                         principalSchema: "dbo",
                         principalTable: "Education",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeEducation_Employee_EmployeeId",
+                        name: "FK_EmployeeEducation_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeEducation_Major_MajorId",
+                        name: "FK_EmployeeEducation_MajorId",
                         column: x => x.MajorId,
                         principalSchema: "dbo",
                         principalTable: "Major",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeEducation_ModelOfStudy_ModelOfStudyId",
+                        name: "FK_EmployeeEducation_ModelOfStudyId",
                         column: x => x.ModelOfStudyId,
                         principalSchema: "dbo",
                         principalTable: "ModelOfStudy",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeEducation_Ranking_RankingId",
+                        name: "FK_EmployeeEducation_RankingId",
                         column: x => x.RankingId,
                         principalSchema: "dbo",
                         principalTable: "Ranking",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeEducation_School_SchoolId",
+                        name: "FK_EmployeeEducation_SchoolId",
                         column: x => x.SchoolId,
                         principalSchema: "dbo",
                         principalTable: "School",
@@ -1004,21 +1004,21 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeIdentification", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeIdentification_Employee_EmployeeId",
+                        name: "FK_EmployeeIdentification_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeIdentification_IdentificationType_IdentificationTypeId",
+                        name: "FK_EmployeeIdentification_IdentificationTypeId",
                         column: x => x.IdentificationTypeId,
                         principalSchema: "dbo",
                         principalTable: "IdentificationType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeIdentification_Province_PlaceId",
+                        name: "FK_EmployeeIdentification_PlaceId",
                         column: x => x.PlaceId,
                         principalSchema: "dbo",
                         principalTable: "Province",
@@ -1062,35 +1062,35 @@ namespace HRM.Database.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EmployeeInfo_Ethnicity_EthnicityId",
+                        name: "FK_EmployeeInfo_EthnicityId",
                         column: x => x.EthnicityId,
                         principalSchema: "dbo",
                         principalTable: "Ethnicity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeInfo_MaritalStatus_MaritalStatusId",
+                        name: "FK_EmployeeInfo_MaritalStatusId",
                         column: x => x.MaritalStatusId,
                         principalSchema: "dbo",
                         principalTable: "MaritalStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeInfo_Nationality_NationalityId",
+                        name: "FK_EmployeeInfo_NationalityId",
                         column: x => x.NationalityId,
                         principalSchema: "dbo",
                         principalTable: "Nationality",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeInfo_ProfessionalQualification_ProfessionalQualificationId",
+                        name: "FK_EmployeeInfo_ProfessionalQualificationId",
                         column: x => x.ProfessionalQualificationId,
                         principalSchema: "dbo",
                         principalTable: "ProfessionalQualification",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeInfo_Religion_ReligionId",
+                        name: "FK_EmployeeInfo_ReligionId",
                         column: x => x.ReligionId,
                         principalSchema: "dbo",
                         principalTable: "Religion",
@@ -1125,31 +1125,31 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeLeave", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeLeave_Employee_ApproverId",
+                        name: "FK_EmployeeLeave_ApproverId",
                         column: x => x.ApproverId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeLeave_Employee_EmployeeId",
+                        name: "FK_EmployeeLeave_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeLeave_Employee_LineManagerId",
-                        column: x => x.LineManagerId,
-                        principalSchema: "dbo",
-                        principalTable: "Employee",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_EmployeeLeave_LeaveType_LeaveTypeId",
+                        name: "FK_EmployeeLeave_LeaveTypeId",
                         column: x => x.LeaveTypeId,
                         principalSchema: "dbo",
                         principalTable: "LeaveType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EmployeeLeave_LineManagerId",
+                        column: x => x.LineManagerId,
+                        principalSchema: "dbo",
+                        principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1176,7 +1176,7 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeLeaveSetting", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeLeaveSetting_Employee_EmployeeId",
+                        name: "FK_EmployeeLeaveSetting_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
@@ -1208,14 +1208,14 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeRelationship", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeRelationship_Employee_EmployeeId",
+                        name: "FK_EmployeeRelationship_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeeRelationship_RelationshipType_RelationshipTypeId",
+                        name: "FK_EmployeeRelationship_RelationshipTypeId",
                         column: x => x.RelationshipTypeId,
                         principalSchema: "dbo",
                         principalTable: "RelationshipType",
@@ -1245,7 +1245,7 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_Ward", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ward_District_DistrictId",
+                        name: "FK_Ward_DistrictId",
                         column: x => x.DistrictId,
                         principalSchema: "dbo",
                         principalTable: "District",
@@ -1291,7 +1291,7 @@ namespace HRM.Database.Migrations
                 {
                     table.PrimaryKey("PK_EmployeeContact", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeContact_Employee_EmployeeId",
+                        name: "FK_EmployeeContact_EmployeeId",
                         column: x => x.EmployeeId,
                         principalSchema: "dbo",
                         principalTable: "Employee",
@@ -1588,7 +1588,6 @@ namespace HRM.Database.Migrations
                 schema: "dbo",
                 table: "Ward",
                 column: "DistrictId");
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1737,11 +1736,11 @@ namespace HRM.Database.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "EmployeeWorkingStatus",
+                name: "Position",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Position",
+                name: "EmployeeWorkingStatus",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

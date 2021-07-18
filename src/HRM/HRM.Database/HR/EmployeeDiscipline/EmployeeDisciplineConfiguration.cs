@@ -14,13 +14,17 @@ namespace HRM.Database.HR
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
             builder.Property(m => m.EmployeeId).IsRequired();
-            builder.HasOne(m => m.Employee).WithMany()
+            builder.HasOne(m => m.Employee)
+                   .WithMany(e => e.EmployeeDisciplines)
                    .HasForeignKey(m => m.EmployeeId)
+                   .HasConstraintName("FK_EmployeeDiscipline_EmployeeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.DisciplineId).IsRequired();
-            builder.HasOne(m => m.Discipline).WithMany()
+            builder.HasOne(m => m.Discipline)
+                   .WithMany(d => d.EmployeeDisciplines)
                    .HasForeignKey(m => m.DisciplineId)
+                   .HasConstraintName("FK_EmployeeDiscipline_DisciplineId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.Date).IsRequired();
@@ -28,14 +32,22 @@ namespace HRM.Database.HR
             builder.Property(m => m.Comment).HasMaxLength(250).IsRequired();
 
             builder.Property(m => m.ProposerId).IsRequired();
-            builder.HasOne(m => m.Proposer).WithMany().HasForeignKey(m => m.ProposerId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(m => m.Proposer)
+                   .WithMany(e => e.EmployeeDisciplineProposers)
+                   .HasForeignKey(m => m.ProposerId)
+                   .HasConstraintName("FK_EmployeeDiscipline_ProposerId")
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.ProposeDate).IsRequired();
 
             builder.Property(m => m.ApprovedStatus).IsRequired();
 
             builder.Property(m => m.ApprovedBy);
-            builder.HasOne(m => m.Approver).WithMany().HasForeignKey(m => m.ApprovedBy).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(m => m.Approver)
+                   .WithMany(e => e.EmployeeDisciplineApproveds)
+                   .HasForeignKey(m => m.ApprovedBy)
+                   .HasConstraintName("FK_EmployeeDiscipline_ApprovedBy")
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.ApprovedDate);
 

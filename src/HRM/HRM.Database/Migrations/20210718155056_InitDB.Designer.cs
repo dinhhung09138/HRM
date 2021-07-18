@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRM.Database.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210714235859_InitDb")]
-    partial class InitDb
+    [Migration("20210718155056_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -2227,6 +2227,7 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.Common.Province", "Province")
                         .WithMany("Districts")
                         .HasForeignKey("ProvinceId")
+                        .HasConstraintName("FK_District_ProvinceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2238,6 +2239,7 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.Common.District", "District")
                         .WithMany("Wards")
                         .HasForeignKey("DistrictId")
+                        .HasConstraintName("FK_Ward_DistrictId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2247,18 +2249,21 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.Employee", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Department", "Department")
-                        .WithMany()
+                        .WithMany("Employees")
                         .HasForeignKey("CurrentDepartmentId")
+                        .HasConstraintName("FK_Employee_CurrentDepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.Position", "Position")
                         .WithMany("Employees")
                         .HasForeignKey("CurrentPositionId")
+                        .HasConstraintName("FK_Employee_CurrentPositionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.EmployeeWorkingStatus", "EmployeeWorkingStatus")
                         .WithMany("Employees")
                         .HasForeignKey("EmployeeWorkingStatusId")
+                        .HasConstraintName("FK_Employee_EmployeeWorkingStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Department");
@@ -2273,12 +2278,14 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.HR.Bank", "Bank")
                         .WithMany("EmployeeBanks")
                         .HasForeignKey("BankId")
+                        .HasConstraintName("FK_EmployeeBank_BankId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeBanks")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeBank_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2292,18 +2299,21 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.Common.Certificated", "Certificated")
                         .WithMany("EmployeeCertificates")
                         .HasForeignKey("CertificatedId")
+                        .HasConstraintName("FK_EmployeeCertificate_CertificatedId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeCertificates")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeCertificate_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.Common.School", "School")
                         .WithMany("EmployeeCertificates")
                         .HasForeignKey("SchoolId")
+                        .HasConstraintName("FK_EmployeeCertificate_SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2317,25 +2327,29 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeCommendation", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Approver")
-                        .WithMany()
+                        .WithMany("EmployeeCommendationApproveds")
                         .HasForeignKey("ApprovedBy")
+                        .HasConstraintName("FK_EmployeeCommendation_ApprovedBy")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.Commendation", "Commendation")
                         .WithMany("EmployeeCommendations")
                         .HasForeignKey("CommendationId")
+                        .HasConstraintName("FK_EmployeeCommendation_CommendationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeCommendations")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeCommendation_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Proposer")
-                        .WithMany()
+                        .WithMany("EmployeeCommendationProposers")
                         .HasForeignKey("ProposerId")
+                        .HasConstraintName("FK_EmployeeCommendation_ProposerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2353,6 +2367,7 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeContacts")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeContact_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2368,20 +2383,23 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeContract", b =>
                 {
                     b.HasOne("HRM.Domain.HR.ContractType", "ContractType")
-                        .WithMany()
+                        .WithMany("EmployeeContracts")
                         .HasForeignKey("ContractTypeId")
+                        .HasConstraintName("FK_EmployeeContract_ContractTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeContracts")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeContract_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "EmployeeProcess")
-                        .WithMany()
+                        .WithMany("EmployeeContractProcesses")
                         .HasForeignKey("EmployeeProcessId")
+                        .HasConstraintName("FK_EmployeeContract_EmployeeProcessId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2395,14 +2413,16 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeDependency", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany("EmployeeDependencys")
+                        .WithMany("EmployeeDependencies")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeDependency_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.RelationshipType", "RelationshipType")
                         .WithMany("EmployeeDependencies")
                         .HasForeignKey("RelationshipTypeId")
+                        .HasConstraintName("FK_EmployeeDependency_RelationshipTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2414,25 +2434,29 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeDiscipline", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Approver")
-                        .WithMany()
+                        .WithMany("EmployeeDisciplineApproveds")
                         .HasForeignKey("ApprovedBy")
+                        .HasConstraintName("FK_EmployeeDiscipline_ApprovedBy")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.Discipline", "Discipline")
-                        .WithMany()
+                        .WithMany("EmployeeDisciplines")
                         .HasForeignKey("DisciplineId")
+                        .HasConstraintName("FK_EmployeeDiscipline_DisciplineId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeDisciplines")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeDiscipline_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Proposer")
-                        .WithMany()
+                        .WithMany("EmployeeDisciplineProposers")
                         .HasForeignKey("ProposerId")
+                        .HasConstraintName("FK_EmployeeDiscipline_ProposerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2450,36 +2474,42 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.HR.Education", "Education")
                         .WithMany("EmployeeEducations")
                         .HasForeignKey("EducationId")
+                        .HasConstraintName("FK_EmployeeEducation_EducationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeEducations")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeEducation_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.Common.Major", "Major")
                         .WithMany("EmployeeEducations")
                         .HasForeignKey("MajorId")
+                        .HasConstraintName("FK_EmployeeEducation_MajorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.ModelOfStudy", "ModelOfStudy")
                         .WithMany("EmployeeEducations")
                         .HasForeignKey("ModelOfStudyId")
+                        .HasConstraintName("FK_EmployeeEducation_ModelOfStudyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Ranking", "Ranking")
                         .WithMany("EmployeeEducations")
                         .HasForeignKey("RankingId")
+                        .HasConstraintName("FK_EmployeeEducation_RankingId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.Common.School", "School")
                         .WithMany("EmployeeEducations")
                         .HasForeignKey("SchoolId")
+                        .HasConstraintName("FK_EmployeeEducation_SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2501,18 +2531,21 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeIdentifications")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeIdentification_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.IdentificationType", "IdentificationType")
                         .WithMany("EmployeeIdentifications")
                         .HasForeignKey("IdentificationTypeId")
+                        .HasConstraintName("FK_EmployeeIdentification_IdentificationTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.Common.Province", "Place")
                         .WithMany("EmployeeIdentifications")
                         .HasForeignKey("PlaceId")
+                        .HasConstraintName("FK_EmployeeIdentification_PlaceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2534,26 +2567,31 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.HR.Ethnicity", "Ethnicity")
                         .WithMany("EmployeeInfos")
                         .HasForeignKey("EthnicityId")
+                        .HasConstraintName("FK_EmployeeInfo_EthnicityId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.Common.MaritalStatus", "MaritalStatus")
                         .WithMany("EmployeeInfos")
                         .HasForeignKey("MaritalStatusId")
+                        .HasConstraintName("FK_EmployeeInfo_MaritalStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.Nationality", "Nationality")
                         .WithMany("EmployeeInfos")
                         .HasForeignKey("NationalityId")
+                        .HasConstraintName("FK_EmployeeInfo_NationalityId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.Common.ProfessionalQualification", "ProfessionalQualification")
                         .WithMany("EmployeeInfos")
                         .HasForeignKey("ProfessionalQualificationId")
+                        .HasConstraintName("FK_EmployeeInfo_ProfessionalQualificationId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HRM.Domain.HR.Religion", "Religion")
                         .WithMany("EmployeeInfos")
                         .HasForeignKey("ReligionId")
+                        .HasConstraintName("FK_EmployeeInfo_ReligionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Employee");
@@ -2572,26 +2610,30 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.EmployeeLeave", b =>
                 {
                     b.HasOne("HRM.Domain.HR.Employee", "Approver")
-                        .WithMany()
+                        .WithMany("EmployeeLeaveApprovers")
                         .HasForeignKey("ApproverId")
+                        .HasConstraintName("FK_EmployeeLeave_ApproverId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("EmployeeLeaves")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeLeave_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.LeaveType", "LeaveType")
-                        .WithMany()
+                        .WithMany("EmployeeLeaves")
                         .HasForeignKey("LeaveTypeId")
+                        .HasConstraintName("FK_EmployeeLeave_LeaveTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.Employee", "LineManager")
-                        .WithMany()
+                        .WithMany("EmployeeLeaveLineManagers")
                         .HasForeignKey("LineManagerId")
+                        .HasConstraintName("FK_EmployeeLeave_LineManagerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2609,6 +2651,7 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeLeaveSettings")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeLeaveSetting_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2620,12 +2663,14 @@ namespace HRM.Database.Migrations
                     b.HasOne("HRM.Domain.HR.Employee", "Employee")
                         .WithMany("EmployeeRelationships")
                         .HasForeignKey("EmployeeId")
+                        .HasConstraintName("FK_EmployeeRelationship_EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HRM.Domain.HR.RelationshipType", "RelationshipType")
-                        .WithMany()
+                        .WithMany("EmployeeRelationships")
                         .HasForeignKey("RelationshipTypeId")
+                        .HasConstraintName("FK_EmployeeRelationship_RelationshipTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -2683,6 +2728,21 @@ namespace HRM.Database.Migrations
                     b.Navigation("EmployeeCommendations");
                 });
 
+            modelBuilder.Entity("HRM.Domain.HR.ContractType", b =>
+                {
+                    b.Navigation("EmployeeContracts");
+                });
+
+            modelBuilder.Entity("HRM.Domain.HR.Department", b =>
+                {
+                    b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("HRM.Domain.HR.Discipline", b =>
+                {
+                    b.Navigation("EmployeeDisciplines");
+                });
+
             modelBuilder.Entity("HRM.Domain.HR.Education", b =>
                 {
                     b.Navigation("EmployeeEducations");
@@ -2694,13 +2754,23 @@ namespace HRM.Database.Migrations
 
                     b.Navigation("EmployeeCertificates");
 
+                    b.Navigation("EmployeeCommendationApproveds");
+
+                    b.Navigation("EmployeeCommendationProposers");
+
                     b.Navigation("EmployeeCommendations");
 
                     b.Navigation("EmployeeContacts");
 
+                    b.Navigation("EmployeeContractProcesses");
+
                     b.Navigation("EmployeeContracts");
 
-                    b.Navigation("EmployeeDependencys");
+                    b.Navigation("EmployeeDependencies");
+
+                    b.Navigation("EmployeeDisciplineApproveds");
+
+                    b.Navigation("EmployeeDisciplineProposers");
 
                     b.Navigation("EmployeeDisciplines");
 
@@ -2709,6 +2779,12 @@ namespace HRM.Database.Migrations
                     b.Navigation("EmployeeIdentifications");
 
                     b.Navigation("EmployeeInfo");
+
+                    b.Navigation("EmployeeLeaveApprovers");
+
+                    b.Navigation("EmployeeLeaveLineManagers");
+
+                    b.Navigation("EmployeeLeaves");
 
                     b.Navigation("EmployeeLeaveSettings");
 
@@ -2728,6 +2804,11 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.IdentificationType", b =>
                 {
                     b.Navigation("EmployeeIdentifications");
+                });
+
+            modelBuilder.Entity("HRM.Domain.HR.LeaveType", b =>
+                {
+                    b.Navigation("EmployeeLeaves");
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.ModelOfStudy", b =>
@@ -2753,6 +2834,8 @@ namespace HRM.Database.Migrations
             modelBuilder.Entity("HRM.Domain.HR.RelationshipType", b =>
                 {
                     b.Navigation("EmployeeDependencies");
+
+                    b.Navigation("EmployeeRelationships");
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.Religion", b =>

@@ -14,35 +14,47 @@ namespace HRM.Database.HR
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
             builder.Property(m => m.EmployeeId).IsRequired();
-            builder.HasOne(m => m.Employee).WithMany()
+            builder.HasOne(m => m.Employee)
+                   .WithMany(e => e.EmployeeEducations)
                    .HasForeignKey(m => m.EmployeeId)
+                   .HasConstraintName("FK_EmployeeEducation_EmployeeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.EducationId).IsRequired();
-            builder.HasOne(m => m.Education).WithMany()
+            builder.HasOne(m => m.Education)
+                   .WithMany(e => e.EmployeeEducations)
                    .HasForeignKey(m => m.EducationId)
+                   .HasConstraintName("FK_EmployeeEducation_EducationId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.SchoolId).IsRequired();
-            builder.HasOne(m => m.School).WithMany()
+            builder.HasOne(m => m.School)
+                   .WithMany(s => s.EmployeeEducations)
                    .HasForeignKey(m => m.SchoolId)
+                   .HasConstraintName("FK_EmployeeEducation_SchoolId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.MajorId).IsRequired();
-            builder.HasOne(m => m.Major).WithMany()
+            builder.HasOne(m => m.Major)
+                   .WithMany(mj => mj.EmployeeEducations)
                    .HasForeignKey(m => m.MajorId)
+                   .HasConstraintName("FK_EmployeeEducation_MajorId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.Year).IsRequired();
 
             builder.Property(m => m.RankingId).IsRequired();
-            builder.HasOne(m => m.Ranking).WithMany()
+            builder.HasOne(m => m.Ranking)
+                   .WithMany(r => r.EmployeeEducations)
                    .HasForeignKey(m => m.RankingId)
+                   .HasConstraintName("FK_EmployeeEducation_RankingId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.ModelOfStudyId).IsRequired();
-            builder.HasOne(m => m.ModelOfStudy).WithMany()
+            builder.HasOne(m => m.ModelOfStudy)
+                   .WithMany(s => s.EmployeeEducations)
                    .HasForeignKey(m => m.ModelOfStudyId)
+                   .HasConstraintName("FK_EmployeeEducation_ModelOfStudyId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.IsActive).IsRequired();

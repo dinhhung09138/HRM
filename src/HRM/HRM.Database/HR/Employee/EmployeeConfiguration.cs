@@ -35,18 +35,24 @@ namespace HRM.Database.HR
             builder.Property(m => m.WorkingPhone).HasMaxLength(20).IsRequired();
 
             builder.Property(m => m.EmployeeWorkingStatusId);
-            builder.HasOne(m => m.EmployeeWorkingStatus).WithMany()
+            builder.HasOne(m => m.EmployeeWorkingStatus)
+                   .WithMany(w => w.Employees)
                    .HasForeignKey(m => m.EmployeeWorkingStatusId)
+                   .HasConstraintName("FK_Employee_EmployeeWorkingStatusId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.CurrentPositionId);
-            builder.HasOne(m => m.Position).WithMany()
+            builder.HasOne(m => m.Position)
+                   .WithMany(p => p.Employees)
                    .HasForeignKey(m => m.CurrentPositionId)
+                   .HasConstraintName("FK_Employee_CurrentPositionId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.CurrentDepartmentId);
-            builder.HasOne(m => m.Department).WithMany()
+            builder.HasOne(m => m.Department)
+                   .WithMany(d => d.Employees)
                    .HasForeignKey(m => m.CurrentDepartmentId)
+                   .HasConstraintName("FK_Employee_CurrentDepartmentId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.BasicSalary).IsRequired();

@@ -15,8 +15,10 @@ namespace HRM.Database.Common
             builder.Property(m => m.Name).HasMaxLength(100).IsRequired();
 
             builder.Property(m => m.DistrictId).IsRequired();
-            builder.HasOne(m => m.District).WithMany()
+            builder.HasOne(m => m.District)
+                   .WithMany(d => d.Wards)
                    .HasForeignKey(m => m.DistrictId)
+                   .HasConstraintName("FK_Ward_DistrictId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.Precedence).IsRequired();

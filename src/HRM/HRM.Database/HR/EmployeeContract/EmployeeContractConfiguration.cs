@@ -14,18 +14,24 @@ namespace HRM.Database.HR
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
             builder.Property(m => m.EmployeeId).IsRequired();
-            builder.HasOne(m => m.Employee).WithMany()
+            builder.HasOne(m => m.Employee)
+                   .WithMany(e => e.EmployeeContracts)
                    .HasForeignKey(m => m.EmployeeId)
+                   .HasConstraintName("FK_EmployeeContract_EmployeeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.EmployeeProcessId).IsRequired();
-            builder.HasOne(m => m.EmployeeProcess).WithMany()
+            builder.HasOne(m => m.EmployeeProcess)
+                   .WithMany(e => e.EmployeeContractProcesses)
                    .HasForeignKey(m => m.EmployeeProcessId)
+                   .HasConstraintName("FK_EmployeeContract_EmployeeProcessId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.ContractTypeId).IsRequired();
-            builder.HasOne(m => m.ContractType).WithMany()
+            builder.HasOne(m => m.ContractType)
+                   .WithMany(c => c.EmployeeContracts)
                    .HasForeignKey(m => m.ContractTypeId)
+                   .HasConstraintName("FK_EmployeeContract_ContractTypeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.FromDate).IsRequired();

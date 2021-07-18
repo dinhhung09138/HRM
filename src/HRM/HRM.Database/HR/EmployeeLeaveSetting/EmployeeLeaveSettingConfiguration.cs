@@ -14,8 +14,10 @@ namespace HRM.Database.HR
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
             builder.Property(m => m.EmployeeId).IsRequired();
-            builder.HasOne(m => m.Employee).WithMany()
+            builder.HasOne(m => m.Employee)
+                   .WithMany(e => e.EmployeeLeaveSettings)
                    .HasForeignKey(m => m.EmployeeId)
+                   .HasConstraintName("FK_EmployeeLeaveSetting_EmployeeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.Year).IsRequired();

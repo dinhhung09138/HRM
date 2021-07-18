@@ -14,22 +14,28 @@ namespace HRM.Database.HR
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
             builder.Property(m => m.EmployeeId).IsRequired();
-            builder.HasOne(m => m.Employee).WithMany()
+            builder.HasOne(m => m.Employee)
+                   .WithMany(e => e.EmployeeIdentifications)
                    .HasForeignKey(m => m.EmployeeId)
+                   .HasConstraintName("FK_EmployeeIdentification_EmployeeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.Code).HasMaxLength(20).IsRequired();
 
             builder.Property(m => m.PlaceId).IsRequired();
-            builder.HasOne(m => m.Place).WithMany()
+            builder.HasOne(m => m.Place)
+                   .WithMany(p => p.EmployeeIdentifications)
                    .HasForeignKey(m => m.PlaceId)
+                   .HasConstraintName("FK_EmployeeIdentification_PlaceId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.ApplyDate);
 
             builder.Property(m => m.IdentificationTypeId).IsRequired();
-            builder.HasOne(m => m.IdentificationType).WithMany()
+            builder.HasOne(m => m.IdentificationType)
+                   .WithMany(i => i.EmployeeIdentifications)
                    .HasForeignKey(m => m.IdentificationTypeId)
+                   .HasConstraintName("FK_EmployeeIdentification_IdentificationTypeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.Notes).HasMaxLength(255);

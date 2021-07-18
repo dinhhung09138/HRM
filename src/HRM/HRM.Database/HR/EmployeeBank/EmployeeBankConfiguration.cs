@@ -14,13 +14,17 @@ namespace HRM.Database.HR
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
             builder.Property(m => m.EmployeeId).IsRequired();
-            builder.HasOne(m => m.Employee).WithMany()
+            builder.HasOne(m => m.Employee)
+                   .WithMany(e => e.EmployeeBanks)
                    .HasForeignKey(m => m.EmployeeId)
+                   .HasConstraintName("FK_EmployeeBank_EmployeeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.BankId).IsRequired();
-            builder.HasOne(m => m.Bank).WithMany()
+            builder.HasOne(m => m.Bank)
+                   .WithMany(b => b.EmployeeBanks)
                    .HasForeignKey(m => m.BankId)
+                   .HasConstraintName("FK_EmployeeBank_BankId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.BankAddress).HasMaxLength(100).IsRequired();

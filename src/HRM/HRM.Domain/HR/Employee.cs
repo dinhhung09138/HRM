@@ -110,19 +110,35 @@ namespace HRM.Domain.HR
 
         public virtual List<EmployeeCommendation> EmployeeCommendations { get; set; }
 
+        public virtual List<EmployeeCommendation> EmployeeCommendationApproveds { get; set; }
+
+        public virtual List<EmployeeCommendation> EmployeeCommendationProposers { get; set; }
+
+        public virtual List<EmployeeContract> EmployeeContractProcesses { get; set; }
+
         public virtual List<EmployeeContact> EmployeeContacts { get; set; }
 
         public virtual List<EmployeeContract> EmployeeContracts { get; set; }
 
-        public virtual List<EmployeeDependency> EmployeeDependencys { get; set; }
+        public virtual List<EmployeeDependency> EmployeeDependencies { get; set; }
 
         public virtual List<EmployeeDiscipline> EmployeeDisciplines { get; set; }
+
+        public virtual List<EmployeeDiscipline> EmployeeDisciplineProposers { get; set; }
+
+        public virtual List<EmployeeDiscipline> EmployeeDisciplineApproveds { get; set; }
 
         public virtual List<EmployeeEducation> EmployeeEducations { get; set; }
 
         public virtual List<EmployeeIdentification> EmployeeIdentifications { get; set; }
 
         public virtual EmployeeInfo EmployeeInfo { get; set; }
+
+        public virtual List<EmployeeLeave> EmployeeLeaves { get; set; }
+
+        public virtual List<EmployeeLeave> EmployeeLeaveLineManagers { get; set; }
+
+        public virtual List<EmployeeLeave> EmployeeLeaveApprovers { get; set; }
 
         public virtual List<EmployeeLeaveSetting> EmployeeLeaveSettings { get; set; }
 

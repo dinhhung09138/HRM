@@ -52,5 +52,7 @@ namespace HRM.Domain.HR
         public byte[] RowVersion { get; set; }
 
         public virtual List<EmployeeDependency> EmployeeDependencies { get; set; }
+
+        public virtual List<EmployeeRelationship> EmployeeRelationships { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DotNetCore.Domain;
 
@@ -70,5 +71,7 @@ namespace HRM.Domain.HR
 
         [Required]
         public byte[] RowVersion { get; set; }
+
+        public virtual List<EmployeeLeave> EmployeeLeaves { get; set; }
     }
 }

@@ -23,30 +23,40 @@ namespace HRM.Database.HR
             builder.Property(m => m.DateOfBirth);
 
             builder.Property(m => m.MaritalStatusId);
-            builder.HasOne(m => m.MaritalStatus).WithMany()
+            builder.HasOne(m => m.MaritalStatus)
+                   .WithMany(ms => ms.EmployeeInfos)
                    .HasForeignKey(m => m.MaritalStatusId)
+                   .HasConstraintName("FK_EmployeeInfo_MaritalStatusId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.ReligionId);
-            builder.HasOne(m => m.Religion).WithMany()
+            builder.HasOne(m => m.Religion)
+                   .WithMany(ms => ms.EmployeeInfos)
                    .HasForeignKey(m => m.ReligionId)
+                   .HasConstraintName("FK_EmployeeInfo_ReligionId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.EthnicityId);
-            builder.HasOne(m => m.Ethnicity).WithMany()
+            builder.HasOne(m => m.Ethnicity)
+                   .WithMany(ms => ms.EmployeeInfos)
                    .HasForeignKey(m => m.EthnicityId)
+                   .HasConstraintName("FK_EmployeeInfo_EthnicityId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.NationalityId);
-            builder.HasOne(m => m.Nationality).WithMany()
+            builder.HasOne(m => m.Nationality)
+                   .WithMany(ms => ms.EmployeeInfos)
                    .HasForeignKey(m => m.NationalityId)
+                   .HasConstraintName("FK_EmployeeInfo_NationalityId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.AcademicLevelId);
 
             builder.Property(m => m.ProfessionalQualificationId);
-            builder.HasOne(m => m.ProfessionalQualification).WithMany()
+            builder.HasOne(m => m.ProfessionalQualification)
+                   .WithMany(ms => ms.EmployeeInfos)
                    .HasForeignKey(m => m.ProfessionalQualificationId)
+                   .HasConstraintName("FK_EmployeeInfo_ProfessionalQualificationId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.IsActive).IsRequired();
