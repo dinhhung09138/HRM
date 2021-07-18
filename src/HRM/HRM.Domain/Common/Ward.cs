@@ -10,19 +10,26 @@ namespace HRM.Domain.Common
     public class Ward : Entity<long>
     {
         public Ward(
+            long id,
             string name,
             long districtId,
             int precedence,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             Name = name;
             DistrictId = districtId;
             Precedence = precedence;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            Deleted = false;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [Required]

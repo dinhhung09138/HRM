@@ -41,12 +41,27 @@ namespace HRM.Api
         public static void AddServices(this IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddSingleton<IMemoryCache, MemoryCache>();
             services.AddScoped<IMemoryCaching, MemoryCaching>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<ICertificatedRepository, CertificatedRepository>();
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();
             services.AddScoped<ICertificatedService, CertificatedService>();
+
+            services.AddScoped<IDistrictRepository, DistrictRepository>();
+            services.AddScoped<IDistrictFactory, DistrictFactory>();
+            services.AddScoped<IDistrictService, DistrictService>();
+
+            services.AddScoped<IProvinceRepository, ProvinceRepository>();
+            services.AddScoped<IProvinceFactory, ProvinceFactory>();
+            services.AddScoped<IProvinceService, ProvinceService>();
+
+            services.AddScoped<IWardRepository, WardRepository>();
+            services.AddScoped<IWardFactory, WardFactory>();
+            services.AddScoped<IWardService, WardService>();
         }
     }
 }

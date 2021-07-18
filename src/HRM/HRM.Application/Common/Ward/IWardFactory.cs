@@ -8,7 +8,10 @@ using HRM.Model.Common;
 
 namespace HRM.Application.Common
 {
-    public class WardFactory: IWardFactory
+    public interface IWardFactory
     {
+        Ward Create(WardModel model);
+
+        Ward Update(WardModel model);
     }
 }
