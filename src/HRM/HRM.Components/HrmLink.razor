@@ -1,0 +1,16 @@
+﻿<a href="@Href" target="@Target" class="hrm-typography mud-link mud-primary-text mud-link-underline-hover mud-typography-body2">Different Typography</a>
+
+@code {
+
+    [Parameter]
+    public string Href { get; set; }
+
+    [Parameter]
+    public UnderLine Underline { get; set; } = UnderLine.Hover;
+
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public string Target { get; set; } = "_blank";
+}

@@ -1,0 +1,25 @@
+﻿
+.hrm-link.hrm-link-underline-none {
+    text-decoration: none;
+}
+
+.hrm-link.hrm-link-underline-hover {
+    text-decoration: none;
+}
+
+    .hrm-link.hrm-link-underline-hover:hover {
+        text-decoration: underline;
+    }
+
+.hrm-link.hrm-link-underline-always {
+    text-decoration: underline;
+}
+
+.hrm-link.hrm-link-disabled {
+    cursor: default;
+    color: var(--hrm-palette-action-disabled) !important;
+}
+
+    .hrm-link.hrm-link-disabled:not(.hrm-link-underline-always) {
+        text-decoration: none;
+    }
