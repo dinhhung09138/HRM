@@ -1,0 +1,149 @@
+﻿
+.hrm-icon-button {
+    flex: 0 0 auto;
+    padding: 12px;
+    overflow: visible;
+    font-size: 1.5rem;
+    text-align: center;
+    transition: background-color 150ms cubic-bezier(.4, 0, .2, 1) 0ms;
+    border-radius: 50%;
+    color: var(--hrm-palette-action-default);
+}
+
+    .hrm-icon-buttonhrm-button {
+        min-width: unset;
+        border-radius: var(--hrm-default-borderradius);
+    }
+
+    .hrm-icon-button:hover {
+        background-color: var(--hrm-palette-action-default-hover);
+    }
+
+    .hrm-icon-button:disabled {
+        color: var(--hrm-palette-action-disabled);
+        background-color: transparent;
+    }
+
+.hrm-icon-button-color-inherit {
+    color: inherit;
+}
+
+    .hrm-icon-button-color-inherit:hover {
+        background-color: var(--hrm-palette-action-default-hover);
+    }
+
+.hrm-icon-button-color-primary {
+    color: var(--hrm-palette-primary);
+}
+
+    .hrm-icon-button-color-primary:hover {
+        background-color: var(--hrm-palette-primary-hover);
+    }
+
+.hrm-icon-button-color-secondary {
+    color: var(--hrm-palette-secondary);
+}
+
+    .hrm-icon-button-color-secondary:hover {
+        background-color: var(--hrm-palette-secondary-hover);
+    }
+
+.hrm-icon-button-color-tertiary {
+    color: var(--hrm-palette-tertiary);
+}
+
+    .hrm-icon-button-color-tertiary:hover {
+        background-color: var(--hrm-palette-tertiary-hover);
+    }
+
+.hrm-icon-button-color-info {
+    color: var(--hrm-palette-info);
+}
+
+    .hrm-icon-button-color-info:hover {
+        background-color: var(--hrm-palette-info-hover);
+    }
+
+.hrm-icon-button-color-success {
+    color: var(--hrm-palette-success);
+}
+
+    .hrm-icon-button-color-success:hover {
+        background-color: var(--hrm-palette-success-hover);
+    }
+
+.hrm-icon-button-color-warning {
+    color: var(--hrm-palette-warning);
+}
+
+    .hrm-icon-button-color-warning:hover {
+        background-color: var(--hrm-palette-warning-hover);
+    }
+
+.hrm-icon-button-color-error {
+    color: var(--hrm-palette-error);
+}
+
+    hrm-icon-button-color-error:hover {
+        background-color: var(--hrm-palette-error-hover);
+    }
+
+.hrm-icon-button-color-dark {
+    color: var(--hrm-palette-dark);
+}
+
+    .hrm-icon-button-color-dark:hover {
+        background-color: var(--hrm-palette-dark-hover);
+    }
+
+.hrm-icon-button-label {
+    width: 100%;
+    display: flex;
+    align-items: inherit;
+    justify-content: inherit;
+}
+
+.hrm-icon-button-edge-start {
+    margin-left: -12px;
+    margin-inline-start: -12px;
+    margin-inline-end: unset;
+}
+
+.hrm-icon-button-edge-end {
+    margin-right: -12px;
+    margin-inline-end: -12px;
+    margin-inline-start: unset;
+}
+
+.hrm-icon-button-size-small {
+    padding: 3px;
+    font-size: 1.125rem;
+}
+
+    .hrm-icon-button-size-small.hrm-icon-button-edge-start {
+        margin-left: -3px;
+        margin-inline-start: -3px;
+        margin-inline-end: unset;
+    }
+
+    .hrm-icon-button-size-small.hrm-icon-button-edge-end {
+        margin-right: -3px;
+        margin-inline-end: -3px;
+        margin-inline-start: unset;
+    }
+
+.hrm-icon-button-size-large.hrm-button > .hrm-icon-button-label > .hrm-icon-size-large {
+    font-size: 2rem;
+}
+
+.hrm-icon-size-small {
+    font-size: 1.25rem;
+}
+
+.hrm-icon-size-medium {
+    font-size: 1.5rem;
+}
+
+.hrm-icon-size-large {
+    font-size: 2.25rem;
+}

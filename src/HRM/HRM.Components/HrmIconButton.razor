@@ -1,0 +1,66 @@
+﻿
+<button type="button" class="hrm-button-root hrm-icon-button hrm-icon-button-color-@colorClass hrm-ripple hrm-ripple-icon" disabled="@Disable">
+    <span class="hrm-icon-button-label">
+        <span class="hrm-icon-root mud-inherit-text hrm-icon-size-@sizeClass @Icon"></span>
+    </span>
+</button>
+
+@code {
+
+    [Parameter]
+    public string Icon { get; set; } = string.Empty;
+
+    [Parameter]
+    public Color Color { get; set; } = Color.Default;
+
+    [Parameter]
+    public Size Size { get; set; } = Size.Medium;
+
+    [Parameter]
+    public bool Disable { get; set; } = false;
+
+    private string colorClass = string.Empty;
+
+    private string sizeClass = string.Empty;
+
+    protected override void OnParametersSet()
+    {
+        switch (Color)
+        {
+            case Color.Dark:
+                colorClass = "dark";
+                break;
+            case Color.Error:
+                colorClass = "error";
+                break;
+            case Color.Tertiary:
+                colorClass = "tertiary";
+                break;
+            case Color.Primary:
+                colorClass = "primary";
+                break;
+            case Color.Default:
+                colorClass = "default";
+                break;
+            case Color.Secondary:
+                colorClass = "secondary";
+                break;
+
+        }
+
+        switch (Size)
+        {
+            case Size.Small:
+                sizeClass = "small";
+                break;
+            case Size.Medium:
+                sizeClass = "medium";
+                break;
+            case Size.Large:
+                sizeClass = "large";
+                break;
+        }
+
+    }
+
+}
