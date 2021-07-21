@@ -14,4 +14,8 @@
     <Folder Include="wwwroot\libs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HRM.Components\HRM.Components.csproj" />
+  </ItemGroup>
+
 </Project>
