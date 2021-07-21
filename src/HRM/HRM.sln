@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRM.Infrastructure", "HRM.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRM.Api", "HRM.Api\HRM.Api.csproj", "{C94DE773-5D8D-406D-98BC-444D0E0CB009}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRM.Client", "HRM.Client\HRM.Client.csproj", "{1EEDB196-A6A1-4022-892A-77A1940212DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRM.Client", "HRM.Client\HRM.Client.csproj", "{1EEDB196-A6A1-4022-892A-77A1940212DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRM.Components", "HRM.Components\HRM.Components.csproj", "{D9E21B01-72F0-4B93-A79F-C64D301B63C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{1EEDB196-A6A1-4022-892A-77A1940212DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EEDB196-A6A1-4022-892A-77A1940212DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EEDB196-A6A1-4022-892A-77A1940212DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9E21B01-72F0-4B93-A79F-C64D301B63C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9E21B01-72F0-4B93-A79F-C64D301B63C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9E21B01-72F0-4B93-A79F-C64D301B63C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E21B01-72F0-4B93-A79F-C64D301B63C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
