@@ -382,6 +382,10 @@
     margin: 0;
 }
 
+.hrm-ripple {
+    position: relative;
+    overflow: hidden;
+}
 /*Button*/
 
 .hrm-button-root::-moz-focus-inner {
@@ -665,3 +669,19 @@
 }
 
 /*End Link*/
+
+/*Icon*/
+
+.hrm-icon-size-small {
+    font-size: 1.25rem;
+}
+
+.hrm-icon-size-medium {
+    font-size: 1.5rem;
+}
+
+.hrm-icon-size-large {
+    font-size: 2.25rem;
+}
+
+/*End Icon*/

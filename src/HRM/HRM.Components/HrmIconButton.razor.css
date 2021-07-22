@@ -135,15 +135,3 @@
 .hrm-icon-button-size-large.hrm-button > .hrm-icon-button-label > .hrm-icon-size-large {
     font-size: 2rem;
 }
-
-.hrm-icon-size-small {
-    font-size: 1.25rem;
-}
-
-.hrm-icon-size-medium {
-    font-size: 1.5rem;
-}
-
-.hrm-icon-size-large {
-    font-size: 2.25rem;
-}
