@@ -1,4 +1,4 @@
-﻿<a href="@Href" target="@Target" class="hrm-typography mud-link mud-primary-text mud-link-underline-hover mud-typography-body2">Different Typography</a>
+﻿<a href="@Href" target="@Target" class="hrm-typography hrm-link hrm-primary-text @cssClass hrm-typography-body2">Different Typography</a>
 
 @code {
 
@@ -13,4 +13,22 @@
 
     [Parameter]
     public string Target { get; set; } = "_blank";
+
+    private string cssClass = string.Empty;
+
+    protected override void OnParametersSet()
+    {
+        switch (Underline)
+        {
+            case UnderLine.None:
+                cssClass = "hrm-link-underline-none";
+                break;
+            case UnderLine.Always:
+                cssClass = "hrm-link-underline-always";
+                break;
+            case UnderLine.Hover:
+                cssClass = "hrm-link-underline-hover";
+                break;
+        }
+    }
 }
