@@ -685,3 +685,36 @@
 }
 
 /*End Icon*/
+
+/*Collapse*/
+
+.hrm-collapse-container {
+    height: 0;
+    overflow: hidden;
+}
+
+@keyframes hrm-expand-anim {
+    from {
+        height: 0;
+    }
+}
+
+.hrm-collapse-entering {
+    animation: hrm-expand-anim 1s ease-in-out 0ms 1 forwards;
+}
+
+.hrm-collapse-entering.hrm-navgroup-collapse {
+    animation-duration: 300ms !important;
+}
+
+.hrm-collapse-entered {
+    overflow: initial;
+}
+
+@keyframes hrm-collapse-anim {
+    to {
+        height: 0;
+    }
+}
+
+/*End Collapse*/

@@ -51,8 +51,8 @@
     }
 
 .hrm-list-item-gutters {
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .hrm-list-item-text {
@@ -71,7 +71,7 @@
 .hrm-list-item-icon {
     color: var(--hrm-palette-action-default);
     display: inline-flex;
-    min-width: 56px;
+    min-width: 35px;
     flex-shrink: 0;
 }
 

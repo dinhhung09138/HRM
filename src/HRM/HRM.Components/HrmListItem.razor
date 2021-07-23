@@ -1,23 +1,71 @@
-﻿<div class="hrm-list-item hrm-list-item-gutters hrm-list-item-clickable hrm-ripple">
+﻿<div class="hrm-list-item @(DisableGutter ? "" :"hrm-list-item-gutters") @(Clickable ? "hrm-list-item-clickable" :"") hrm-ripple" @onclick="ShowHideNestedItem">
     @if (!string.IsNullOrEmpty(Icon))
     {
         <div class="hrm-list-item-icon">
-            <svg class="hrm-icon-root hrm-svg-icon hrm-inherit-text hrm-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M0 0h24v24H0V0z" fill="none"></path>
-                <path d="M19 3H4.99c-1.11 0-1.98.89-1.98 2L3 19c0 1.1.88 2 1.99 2H19c1.1 0 2-.9 2-2V5c0-1.11-.9-2-2-2zm0 12h-4c0 1.66-1.35 3-3 3s-3-1.34-3-3H4.99V5H19v10z"></path>
-            </svg>
+            <i class="hrm-icon-root hrm-svg-icon hrm-inherit-text hrm-icon-size-medium @Icon" aria-hidden="true"></i>
         </div>
     }
 
     <div class="hrm-list-item-text ">
         <p class="hrm-typography hrm-typography-body1 hrm-inherit-text">@Text</p>
     </div>
+    @if (NestedList != null)
+    {
+        <i class="hrm-icon-root hrm-icon-default hrm-svg-icon hrm-icon-size-medium fa @iconShowHideClass" aria-hidden="true"></i>
+    }
 </div>
+@if (NestedList != null)
+{
+    <div class="hrm-collapse-container @(isShow ? "hrm-collapse-entered" : "")" style="@(isShow ? "height: auto;" : "")">
+        <div class="hrm-collapse-wrapper">
+            <div class="hrm-collapse-wrapper-inner">
+                <div class="hrm-list hrm-nested-list">
+                    @NestedList
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
+
+    [Parameter]
+    public bool DisableGutter { get; set; } = false;
+
+    [Parameter]
+    public bool Clickable { get; set; } = true;
+
     [Parameter]
     public string Icon { get; set; }
 
     [Parameter]
     public string Text { get; set; } = "Default";
+
+    [Parameter]
+    public RenderFragment NestedList { get; set; }
+
+    private bool isShow = false;
+
+    public string iconShowHideClass { get; set; } = "fa-angle-up";
+
+    protected override void OnParametersSet()
+    {
+    }
+
+    private void ShowHideNestedItem()
+    {
+        if (NestedList == null)
+        {
+            return;
+        }
+        isShow = !isShow;
+        if (isShow == true)
+        {
+            iconShowHideClass = "fa-angle-down";
+        }
+        else
+        {
+            iconShowHideClass = "fa-angle-up";
+        }
+    }
 }

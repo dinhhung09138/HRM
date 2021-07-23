@@ -10,31 +10,3 @@
         padding-top: 8px;
         padding-bottom: 8px;
     }
-
-.hrm-list-subheader {
-    color: var(--hrm-palette-action-default);
-    font-size: .875rem;
-    box-sizing: border-box;
-    list-style: none;
-    font-weight: 500;
-    padding-top: 8px;
-    padding-bottom: 20px;
-}
-
-.hrm-list-subheader-gutters {
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
-.hrm-list-subheader-inset {
-    padding-left: 72px;
-    padding-inline-start: 72px;
-    padding-inline-end: unset;
-}
-
-.hrm-list-subheader-sticky {
-    top: 0;
-    z-index: 1;
-    position: sticky;
-    background-color: inherit;
-}

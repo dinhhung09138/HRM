@@ -180,11 +180,30 @@
 <div class="row">
     <div class="col-3">
         <HrmList>
-
+            <Child>
+                <HrmListItem Icon="fa fa-pencil" Text="Item 1" Clickable="false" DisableGutter="true" />
+                <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
+                <HrmDivider />
+                <HrmListItem Text="Item 3" />
+                <HrmListItem Text="Item 4" />
+            </Child>
         </HrmList>
     </div>
-    <div class="col-12">
-
+    <div class="col-3">
+        <HrmList>
+            <Child>
+                <HrmListSubHeader Text="Nested List Items" />
+                <HrmListItem Icon="fa fa-pencil" Text="Item 1" />
+                <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
+                <HrmDivider />
+                <HrmListItem Icon="fa fa-pencil" Text="Item 3" >
+                    <NestedList>
+                        <HrmListItem Icon="fa fa-pencil" Text="Item 1" />
+                        <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
+                    </NestedList>
+                </HrmListItem>
+            </Child>
+        </HrmList>
     </div>
     <div class="col-12">
 
