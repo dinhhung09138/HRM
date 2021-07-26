@@ -1,0 +1,58 @@
+﻿@if (Menu != null)
+{
+    <li class="treeview @(show == true ? "active" : "")" @onclick="ShowMenuItems">
+        <HrmSidebarMenuItem Title="@Menu.Title"
+                            Icon="@Menu.Icon"
+                            Href="@Menu.Href"
+                            HasChild="@(Menu.MenuItems != null && Menu.MenuItems.Count > 0)" />
+        @if (Menu.MenuItems != null)
+        {
+            <ul class="treeview-menu">
+                @foreach (var item in Menu.MenuItems)
+                {
+                    <li class="@(menuSelected == item.Id ? "active" : "")" @onclick="@(() => ShowChildMenuItems(item.Id))">
+                        <HrmSidebarMenuItem Title="@item.Title"
+                                            Icon="@item.Icon"
+                                            Href="@item.Href"
+                                            HasChild="@(item.MenuItems != null && item.MenuItems.Count > 0)" />
+                        @if (item.MenuItems != null && item.MenuItems.Count > 0)
+                        {
+                            <ul class="treeview-menu">
+                                @foreach (var child in item.MenuItems)
+                                {
+                                    <li class="@(menuSelected == child.Id ? "active" : "")" @onclick="@(() => ShowChildMenuItems(child.Id))">
+                                        <HrmSidebarMenuItem Title="@child.Title"
+                                                            Icon="@child.Icon"
+                                                            Href="@child.Href"/>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+            </ul>
+
+        }
+    </li>
+}
+
+@code {
+
+    [Parameter]
+    public SidebarModel Menu { get; set; }
+
+    public bool show { get; set; } = false;
+
+    public string menuSelected { get; set; } = string.Empty;
+
+    private void ShowMenuItems()
+    {
+        show = !show;
+    }
+
+    private void ShowChildMenuItems(string id)
+    {
+        menuSelected = id;
+    }
+
+}

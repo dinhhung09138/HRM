@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HRM.Constant\HRM.Constant.csproj" />
+    <ProjectReference Include="..\HRM.Model\HRM.Model.csproj" />
   </ItemGroup>
 
 </Project>

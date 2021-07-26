@@ -183,7 +183,6 @@ a:focus {
     line-height: 8px;
     padding: 5px 6px;
     border-radius: 50em;
-    font-family: alegreya sans,sans-serif;
     height: 22px;
     width: 22px;
 }
@@ -285,7 +284,6 @@ a:focus {
     min-height: 100%;
     width: 250px;
     z-index: 810;
-    font-family: alegreya sans,sans-serif;
     -webkit-transition: -webkit-transform .3s ease-in-out,width .3s ease-in-out;
     -webkit-transition: width .3s ease-in-out,-webkit-transform .3s ease-in-out;
     transition: width .3s ease-in-out,-webkit-transform .3s ease-in-out;
@@ -328,8 +326,7 @@ a:focus {
     .sidebar-menu li > a > .pull-right-container {
         position: absolute;
         right: 10px;
-        top: 50%;
-        margin-top: -7px;
+        margin-top: 2px;
     }
 .sidebar-menu>li>a>i {
     margin-right: 10px;
@@ -409,6 +406,12 @@ a:focus {
     background: #33383e;
 }
 
+    .sidebar-menu li.active > .treeview-menu {
+        display: block;
+    }
+    .sidebar-menu .treeview-menu > li.active > a, .sidebar-menu .treeview-menu > li:hover > a {
+        color: #fff;
+    }
 @media(min-width:768px) {
 	.sidebar-collapse .main-sidebar,
 	.sidebar-collapse .left-side {

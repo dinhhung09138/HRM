@@ -1,0 +1,41 @@
+﻿@*<a href="@(HasChild == true ? "javascript:void(0)" : Href)" @onclick="MenuClick" class="@(active ? "active" : "")">
+    @if (Icon != null)
+    {
+        <i class="@Icon"></i>
+    }
+    <span>@Title</span>
+    @if (HasChild == true)
+    {
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    }
+</a>*@
+<Microsoft.AspNetCore.Components.Routing.NavLink href="counter">
+    <span>Hello</span>
+</Microsoft.AspNetCore.Components.Routing.NavLink>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Href { get; set; }
+
+    [Parameter]
+    public string Icon { get; set; }
+
+    [Parameter]
+    public bool HasChild { get; set; } = false;
+
+    private bool active = false;
+
+    private void MenuClick()
+    {
+        Console.WriteLine($"Menu click {Title}");
+        active = !active;
+    }
+
+
+}

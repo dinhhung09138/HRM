@@ -72,26 +72,29 @@
             <li class="treeview active">
                 <a href="javascript:void(0)">
                     <i class="fa fa-diamond" aria-hidden="true"></i>
-                    <span>Asset</span>
+                    <span>Quản lý tài sản</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
                     <li class="active">
-                        <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/asset/type_controller/type_form">Asset Type</a>
+                        <a href="#">Loại tài sản</a>
                     </li>
                     <li class="">
-                        <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/asset/equipment_controller/equipment_form">Equipment</a>
+                        <a href="#">Danh sách</a>
                     </li>
                     <li class="">
-                        <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/asset/equipment_maping/maping_form">Asset Assignment</a>
+                        <a href="#">Quản lý sử dụng</a>
                     </li>
                     <li class="active">
-                        <a href="#">Return <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                        <a href="#">
+                            <span>Hoàn trả trang thiết bị</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
                         <ul class="treeview-menu ">
-                            <li class=""><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/asset/equipment_maping/return_asset">Return Assets</a></li>
-                            <li class=""><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/asset/equipment_maping/return_list">Return List</a></li>
+                            <li class=""><a href="#">Trả</a></li>
+                            <li class=""><a href="#">Danh sách trả</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -119,10 +122,96 @@
                     </li>
                 </ul>
             </li>
+            @if (models != null)
+            {
+                foreach (var menu in models)
+                {
+                    <HrmSidebarMenu Menu="menu" />
+                }
+            }
         </ul>
     </div>
 </aside>
 
 @code {
 
+    private List<SidebarModel> models = new List<SidebarModel>();
+
+    protected override void OnInitialized()
+    {
+        models.Add(
+            new SidebarModel()
+            {
+                Id = "1",
+                Title = "Menu 1",
+                Href = "/counter",
+                Icon = "",
+                MenuItems = new List<SidebarModel>(),
+            }
+        );
+        models.Add(
+            new SidebarModel()
+            {
+                Id = "2",
+                Title = "Menu 2",
+                Href = "/counter",
+                Icon = "",
+                MenuItems = new List<SidebarModel>() {
+                    new SidebarModel()
+                    {
+                        Id = "4",
+                        Title = "Menu Sub 1 - 1",
+                        Href = "/counter",
+                        Icon = "",
+                    },
+                    new SidebarModel()
+                    {
+                        Id = "5",
+                        Title = "Menu Sub1  - 2",
+                        Href = "/counter",
+                        Icon = "",
+                    },
+                    new SidebarModel()
+                    {
+                        Id = "6",
+                        Title = "Menu Sub 1 - 2",
+                        Href = "/counter",
+                        Icon = "",
+                    }
+                    },
+            }
+        );
+        models.Add(
+            new SidebarModel()
+            {
+                Id = "3",
+                Title = "Menu 3",
+                Href = "/counter",
+                Icon = "",
+                MenuItems = new List<SidebarModel>() {
+                    new SidebarModel()
+                    {
+                        Id = "7",
+                        Title = "Menu Sub 3 - 1",
+                        Href = "/counter",
+                        Icon = "",
+                    },
+                    new SidebarModel()
+                    {
+                        Id = "8",
+                        Title = "Menu Sub 3 - 2",
+                        Href = "/counter",
+                        Icon = "",
+                    },
+                    new SidebarModel()
+                    {
+                        Id = "9",
+                        Title = "Menu Sub 3 - 2",
+                        Href = "/counter",
+                        Icon = "",
+                    }
+                    },
+            }
+        );
+    }
 }
