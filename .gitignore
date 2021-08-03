@@ -18,3 +18,5 @@ src/HRM/HRM.Client/obj/
 src/HRM/.vs/
 src/HRM/HRM.Components/obj/
 src/HRM/HRM.Components/bin/
+src/HRM/HRM.Server/bin/
+src/HRM/HRM.Server/obj/

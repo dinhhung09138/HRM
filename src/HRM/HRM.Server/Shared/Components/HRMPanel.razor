@@ -1,0 +1,39 @@
+﻿<div class="panel panel-bd">
+    <div class="panel-heading">
+        <div class="panel-title">
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <h4>@Title</h4>
+            }
+            <div class="mr-25 panel-button-place">
+                @if (ButtonGroup != null)
+                {
+                    @ButtonGroup
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        @if (PanelContent == null)
+        {
+            <LinearLoading />
+        }
+        else
+        {
+            @PanelContent
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment PanelContent { get; set; }
+
+    [Parameter]
+    public RenderFragment ButtonGroup { get; set; }
+
+}

@@ -23,3 +23,8 @@ function getWidth() {
 		document.documentElement.clientWidth
 	);
 }
+
+function createJqueryDataTable(table) {
+	console.log('show table');
+	$(table).DataTable();
+}

@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Shared\HR\" />
-    <Folder Include="Shared\Common\" />
   </ItemGroup>
 
 </Project>

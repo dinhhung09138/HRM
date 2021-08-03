@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HRM.Database
 {
-    public class UnitOfWork : IUnitOfWork
+    public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly Context _context;
 
