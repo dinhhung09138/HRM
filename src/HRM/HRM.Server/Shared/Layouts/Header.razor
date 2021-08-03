@@ -1,0 +1,49 @@
+﻿<header class="main-header">
+    <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home" class="logo">
+        <span class="logo-lg">
+            <img src="https://newhrm.bdtask.com/hrm_v4.3_demo/assets/img/icons/2017-07-22/HRM.png" alt="">
+        </span>
+    </a>
+    <div class="se-pre-con" style="display: none;"></div>
+    <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" @onclick="ShowHideSidebar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="pe-7s-keypad"></span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown messages-menu">
+                    <a id="messageMenu" href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="pe-7s-mail"></i>
+                        <span class="label label-success">0</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="messageMenu">
+                        <li>
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
+                                <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                                </ul>
+                                <div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div>
+                                <div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                            </div>
+                        </li>
+                        <li class="footer"><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/message/index">See All Messages</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-user">
+                    <a id="userMenu" href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="pe-7s-settings"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="userMenu">
+                        <li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home/profile"><i class="pe-7s-users"></i> Profile</a></li>
+                        <li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home/setting"><i class="pe-7s-settings"></i> Setting</a></li>
+                        <li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/logout"><i class="pe-7s-key"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+@code {
+
+}

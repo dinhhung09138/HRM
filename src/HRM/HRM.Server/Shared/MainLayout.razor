@@ -1,0 +1,61 @@
+﻿@inherits LayoutComponentBase
+
+<div class="wrapper">
+    <Header />
+    <Sidebar />
+    <div class="content-wrapper">
+        <ol class="breadcrumb breadcrumb-new">
+            <li><a href="#"><i class="pe-7s-home"></i> Home</a></li>
+            <li><a href="#">Asset</a></li>
+            <li class="active">Add Type</li>
+        </ol>
+
+        <div class="content">
+            <div class="se-pre-con" style="display: none;"></div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="panel panel-bd">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <li><button class="dropdown-item" type="button">Action</button></li>
+                                    <li><button class="dropdown-item" type="button">Another action</button></li>
+                                    <li><button class="dropdown-item" type="button">Something else here</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    @Body
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toTop" class="btn back-top" style="display: block;">
+        <span class="ti-arrow-up"></span>
+    </div>
+</div>
+
+@*<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
+    </div>
+</div>*@
