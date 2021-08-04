@@ -718,3 +718,29 @@
 }
 
 /*End Collapse*/
+
+/* Table */
+.table td, .table th {
+    padding: .5rem;
+    vertical-align: middle !important;
+}
+
+.table > :not(:last-child) > :last-child > * {
+    border-bottom: unset;
+}
+
+.table thead tr th.sorting:hover {
+    cursor: pointer;
+}
+
+.table thead i.fa {
+    opacity: 0.2;
+    float: right;
+}
+
+.table thead i.fa-sort-alpha-desc,
+.table thead i.fa-sort-alpha-asc {
+    opacity: 0.8;
+}
+
+/* End Table */

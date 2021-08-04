@@ -1,0 +1,59 @@
+﻿
+<th rowspan="@Row"
+    colspan="@Col"
+    class="@(Sort == true ? "sorting" : "")"
+    style="@TextAlign.GetTextAlign()"
+    @onclick="@SortChange">
+    @Text
+    @if (Sort == true)
+    {
+        <i class="fa @sortIconClass"></i>
+    }
+
+</th>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public int Col { get; set; } = 1;
+
+    [Parameter]
+    public int Row { get; set; } = 1;
+
+    [Parameter]
+    public bool Sort { get; set; } = false;
+
+    [Parameter]
+    public TextAlign TextAlign { get; set; } = TextAlign.Unset;
+
+    public string sortIconClass { get; set; } = "fa-sort";
+
+    private TableSort sortStatus { get; set; } = TableSort.None;
+
+    private void SortChange()
+    {
+        if (Sort == false)
+        {
+            return;
+        }
+
+        switch (sortStatus)
+        {
+            case TableSort.None:
+                sortStatus = TableSort.Asc;
+                sortIconClass = "fa-sort-alpha-asc";
+                break;
+            case TableSort.Asc:
+                sortStatus = TableSort.Desc;
+                sortIconClass = "fa-sort-alpha-desc";
+                break;
+            case TableSort.Desc:
+                sortStatus = TableSort.None;
+                sortIconClass = "fa-sort";
+                break;
+        }
+    }
+
+}
