@@ -386,8 +386,21 @@
     position: relative;
     overflow: hidden;
 }
-/*Button*/
 
+.dropdown-toggle::after {
+    display: inline-block;
+}
+
+.dropdown-toggle a
+.dropdown-toggle a:hover,
+.dropdown-toggle a:active {
+    cursor: pointer;
+}
+
+table td > div.dropdown > button.btn {
+    line-height: 1;
+}
+/*Button*/
 .hrm-button-root::-moz-focus-inner {
     border-style: none;
 }
