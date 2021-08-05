@@ -2,7 +2,7 @@
 <th rowspan="@Row"
     colspan="@Col"
     class="@(Sort == true ? "sorting" : "")"
-    style="@TextAlign.GetTextAlign()"
+    style="@TextAlign.GetTextAlign() @(!string.IsNullOrEmpty(Width) ? "width: " + Width : "")"
     @onclick="@SortChange">
     @Text
     @if (Sort == true)
@@ -24,6 +24,9 @@
 
     [Parameter]
     public bool Sort { get; set; } = false;
+
+    [Parameter]
+    public string Width { get; set; } = string.Empty;
 
     [Parameter]
     public TextAlign TextAlign { get; set; } = TextAlign.Unset;

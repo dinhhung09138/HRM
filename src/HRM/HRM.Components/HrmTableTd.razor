@@ -1,0 +1,10 @@
+﻿
+<td style="@TextAlign.GetTextAlign()">@ChildContent</td>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public TextAlign TextAlign { get; set; }
+}
