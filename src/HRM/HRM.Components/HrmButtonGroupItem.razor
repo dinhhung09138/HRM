@@ -1,0 +1,9 @@
+﻿<li><a class="dropdown-item" href="javascript:{}" @onclick="@OnClick">@Text</a></li>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}

@@ -1,0 +1,18 @@
+﻿<div class="dropdown">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="@id" data-bs-toggle="dropdown" aria-expanded="false">
+        @Text
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="@id">
+        @ActionItems
+    </ul>
+</div>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public RenderFragment ActionItems { get; set; }
+
+    private string id = Guid.NewGuid().ToString();
+}
