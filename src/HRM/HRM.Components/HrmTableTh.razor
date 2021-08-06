@@ -2,7 +2,7 @@
 <th rowspan="@Row"
     colspan="@Col"
     class="@(Sort == true ? "sorting" : "")"
-    style="@TextAlign.GetTextAlign() @(!string.IsNullOrEmpty(Width) ? "width: " + Width : "")"
+    @attributes="@OtherAttributes"
     @onclick="@SortChange">
     @Text
     @if (Sort == true)
@@ -26,12 +26,12 @@
     public bool Sort { get; set; } = false;
 
     [Parameter]
-    public string Width { get; set; } = string.Empty;
-
-    [Parameter]
     public TextAlign TextAlign { get; set; } = TextAlign.Unset;
 
-    public string sortIconClass { get; set; } = "fa-sort";
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, Object> OtherAttributes { get; set; }
+
+    private string sortIconClass { get; set; } = "fa-sort";
 
     private TableSort sortStatus { get; set; } = TableSort.None;
 

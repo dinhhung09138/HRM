@@ -2,7 +2,10 @@
 
 @if (!string.IsNullOrEmpty(cssClass))
 {
-    <button type="button" class="hrm-button hrm-button-root @cssClass hrm-ripple" disabled="@Disable">
+    <button type="@Type" 
+            class="hrm-button hrm-button-root @cssClass hrm-ripple" 
+            disabled="@Disable"
+            @onclick="@(() => OnClick.InvokeAsync())">
         <span class="hrm-button-label">@Text</span>
     </button>
 }
@@ -30,54 +33,17 @@
     [Parameter]
     public bool FullWidth { get; set; } = false;
 
+    [Parameter]
+    public string Type { get; set; } = "button";
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
     private string cssClass = string.Empty;
 
     protected override void OnParametersSet()
     {
-        string variantClass = string.Empty;
-        string colorClass = string.Empty;
-        string sizeClass = string.Empty;
-
-        switch (Variant)
-        {
-            case Variant.Filled:
-                variantClass = "hrm-button-filled";
-                break;
-            case Variant.Outlined:
-                variantClass = "hrm-button-outlined";
-                break;
-            case Variant.Text:
-                variantClass = "hrm-button-text";
-                break;
-        }
-
-        switch (Color)
-        {
-            case Color.Default:
-                colorClass = "default";
-                break;
-            case Color.Primary:
-                colorClass = "primary";
-                break;
-            case Color.Secondary:
-                colorClass = "secondary";
-                break;
-        }
-
-        switch (Size)
-        {
-            case Size.Small:
-                sizeClass = "small";
-                break;
-            case Size.Medium:
-                sizeClass = "medium";
-                break;
-            case Size.Large:
-                sizeClass = "large";
-                break;
-        }
-
-        cssClass = $"{variantClass} {variantClass}-{colorClass} {variantClass}-size-{sizeClass} {(FullWidth ? "hrm-width-full" : "")}";
+        cssClass = $"{Variant.GetVariantClass()} {Variant.GetVariantClass()}-{Color.GetColorClass()} {Variant.GetVariantClass()}-size-{Size.GetSizeClass()} {FullWidth.GetFullWidthClass()}";
     }
 
 }

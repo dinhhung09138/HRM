@@ -1,5 +1,5 @@
 ﻿
-<td style="@TextAlign.GetTextAlign()">@ChildContent</td>
+<td style="@TextAlign.GetTextAlignStyle()" colspan="@Col">@ChildContent</td>
 
 @code {
     [Parameter]
@@ -7,4 +7,7 @@
 
     [Parameter]
     public TextAlign TextAlign { get; set; }
+
+    [Parameter]
+    public int Col { get; set; } = 1;
 }

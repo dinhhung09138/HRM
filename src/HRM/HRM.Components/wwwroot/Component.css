@@ -756,4 +756,10 @@ table td > div.dropdown > button.btn {
     opacity: 0.8;
 }
 
+@media (max-width: 768px){
+    .table-overflow{
+        overflow: auto;
+    }
+}
+
 /* End Table */

@@ -6,6 +6,14 @@ body {
     font-family: open sans,helvetica neue,Helvetica,Arial,sans-serif;
 }
 
+td, th {
+    min-width: 70px;
+}
+
+.pt-6 {
+    padding-top: 6px;
+}
+
 .mr-25 {
     margin-right: 25px;
 }
@@ -837,7 +845,13 @@ a:focus {
     border-radius: 0;
 }
 
-.panel .panel-heading a.btn:first-child, .panel .panel-heading h1:first-child, .panel .panel-heading h2:first-child, .panel .panel-heading h3:first-child, .panel .panel-heading h4:first-child, .panel .panel-heading h5:first-child, .panel .panel-heading h6:first-child {
+.panel .panel-heading a.btn:first-child, 
+.panel .panel-heading h1:first-child, 
+.panel .panel-heading h2:first-child, 
+.panel .panel-heading h3:first-child, 
+.panel .panel-heading h4:first-child, 
+.panel .panel-heading h5:first-child, 
+.panel .panel-heading h6:first-child {
     display: inline-block;
     margin: 0 0 0 25px !important;
     letter-spacing: .5px;
@@ -850,8 +864,8 @@ a:focus {
 }
 
 .panel-button-place {
-    float: right;
-    margin-top: -5px;
+    text-align: right;
+    padding-right: 35px;
 }
 
 .panel-bd > .panel-heading {
@@ -872,5 +886,25 @@ body .loading {
 @media (min-width: 768px){
     .panel-body {
         padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .panel-button-place {
+        text-align: right;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .panel .panel-heading h4:first-child {
+        width: 100%;
+        text-align: center;
+        margin: unset !important;
+        padding-bottom: 10px;
+    }
+    .panel-button-place {
+        text-align: center;
+        padding-right: unset;
     }
 }
