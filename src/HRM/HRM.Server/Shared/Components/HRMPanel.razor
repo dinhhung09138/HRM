@@ -1,15 +1,19 @@
 ﻿<div class="panel panel-bd">
     <div class="panel-heading">
         <div class="panel-title">
-            @if (!string.IsNullOrEmpty(Title))
-            {
-                <h4>@Title</h4>
-            }
-            <div class="mr-25 panel-button-place">
-                @if (ButtonGroup != null)
-                {
-                    @ButtonGroup
-                }
+            <div class="row form-group">
+                <div class="col-md-6 col-sm-6 col-xs-12 pt-6">
+                    @if (!string.IsNullOrEmpty(Title))
+                    {
+                        <h4>@Title</h4>
+                    }
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 panel-button-place">
+                    @if (ButtonGroup != null)
+                    {
+                        @ButtonGroup
+                    }
+                </div>
             </div>
         </div>
     </div>
