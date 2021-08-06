@@ -7,7 +7,7 @@ namespace HRM.Database
     {
         public Context CreateDbContext(string[] arg)
         {
-            const string connectionString = "Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=HRM;Trusted_Connection=True;MultipleActiveResultSets=True;";
+            const string connectionString = "Data Source=STS-HUNGTRAN\\SQLEXPRESS;Initial Catalog=HRM;User Id=sa;Password=hung764119;";
             return new Context(new DbContextOptionsBuilder<Context>().UseSqlServer(connectionString).Options);
         }
     }

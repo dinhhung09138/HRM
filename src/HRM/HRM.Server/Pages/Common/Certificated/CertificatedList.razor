@@ -1,57 +1,89 @@
 ﻿@page "/hr/certificated"
 
 @inject IJSRuntime jsRuntume
+@inject NavigationManager navigationManager
+@inject ICertificatedService certificatedService
 
 <HRMPanel Title="Danh sách chứng chỉ">
     <ButtonGroup>
-
+        <HrmButton Color="@Constant.Enums.Color.Primary" Text="Thêm mới" OnClick="AddNew" />
     </ButtonGroup>
     <PanelContent>
         <HrmTable Column="6">
             <Header>
                 <HrmTableTr>
-                    <HrmTableTh Text="Tên loại chứng chỉ" Sort="true" />
-                    <HrmTableTh Text="Thứ tự" Width="100px" Sort="true" />
-                    <HrmTableTh Text="Hiển thị" Width="100px" Sort="false" />
-                    <HrmTableTh Text="" Width="100px" Sort="false" />
+                    <HrmTableTh Text="Tên loại chứng chỉ" Sort="true" style="min-width: 200px;" />
+                    <HrmTableTh Text="" Sort="false" style="width: 100px;" />
                 </HrmTableTr>
             </Header>
             <Body>
-                <HrmTableTr>
-                    <HrmTableTd>
-                        Anh Van
-                    </HrmTableTd>
-                    <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Right">
-                        1
-                    </HrmTableTd>
-                    <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
-                        <HrmSwitch Checked="true" />
-                    </HrmTableTd>
-                    <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
-                        <HrmButtonGroup Text="Chọn">
-                            <ActionItems>
-                                <HrmButtonGroupItem Text="Cập nhật" />
-                                <HrmDivider />
-                                <HrmButtonGroupItem text="Xóa" />
-                            </ActionItems>
-                        </HrmButtonGroup>
-                    </HrmTableTd>
-                </HrmTableTr>
-                <HrmTableNoData Column="4" />
+                @if (tableLoading == true)
+                {
+                    <HrmTableTr>
+                        <HrmTableTd Col="2">
+                            <LinearLoading />
+                        </HrmTableTd>
+                    </HrmTableTr>
+                }
+                else
+                {
+                    if (listData.Count() == 0)
+                    {
+                        <HrmTableNoData Column="2" />
+                    }
+                    else
+                    {
+                        foreach (var item in listData)
+                        {
+                            <HrmTableTr>
+                                <HrmTableTd>
+                                    @item.Name
+                                </HrmTableTd>
+                                <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
+                                    <HrmButtonGroup Text="Chọn">
+                                        <ActionItems>
+                                            <HrmButtonGroupItem Text="Cập nhật" />
+                                            <HrmDivider />
+                                            <HrmButtonGroupItem text="Xóa" />
+                                        </ActionItems>
+                                    </HrmButtonGroup>
+                                </HrmTableTd>
+                            </HrmTableTr>
+                        }
+                    }
+                }
+
             </Body>
         </HrmTable>
     </PanelContent>
 </HRMPanel>
 
 @code {
+
+    private bool tableLoading = true;
+
+    private IEnumerable<CertificatedGridModel> listData = new List<CertificatedGridModel>();
+
+    private CertificatedGridParameterModel parameterModel = new CertificatedGridParameterModel();
+
     protected override async Task OnInitializedAsync()
     {
-        //await jsRuntume.InvokeAsync<object>("createJqueryDataTable", "#example");
+        var result = await certificatedService.GridAsync(parameterModel);
+        if (result.Succeeded)
+        {
+            listData = result.Data.List;
+        }
+        tableLoading = false;
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    private void AddNew()
     {
-        await jsRuntume.InvokeAsync<object>("createJqueryDataTable", "#example");
+        navigationManager.NavigateTo("hr/certificated/create");
+    }
+
+    private void Edit(long id)
+    {
+        navigationManager.NavigateTo($"hr/certificated/update/{id}");
     }
 
 }

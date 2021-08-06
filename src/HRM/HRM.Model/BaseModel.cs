@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace HRM.Model
     {
         public long Id { get; set; }
 
+        [RegularExpression("\\d{1,3}", ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Precedence")]
         public int Precedence { get; set; }
 
         public bool IsActive { get; set; }
@@ -25,5 +27,11 @@ namespace HRM.Model
         public bool Deleted { get; set; }
 
         public byte[] RowVersion { get; set; }
+
+        public BaseModel()
+        {
+            Precedence = 1;
+            IsActive = true;
+        }
     }
 }

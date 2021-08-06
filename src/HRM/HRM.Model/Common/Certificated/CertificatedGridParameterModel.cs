@@ -8,5 +8,6 @@ namespace HRM.Model.Common
 {
     public sealed class CertificatedGridParameterModel : BaseGridParameterModel
     {
+        
     }
 }

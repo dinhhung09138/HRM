@@ -1,6 +1,9 @@
 ﻿using DotNetCore.EntityFrameworkCore;
 using DotNetCore.IoC;
+using HRM.Application.Common;
 using HRM.Database;
+using HRM.Database.Common;
+using HRM.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,6 +26,10 @@ namespace HRM.Server.Extensions
         public static IServiceCollection UseServices(this IServiceCollection services)
         {
             services.AddScoped<Database.IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IMemoryCaching, MemoryCaching>();
+            services.AddScoped<ICertificatedRepository, CertificatedRepository>();
+            services.AddScoped<ICertificatedFactory, CertificatedFactory>();
+            services.AddScoped<ICertificatedService, CertificatedService>();
             return services;
         }
 

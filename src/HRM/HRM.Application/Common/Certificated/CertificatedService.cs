@@ -34,7 +34,7 @@ namespace HRM.Application.Common
             _certificatedRepository = certificatedRepository;
         }
 
-        public async Task<IResult> FindByIdAsync(long id)
+        public async Task<IResult<CertificatedModel>> FindByIdAsync(long id)
         {
             try
             {
@@ -42,23 +42,21 @@ namespace HRM.Application.Common
 
                 return Result<CertificatedModel>.Success(item);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Result.Fail(ex.Message);
+                return Result<CertificatedModel>.Fail(ex.Message);
             }
         }
 
-        public async Task<IResult> GridAsync(CertificatedGridParameterModel paramters)
+        public async Task<IResult<Grid<CertificatedGridModel>>> GridAsync(CertificatedGridParameterModel paramters)
         {
             try
             {
-                var grid = await _certificatedRepository.GridAsync(paramters);
-
-                return Result<Grid<CertificatedGridModel>>.Success(grid);
+                return Result<Grid<CertificatedGridModel>>.Success(await _certificatedRepository.GridAsync(paramters));
             }
             catch (Exception ex)
             {
-                return Result.Fail(ex.Message);
+                return null;
             }
         }
 
@@ -140,7 +138,7 @@ namespace HRM.Application.Common
             {
                 return Result.Fail(Constant.Message.ItemNotFound);
             }
-            
+
             var validation = await new UpdateCertificatedModelValidator().ValidateAsync(model);
             if (validation.IsValid == false)
             {

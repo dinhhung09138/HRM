@@ -1,11 +1,92 @@
-﻿@page "/hr/certificated/add"
-@page "/hr/certificated/edit/{Id:long}"
+﻿@page "/hr/certificated/create"
+@page "/hr/certificated/update/{Id:long}"
 
-<h3>CertificatedForm</h3>
+@inject NavigationManager navigationManager
+@inject ICertificatedService certificatedService
+
+<HRMPanel Title="@pageTitle">
+    <PanelContent>
+        <EditForm Model="model" OnInvalidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="mb-3">
+                        <label>Tên loại chứng chỉ</label>
+                        <InputText @bind-Value="model.Name" class="form-control" maxlength="50" placeholder="Tên loại chứng chỉ" tabindex="1" />
+                        <ValidationMessage For="@(() => model.Name)" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="mb-3">
+                        <label>Thứ tự hiển thị</label>
+                        <InputNumber @bind-Value="model.Precedence" class="form-control" maxlength="2" min="1" max="999" />
+                        <ValidationMessage For="@(() => model.Precedence)" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="mb-3">
+                        <label>Sử dụng</label>
+                        <InputCheckbox @bind-Value="model.IsActive" class="form-check-input" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="OnValidSubmit" />
+                    <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" />
+                </div>
+            </div>
+        </EditForm>
+    </PanelContent>
+</HRMPanel>
 
 @code {
 
     [Parameter]
-    public long Id { get; set; }
+    public long? Id { get; set; }
+    CertificatedModel model = new CertificatedModel();
+
+    private string pageTitle = "Tạo mới";
+
+
+    private bool pageLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id.HasValue)
+        {
+            pageTitle = "Cập nhật";
+
+            var result = await certificatedService.FindByIdAsync(Id.Value);
+
+            if (result.Succeeded == true)
+            {
+                model = result.Data;
+            }
+        }
+
+        pageLoading = false;
+    }
+
+    private void BackToTheList()
+    {
+        navigationManager.NavigateTo("hr/certificated");
+    }
+
+    private async Task OnValidSubmit()
+    {
+        pageLoading = true;
+        model.CreateBy = 1;
+        model.UpdateBy = 1;
+        var result = await certificatedService.SaveAsync(model, Id.HasValue ? false : true);
+        if (result.Succeeded == true)
+        {
+            BackToTheList();
+        }
+    }
 
 }
