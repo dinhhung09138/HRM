@@ -29,7 +29,7 @@
                 }
                 else
                 {
-                    if (listData.Count() == 0)
+                    if (listCount == 0)
                     {
                         <HrmTableNoData Column="4" />
                     }
@@ -52,7 +52,7 @@
                                         <ActionItems>
                                             <HrmButtonGroupItem Text="Cập nhật" Data="item" T="CertificatedGridModel" OnClick="@UpdateClick" />
                                             <HrmDivider />
-                                            @*<HrmButtonGroupItem text="Xóa" OnClick="@Delete(item)" />*@
+                                            <HrmButtonGroupItem text="Xóa" T="CertificatedGridModel" Data="item" OnClick="@DeleteClick" />
                                         </ActionItems>
                                     </HrmButtonGroup>
                                 </HrmTableTd>
@@ -66,22 +66,36 @@
     </PanelContent>
 </HRMPanel>
 
+<HrmConfirmDialog Title="Xác nhận" @ref="deleteDialog" T="CertificatedGridModel" Data="deletedItem" AgreeeClick="@AgreeDeleteClick">
+    <Body>
+        <p>Bạn có muốn xóa dữ liệu đang chọn?</p>
+    </Body>
+    <Buttons>
+        <p></p>
+    </Buttons>
+</HrmConfirmDialog>
+
+<HrmToastMessage @ref="toastMessage" 
+                 TitleType="@Constant.Enums.ToastMessageType.TitleSuccess"
+                 BodyType="@Constant.Enums.ToastMessageType.CreateSuccess"/>
+
 @code {
 
     private bool tableLoading = true;
 
     private IEnumerable<CertificatedGridModel> listData = new List<CertificatedGridModel>();
+    private long listCount = 0;
 
     private CertificatedGridParameterModel parameterModel = new CertificatedGridParameterModel();
 
+    private HrmConfirmDialog<CertificatedGridModel> deleteDialog = new HrmConfirmDialog<CertificatedGridModel>();
+    private CertificatedGridModel deletedItem = new CertificatedGridModel();
+
+    private HrmToastMessage toastMessage = new HrmToastMessage();
+
     protected override async Task OnInitializedAsync()
     {
-        var result = await certificatedService.GridAsync(parameterModel);
-        if (result.Succeeded)
-        {
-            listData = result.Data.List;
-        }
-        tableLoading = false;
+        await LoadGridData();
     }
 
     private void AddNew()
@@ -91,17 +105,45 @@
 
     private void UpdateClick(CertificatedGridModel item)
     {
-       navigationManager.NavigateTo($"hr/certificated/update/{item.Id}");
+        navigationManager.NavigateTo($"hr/certificated/update/{item.Id}");
     }
 
-    private void Delete(CertificatedGridModel item)
+    private void DeleteClick(CertificatedGridModel item)
     {
-        //navigationManager.NavigateTo($"hr/certificated/update/{item.Id}");
+        deletedItem = item;
+        deleteDialog.Open();
     }
 
-    private void ShowMessage(MouseEventArgs e)
+    private async Task AgreeDeleteClick(CertificatedGridModel item)
     {
-        Console.WriteLine("Blazzing text from parent");
+        deleteDialog.Close();
+        CertificatedModel model = new CertificatedModel()
+        {
+            Id = item.Id,
+            UpdateBy = 1
+        };
+        var result = await certificatedService.DeleteAsync(model);
+        if (result.Succeeded)
+        {
+            await LoadGridData();
+            await toastMessage.Show();
+        }
+        else
+        {
+
+        }
+    }
+
+    private async Task LoadGridData()
+    {
+        tableLoading = true;
+        var result = await certificatedService.GridAsync(parameterModel);
+        if (result.Succeeded)
+        {
+            listData = result.Data.List.ToList();
+            listCount = result.Data.Count;
+        }
+        tableLoading = false;
     }
 
 }
