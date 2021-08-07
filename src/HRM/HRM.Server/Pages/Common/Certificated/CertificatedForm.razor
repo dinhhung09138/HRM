@@ -6,6 +6,10 @@
 
 <HRMPanel Title="@pageTitle">
     <PanelContent>
+        @if (pageLoading == true)
+        {
+            <HrmLoadingContainer />
+        }
         <EditForm Model="model" OnInvalidSubmit="OnValidSubmit">
             <DataAnnotationsValidator />
             <div class="row">
@@ -51,7 +55,6 @@
     CertificatedModel model = new CertificatedModel();
 
     private string pageTitle = "Tạo mới";
-
 
     private bool pageLoading = true;
 

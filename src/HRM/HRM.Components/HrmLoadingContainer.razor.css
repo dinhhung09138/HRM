@@ -1,0 +1,15 @@
+﻿.loader {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #e0e0e0;
+    opacity: 0.8;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
