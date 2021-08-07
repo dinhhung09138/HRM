@@ -13,6 +13,8 @@
             <Header>
                 <HrmTableTr>
                     <HrmTableTh Text="Tên loại chứng chỉ" Sort="true" style="min-width: 200px;" />
+                    <HrmTableTh Text="Thứ tự" Sort="true" style="width: 90px" TextAlign="@Constant.Enums.TextAlign.Right" />
+                    <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
                     <HrmTableTh Text="" Sort="false" style="width: 100px;" />
                 </HrmTableTr>
             </Header>
@@ -20,7 +22,7 @@
                 @if (tableLoading == true)
                 {
                     <HrmTableTr>
-                        <HrmTableTd Col="2">
+                        <HrmTableTd Col="4">
                             <HrmLinearLoading />
                         </HrmTableTd>
                     </HrmTableTr>
@@ -29,7 +31,7 @@
                 {
                     if (listData.Count() == 0)
                     {
-                        <HrmTableNoData Column="2" />
+                        <HrmTableNoData Column="4" />
                     }
                     else
                     {
@@ -39,12 +41,18 @@
                                 <HrmTableTd>
                                     @item.Name
                                 </HrmTableTd>
+                                <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Right">
+                                    @item.Precedence
+                                </HrmTableTd>
+                                <HrmTableTd>
+                                    <HrmSwitch Checked="@item.IsActive" Disabled="true" />
+                                </HrmTableTd>
                                 <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
                                     <HrmButtonGroup Text="Chọn">
                                         <ActionItems>
-                                            <HrmButtonGroupItem Text="Cập nhật" />
+                                            <HrmButtonGroupItem Text="Cập nhật" Data="item" T="CertificatedGridModel" OnClick="@UpdateClick" />
                                             <HrmDivider />
-                                            <HrmButtonGroupItem text="Xóa" />
+                                            @*<HrmButtonGroupItem text="Xóa" OnClick="@Delete(item)" />*@
                                         </ActionItems>
                                     </HrmButtonGroup>
                                 </HrmTableTd>
@@ -81,9 +89,19 @@
         navigationManager.NavigateTo("hr/certificated/create");
     }
 
-    private void Edit(long id)
+    private void UpdateClick(CertificatedGridModel item)
     {
-        navigationManager.NavigateTo($"hr/certificated/update/{id}");
+       navigationManager.NavigateTo($"hr/certificated/update/{item.Id}");
+    }
+
+    private void Delete(CertificatedGridModel item)
+    {
+        //navigationManager.NavigateTo($"hr/certificated/update/{item.Id}");
+    }
+
+    private void ShowMessage(MouseEventArgs e)
+    {
+        Console.WriteLine("Blazzing text from parent");
     }
 
 }

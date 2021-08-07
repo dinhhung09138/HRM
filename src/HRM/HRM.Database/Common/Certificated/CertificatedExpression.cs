@@ -21,7 +21,9 @@ namespace HRM.Database.Common
         public static Expression<Func<Certificated, CertificatedGridModel>> GridAsync => m => new CertificatedGridModel()
         {
             Id = m.Id,
-            Name = m.Name
+            Name = m.Name,
+            Precedence = m.Precedence,
+            IsActive = m.IsActive
         };
     }
 }

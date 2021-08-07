@@ -1,9 +1,14 @@
-﻿<li><a class="dropdown-item" href="javascript:{}" @onclick="@OnClick">@Text</a></li>
+﻿@typeparam T
+<li><a class="dropdown-item" href="javascript:{}" @onclick="() => OnClick.InvokeAsync(Data)">@Text</a></li>
 
 @code {
     [Parameter]
     public string Text { get; set; }
 
     [Parameter]
-    public EventCallback OnClick { get; set; }
+    public T Data { get; set; }
+
+    [Parameter]
+    public EventCallback<T> OnClick { get; set; }
+
 }
