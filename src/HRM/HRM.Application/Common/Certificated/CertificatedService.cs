@@ -52,7 +52,8 @@ namespace HRM.Application.Common
         {
             try
             {
-                return Result<Grid<CertificatedGridModel>>.Success(await _certificatedRepository.GridAsync(paramters));
+                var grid = await _certificatedRepository.GridAsync(paramters);
+                return Result<Grid<CertificatedGridModel>>.Success(grid);
             }
             catch (Exception ex)
             {
@@ -93,7 +94,7 @@ namespace HRM.Application.Common
 
                 if (md == null)
                 {
-                    return Result.Fail(Constant.Message.ItemNotFound);
+                    return Result.Fail(Constant.Message.WARNING_ITEM_NOT_FOUND);
                 }
 
                 md.Deleted = true;
@@ -136,7 +137,7 @@ namespace HRM.Application.Common
 
             if (md == null)
             {
-                return Result.Fail(Constant.Message.ItemNotFound);
+                return Result.Fail(Constant.Message.WARNING_ITEM_NOT_FOUND);
             }
 
             var validation = await new UpdateCertificatedModelValidator().ValidateAsync(model);

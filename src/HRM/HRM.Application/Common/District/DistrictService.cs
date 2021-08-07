@@ -96,7 +96,7 @@ namespace HRM.Application.Common
 
                 if (md == null)
                 {
-                    return Result.Fail(Constant.Message.ItemNotFound);
+                    return Result.Fail(Constant.Message.WARNING_ITEM_NOT_FOUND);
                 }
 
                 md.Deleted = true;
@@ -139,7 +139,7 @@ namespace HRM.Application.Common
 
             if (md == null)
             {
-                return Result.Fail(Constant.Message.ItemNotFound);
+                return Result.Fail(Constant.Message.WARNING_ITEM_NOT_FOUND);
             }
 
             var validation = await new UpdateDistrictModelValidator().ValidateAsync(model);
