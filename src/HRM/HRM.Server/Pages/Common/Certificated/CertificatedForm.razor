@@ -1,6 +1,7 @@
 ﻿@page "/hr/certificated/create"
 @page "/hr/certificated/update/{Id:long}"
 
+@inject ToastMessageHelper toastMessageHelper
 @inject NavigationManager navigationManager
 @inject ICertificatedService certificatedService
 
@@ -88,7 +89,27 @@
         var result = await certificatedService.SaveAsync(model, Id.HasValue ? false : true);
         if (result.Succeeded == true)
         {
+            if (Id.HasValue)
+            {
+                await toastMessageHelper.UpdateSuccess();
+            }
+            else
+            {
+                await toastMessageHelper.CreateSuccess();
+            }
+            
             BackToTheList();
+        }
+        else
+        {
+            if (Id.HasValue)
+            {
+                await toastMessageHelper.UpdateSuccess();
+            }
+            else
+            {
+                await toastMessageHelper.CreateSuccess();
+            }
         }
     }
 

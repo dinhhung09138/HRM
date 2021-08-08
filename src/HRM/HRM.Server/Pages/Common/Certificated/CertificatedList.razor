@@ -1,6 +1,6 @@
 ﻿@page "/hr/certificated"
 
-@inject IJSRuntime jsRuntume
+@inject ToastMessageHelper toastMessageHelper
 @inject NavigationManager navigationManager
 @inject ICertificatedService certificatedService
 
@@ -75,10 +75,6 @@
     </Buttons>
 </HrmConfirmDialog>
 
-<HrmToastMessage @ref="toastMessage" 
-                 TitleType="@Constant.Enums.ToastMessageType.TitleSuccess"
-                 BodyType="@Constant.Enums.ToastMessageType.CreateSuccess"/>
-
 @code {
 
     private bool tableLoading = true;
@@ -90,8 +86,6 @@
 
     private HrmConfirmDialog<CertificatedGridModel> deleteDialog = new HrmConfirmDialog<CertificatedGridModel>();
     private CertificatedGridModel deletedItem = new CertificatedGridModel();
-
-    private HrmToastMessage toastMessage = new HrmToastMessage();
 
     protected override async Task OnInitializedAsync()
     {
@@ -125,12 +119,12 @@
         var result = await certificatedService.DeleteAsync(model);
         if (result.Succeeded)
         {
+            await toastMessageHelper.DeleteSuccess();
             await LoadGridData();
-            await toastMessage.Show();
         }
         else
         {
-
+            await toastMessageHelper.DeleteError();
         }
     }
 
