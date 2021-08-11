@@ -31,6 +31,9 @@
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, Object> OtherAttributes { get; set; }
 
+    [Parameter]
+    public EventCallback<TableSort> OnSortClick { get; set; }
+
     private string sortIconClass { get; set; } = "fa-sort";
 
     private TableSort sortStatus { get; set; } = TableSort.None;
@@ -53,10 +56,14 @@
                 sortIconClass = "fa-sort-alpha-desc";
                 break;
             case TableSort.Desc:
-                sortStatus = TableSort.None;
-                sortIconClass = "fa-sort";
+                sortStatus = TableSort.Asc;
+                sortIconClass = "fa-sort-alpha-asc";
                 break;
         }
+
+
+
+        OnSortClick.InvokeAsync(sortStatus);
     }
 
 }

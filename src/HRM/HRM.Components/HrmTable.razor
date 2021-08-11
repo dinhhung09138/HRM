@@ -1,4 +1,6 @@
-﻿<div class="row">
+﻿
+
+<div class="row">
     <div class="col-md-12 table-overflow">
         <table class="table table-bordered">
             <thead>
@@ -17,7 +19,7 @@
         </table>
     </div>
     <div class="col-md-12">
-        <HrmTableNavigation />
+        <HrmTableNavigation TotalItems="TotalItems" Page="Page" OnPageChange="@PageChange" />
     </div>
 </div>
 
@@ -35,4 +37,24 @@
 
     [Parameter]
     public RenderFragment Footer { get; set; }
+
+    [Parameter]
+    public long TotalItems { get; set; }
+
+    [Parameter]
+    public EventCallback<Page> OnPageChange { get; set; }
+
+    [Parameter]
+    public Page Page { get; set; } = new Page()
+    {
+        Index = 1,
+        Size = 10
+    };
+
+
+    private async Task PageChange(Page page)
+    {
+        await OnPageChange.InvokeAsync(page);
+    }
+
 }

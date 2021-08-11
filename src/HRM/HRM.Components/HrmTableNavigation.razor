@@ -1,14 +1,48 @@
-﻿<div class="row">
+﻿
+<style>
+    .page-item {
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+</style>
+<div class="row">
     <div class="col-md-6 col-sm-6 col-xs-12">
+        @if (TotalItems > 0)
+        {
+            long display = TotalItems;
+            if (Page.Size < TotalItems)
+            {
+                display = Page.Size;
+            }
+            <p>Hiển thị @display / @TotalItems</p>
+        }
+
     </div>
     <div class="col-md-6 col-sm-6 col-xs-12">
         <nav aria-label="Page navigation example" style="float: right;">
             <ul class="pagination">
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item @(isDisablePrev ? "disabled" : "")">
+                    <a class="page-link" href="javascript:{}" title="Trang đầu" @onclick="@(() => PageIndexSelected(1))">Trang đầu</a>
+                </li>
+                @if (TotalItems > 0)
+                {
+                    foreach (var p in displayLinkPages)
+                    {
+                        <li class="page-item @(p.Page == Page.Index ? "active" : "")">
+                            <a class="page-link" href="javascript:{}" title="@p.Page" @onclick="@(() => PageIndexSelected(p.Page))">@p.Title</a>
+                        </li>
+                    }
+                }
+                <li class="page-item @(isDisableNext ? "disabled" : "")">
+                    <a class="page-link" href="javascript:{}" title="Trang cuối" @onclick="@(() => PageIndexSelected(totalPage))">Trang cuối</a>
+                </li>
+                <li class="page-item disabled" style="margin-left: 20px;">
+                    <select class="form-select" @bind="@sizeSelected" disabled="@(TotalItems == 0)" style="min-width: 70px;">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </li>
             </ul>
         </nav>
     </div>
@@ -16,13 +50,220 @@
 
 @code {
 
-    [Parameter]
-    public int CurrentPage { get; set; } = 1;
+    private readonly int _TOTAL_DISPLAY_PAGES = 5;
 
     [Parameter]
-    public int TotalPage { get; set; } = 1;
+    public long TotalItems { get; set; } = 0;
 
     [Parameter]
-    public float TotalRecordff { get; set; } = 0;
+    public Page Page { get; set; } = new Page()
+    {
+        Index = 1,
+        Size = 10
+    };
 
+    [Parameter]
+    public EventCallback<Page> OnPageChange { get; set; }
+
+    private int pageSelected = 0;
+    private int totalPage = 0;
+
+    private int? _sizeSelected = null;
+    private int sizeSelected
+    {
+        get
+        {
+            if (!_sizeSelected.HasValue)
+            {
+                return 0;
+            }
+            return _sizeSelected.Value;
+        }
+        set
+        {
+            _sizeSelected = value;
+
+            if (isPageSizeChangeWhenSelect == false)
+            {
+                isPageSizeChangeWhenSelect = true;
+                return;
+            }
+
+            pageSelected = 1;
+
+            Page = new Page()
+            {
+                Index = pageSelected,
+                Size = _sizeSelected.Value
+            };
+            OnPageChange.InvokeAsync(Page);
+
+            CalculateNavigation();
+        }
+    }
+
+    private bool isPageSizeChangeWhenSelect = true;
+
+    private List<NavigationLinkItem> displayLinkPages = new List<NavigationLinkItem>();
+
+    private bool isDisablePrev = true;
+    private bool isDisableNext = true;
+
+    protected override void OnInitialized()
+    {
+        isPageSizeChangeWhenSelect = false;
+        pageSelected = Page.Index;
+        sizeSelected = Page.Size;
+
+        CalculateNavigation();
+
+        base.OnInitialized();
+    }
+
+    private async Task PageIndexSelected(int pageIndex)
+    {
+        if (pageIndex < 0 || pageIndex > totalPage)
+        {
+            return;
+        }
+
+        Page = new Page()
+        {
+            Index = pageIndex,
+            Size = sizeSelected
+        };
+
+        pageSelected = pageIndex;
+
+        CalculateNavigation();
+
+        await OnPageChange.InvokeAsync(Page);
+    }
+
+    private void CalculateNavigation()
+    {
+        isDisablePrev = true;
+        isDisableNext = true;
+        displayLinkPages = new List<NavigationLinkItem>();
+        totalPage = 0;
+
+        if (TotalItems > 0)
+        {
+            totalPage = (int)(TotalItems / Page.Size);
+            if (TotalItems % (long)Page.Size != 0)
+            {
+                totalPage += 1;
+            }
+
+            if (pageSelected > 1)
+            {
+                isDisablePrev = false;
+            }
+            if (pageSelected < totalPage)
+            {
+                isDisableNext = false;
+            }
+
+            int count = 0;
+
+            // Lower or equal than 5 page
+            if (totalPage <= _TOTAL_DISPLAY_PAGES)
+            {
+                do
+                {
+                    count += 1;
+                    displayLinkPages.Add(new NavigationLinkItem() { Page = count, Title = count.ToString() });
+                }
+                while (count < totalPage);
+            }
+            else
+            {
+                // The current index page in 1 of the 5 last pages.
+                if (pageSelected <= _TOTAL_DISPLAY_PAGES)
+                {
+                    Navigation5FirstItem();
+                }
+                else if (totalPage - pageSelected <= _TOTAL_DISPLAY_PAGES)
+                {
+                    Navigation5LastItem();
+                }
+                else
+                {
+                    // The index page is between
+                    displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected - 3, Title = " ... " });
+                    displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected - 2, Title = (pageSelected - 2).ToString() });
+                    displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected - 1, Title = (pageSelected - 1).ToString() });
+                    displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected, Title = pageSelected.ToString() });
+                    displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected + 1, Title = (pageSelected + 1).ToString() });
+                    displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected + 2, Title = (pageSelected + 2).ToString() });
+                    displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected + 3, Title = " ... " });
+                }
+            }
+            displayLinkPages = displayLinkPages.OrderBy(m => m.Page).ToList();
+        }
+    }
+
+    private void Navigation5FirstItem()
+    {
+        displayLinkPages = new List<NavigationLinkItem>();
+        int count = 0;
+        do
+        {
+            displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected - count, Title = (pageSelected - count).ToString() });
+            count += 1;
+        }
+        while (pageSelected - count > 0);
+
+        if (count < 5)
+        {
+            int nextPage = 1;
+            do
+            {
+                displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected + nextPage, Title = (pageSelected + nextPage).ToString() });
+                nextPage++;
+                count++;
+            }
+            while (count < 5);
+        }
+
+        if (totalPage > _TOTAL_DISPLAY_PAGES)
+        {
+            var max = displayLinkPages.Max(m => m.Page) + 1;
+            displayLinkPages.Add(new NavigationLinkItem() { Page = max, Title = " ... " });
+        }
+    }
+
+    private void Navigation5LastItem()
+    {
+        displayLinkPages = new List<NavigationLinkItem>();
+        int count = 0;
+        do
+        {
+            displayLinkPages.Add(new NavigationLinkItem() { Page = pageSelected + count, Title = (pageSelected + count).ToString() });
+            count += 1;
+        }
+        while (pageSelected + count <= totalPage);
+
+        if (count < 5)
+        {
+            do
+            {
+                displayLinkPages.Add(new NavigationLinkItem() { Page = totalPage - count, Title = (totalPage - count).ToString() });
+                count++;
+            }
+            while (count < 5);
+        }
+
+        if (totalPage - _TOTAL_DISPLAY_PAGES > 0)
+        {
+            displayLinkPages.Add(new NavigationLinkItem() { Page = totalPage - count, Title = " ... " });
+        }
+    }
+
+    protected class NavigationLinkItem
+    {
+        public int Page { get; set; }
+
+        public string Title { get; set; }
+    }
 }

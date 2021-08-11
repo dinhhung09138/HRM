@@ -9,11 +9,15 @@
         <HrmButton Color="@Constant.Enums.Color.Primary" Text="Thêm mới" OnClick="AddNew" />
     </ButtonGroup>
     <PanelContent>
-        <HrmTable Column="6">
+        <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
             <Header>
                 <HrmTableTr>
-                    <HrmTableTh Text="Tên loại chứng chỉ" Sort="true" style="min-width: 200px;" />
-                    <HrmTableTh Text="Thứ tự" Sort="true" style="width: 90px" TextAlign="@Constant.Enums.TextAlign.Right" />
+                    <HrmTableTh Text="Tên loại chứng chỉ" Sort="true" 
+                                OnSortClick="@((arg) => OrderColumnClick(m => m.Name, arg))" 
+                                style="min-width: 200px;" />
+                    <HrmTableTh Text="Thứ tự" Sort="true" 
+                                OnSortClick="@((arg) => OrderColumnClick(m => m.Precedence, arg))"
+                                style="width: 90px" TextAlign="@Constant.Enums.TextAlign.Right" />
                     <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
                     <HrmTableTh Text="" Sort="false" style="width: 100px;" />
                 </HrmTableTr>
@@ -29,7 +33,7 @@
                 }
                 else
                 {
-                    if (listCount == 0)
+                    if (totalItems == 0)
                     {
                         <HrmTableNoData Column="4" />
                     }
@@ -60,7 +64,6 @@
                         }
                     }
                 }
-
             </Body>
         </HrmTable>
     </PanelContent>
@@ -79,8 +82,9 @@
 
     private bool tableLoading = true;
 
-    private IEnumerable<CertificatedGridModel> listData = new List<CertificatedGridModel>();
-    private long listCount = 0;
+    private List<CertificatedGridModel> listData = new List<CertificatedGridModel>();
+    private long totalItems = 0;
+    private int tableCounter = 0;
 
     private CertificatedGridParameterModel parameterModel = new CertificatedGridParameterModel();
 
@@ -89,6 +93,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadGridData();
+    }
+
+    private async Task PageChange(Page page)
+    {
+        parameterModel.Page = page;
         await LoadGridData();
     }
 
@@ -135,9 +145,15 @@
         if (result.Succeeded)
         {
             listData = result.Data.List.ToList();
-            listCount = result.Data.Count;
+            totalItems = result.Data.Count;
+            tableCounter = ((parameterModel.Page.Index - 1) * parameterModel.Page.Size);
         }
         tableLoading = false;
+    }
+
+    private void OrderColumnClick(Expression<Func<CertificatedGridModel, dynamic>> expression, TableSort sort)
+    {
+        listData = listData.ColumnSort(expression, sort);
     }
 
 }

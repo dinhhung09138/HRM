@@ -11,7 +11,7 @@
         {
             <HrmLoadingContainer />
         }
-        <EditForm Model="model" OnInvalidSubmit="OnValidSubmit">
+        <EditForm OnInvalidSubmit="OnValidSubmit" EditContext="@editContext">
             <DataAnnotationsValidator />
             <div class="row">
                 <div class="col-md-4 col-sm-12 col-xs-12">
@@ -53,7 +53,10 @@
 
     [Parameter]
     public long? Id { get; set; }
-    CertificatedModel model = new CertificatedModel();
+
+    private CertificatedModel model = new CertificatedModel();
+
+    private EditContext editContext;
 
     private string pageTitle = "Tạo mới";
 
@@ -61,6 +64,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        editContext = new EditContext(model);
         if (Id.HasValue)
         {
             pageTitle = "Cập nhật";
@@ -70,10 +74,17 @@
             if (result.Succeeded == true)
             {
                 model = result.Data;
+                editContext = new EditContext(model);
             }
         }
 
         pageLoading = false;
+
+    }
+
+    protected override void OnParametersSet()
+    {
+        editContext = new EditContext(model);
     }
 
     private void BackToTheList()
@@ -83,7 +94,13 @@
 
     private async Task OnValidSubmit()
     {
+        if (!editContext.Validate())
+        {
+            return;
+        }
+
         pageLoading = true;
+
         model.CreateBy = 1;
         model.UpdateBy = 1;
         var result = await certificatedService.SaveAsync(model, Id.HasValue ? false : true);
@@ -97,7 +114,7 @@
             {
                 await toastMessageHelper.CreateSuccess();
             }
-            
+
             BackToTheList();
         }
         else
