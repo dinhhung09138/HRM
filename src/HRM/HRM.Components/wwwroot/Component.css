@@ -738,6 +738,10 @@ table td > div.dropdown > button.btn {
     vertical-align: middle !important;
 }
 
+table tbody tr.odd {
+    background-color: #f9f9f9;
+}
+
 .table > :not(:last-child) > :last-child > * {
     border-bottom: unset;
 }

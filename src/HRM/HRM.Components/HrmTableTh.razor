@@ -1,5 +1,5 @@
 ﻿
-<th rowspan="@Row"
+<th id="Column_@Id" rowspan="@Row"
     colspan="@Col"
     class="@(Sort == true ? "sorting" : "")"
     @attributes="@OtherAttributes"
@@ -13,6 +13,13 @@
 </th>
 
 @code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    [Parameter]
+    public string SortColumnId { get; set; }
+
     [Parameter]
     public string Text { get; set; }
 
@@ -37,6 +44,16 @@
     private string sortIconClass { get; set; } = "fa-sort";
 
     private TableSort sortStatus { get; set; } = TableSort.None;
+
+    protected override void OnParametersSet()
+    {
+        if (SortColumnId != Id)
+        {
+            sortStatus = TableSort.None;
+            sortIconClass = "fa-sort";
+            StateHasChanged();
+        }
+    }
 
     private void SortChange()
     {

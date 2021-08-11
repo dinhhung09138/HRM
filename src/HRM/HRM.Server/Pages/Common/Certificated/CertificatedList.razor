@@ -12,11 +12,11 @@
         <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
             <Header>
                 <HrmTableTr>
-                    <HrmTableTh Text="Tên loại chứng chỉ" Sort="true" 
-                                OnSortClick="@((arg) => OrderColumnClick(m => m.Name, arg))" 
+                    <HrmTableTh Id="Name" SortColumnId="@currentSortColumn" Text="Tên loại chứng chỉ" Sort="true" 
+                                OnSortClick="@((arg) => OrderColumnClick(m => m.Name, arg, "Name"))" 
                                 style="min-width: 200px;" />
-                    <HrmTableTh Text="Thứ tự" Sort="true" 
-                                OnSortClick="@((arg) => OrderColumnClick(m => m.Precedence, arg))"
+                    <HrmTableTh Id="Precedence" SortColumnId="@currentSortColumn" Text="Thứ tự" Sort="true" 
+                                OnSortClick="@((arg) => OrderColumnClick(m => m.Precedence, arg, "Precedence"))"
                                 style="width: 90px" TextAlign="@Constant.Enums.TextAlign.Right" />
                     <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
                     <HrmTableTh Text="" Sort="false" style="width: 100px;" />
@@ -39,9 +39,11 @@
                     }
                     else
                     {
+                        int count = 0;
                         foreach (var item in listData)
                         {
-                            <HrmTableTr>
+                            count++;
+                            <HrmTableTr class="@(count % 2 == 0 ? "odd" : "even")">
                                 <HrmTableTd>
                                     @item.Name
                                 </HrmTableTd>
@@ -85,6 +87,7 @@
     private List<CertificatedGridModel> listData = new List<CertificatedGridModel>();
     private long totalItems = 0;
     private int tableCounter = 0;
+    private string currentSortColumn = string.Empty;
 
     private CertificatedGridParameterModel parameterModel = new CertificatedGridParameterModel();
 
@@ -141,6 +144,7 @@
     private async Task LoadGridData()
     {
         tableLoading = true;
+        currentSortColumn = string.Empty;
         var result = await certificatedService.GridAsync(parameterModel);
         if (result.Succeeded)
         {
@@ -151,9 +155,10 @@
         tableLoading = false;
     }
 
-    private void OrderColumnClick(Expression<Func<CertificatedGridModel, dynamic>> expression, TableSort sort)
+    private void OrderColumnClick(Expression<Func<CertificatedGridModel, dynamic>> expression, TableSort sort, string sortColumnId)
     {
         listData = listData.ColumnSort(expression, sort);
+        currentSortColumn = sortColumnId;
     }
 
 }
