@@ -15,7 +15,7 @@ namespace HRM.Database.System
 
             builder.Property(m => m.UserName).HasMaxLength(50).IsRequired();
 
-            builder.Property(m => m.Password).HasMaxLength(50).IsRequired();
+            builder.Property(m => m.Password).HasMaxLength(1000).IsRequired();
 
             builder.Property(m => m.Salt).HasMaxLength(50).IsRequired();
 
