@@ -22,17 +22,17 @@ namespace HRM.Database.HR
 
             builder.Property(m => m.StartWorkingDate);
 
-            builder.Property(m => m.BadgeCardNumber).HasMaxLength(10).IsRequired();
+            builder.Property(m => m.BadgeCardNumber).HasMaxLength(10);
 
             builder.Property(m => m.DateApplyBadge);
 
-            builder.Property(m => m.FingerSignNumber).HasMaxLength(10).IsRequired();
+            builder.Property(m => m.FingerSignNumber).HasMaxLength(10);
 
             builder.Property(m => m.DateApplyFingerSign);
 
-            builder.Property(m => m.WorkingEmail).HasMaxLength(50).IsRequired();
+            builder.Property(m => m.WorkingEmail).HasMaxLength(50);
 
-            builder.Property(m => m.WorkingPhone).HasMaxLength(20).IsRequired();
+            builder.Property(m => m.WorkingPhone).HasMaxLength(20);
 
             builder.Property(m => m.EmployeeWorkingStatusId);
             builder.HasOne(m => m.EmployeeWorkingStatus)
@@ -55,7 +55,7 @@ namespace HRM.Database.HR
                    .HasConstraintName("FK_Employee_CurrentDepartmentId")
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(m => m.BasicSalary).IsRequired();
+            builder.Property(m => m.BasicSalary);
 
             builder.Property(m => m.IsActive).IsRequired();
 

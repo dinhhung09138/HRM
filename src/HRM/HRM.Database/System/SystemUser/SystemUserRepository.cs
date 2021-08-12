@@ -14,6 +14,11 @@ namespace HRM.Database.System
     {
         public SystemUserRepository(Context context) : base(context) { }
 
+        public async Task<SystemUser> GetByUserNameAsync(string userName)
+        {
+            return await Queryable.FirstOrDefaultAsync(m => m.UserName == userName && m.IsActive && !m.Deleted);
+        }
+
         //public async Task<SystemUserModel> FindByIdAsync(long id)
         //{
         //    return await Queryable.Where(m => m.Id == id && m.Deleted == false).Select(SystemUserExpression.FindByIdAsync).FirstOrDefaultAsync();

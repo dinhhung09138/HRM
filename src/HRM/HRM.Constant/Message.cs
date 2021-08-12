@@ -8,6 +8,7 @@ namespace HRM.Constant
 {
     public static class Message
     {
+        public static readonly string INVALID_LOGIN = "Tên đăng nhập hoặc mật khẩu không đúng";
         public static readonly string WARNING_ITEM_NOT_FOUND = "Không tìm thấy thông tin đang xử lý";
 
         public static class ToastMessage

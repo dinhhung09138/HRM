@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DotNetCore.Domain;
+using HRM.Domain.System;
 
 namespace HRM.Domain.HR
 {
@@ -103,6 +104,8 @@ namespace HRM.Domain.HR
 
         [Required]
         public byte[] RowVersion { get; set; }
+
+        public virtual SystemUser SystemUser { get; set; }
 
         public virtual List<EmployeeBank> EmployeeBanks { get; set; }
 

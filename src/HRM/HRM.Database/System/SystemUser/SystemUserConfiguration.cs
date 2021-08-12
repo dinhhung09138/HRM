@@ -17,6 +17,14 @@ namespace HRM.Database.System
 
             builder.Property(m => m.Password).HasMaxLength(50).IsRequired();
 
+            builder.Property(m => m.Salt).HasMaxLength(50).IsRequired();
+
+            builder.Property(m => m.EmployeeId).IsRequired();
+            builder.HasOne(m => m.Employee).WithOne(e => e.SystemUser)
+                .HasForeignKey<SystemUser>(m => m.EmployeeId)
+                .HasConstraintName("FK_SystemUser_EmployeeId")
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(m => m.IsActive).IsRequired();
 
             builder.Property(m => m.CreateBy).IsRequired();

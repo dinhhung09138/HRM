@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DotNetCore.Domain;
+using HRM.Domain.HR;
 
 namespace HRM.Domain.System
 {
@@ -9,8 +10,10 @@ namespace HRM.Domain.System
     {
         public SystemUser(
             long id,
+            long employeeId,
             string userName,
             string password,
+            string salt,
             bool isActive,
             long createBy,
             DateTime createDate,
@@ -18,8 +21,10 @@ namespace HRM.Domain.System
             DateTime? updateDate)
         {
             Id = id;
+            EmployeeId = employeeId;
             UserName = userName;
             Password = password;
+            Salt = salt;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
@@ -28,13 +33,21 @@ namespace HRM.Domain.System
             UpdateDate = updateDate;
         }
 
+        public long EmployeeId { get; set; }
+
+        public Employee Employee { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string UserName { get; set; }
 
         [Required]
-        [MaxLength(500)]
+        [MaxLength(1000)]
         public string Password { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Salt { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

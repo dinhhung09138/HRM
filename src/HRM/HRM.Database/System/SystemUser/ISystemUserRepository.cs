@@ -10,6 +10,8 @@ namespace HRM.Database.System
 {
     public interface ISystemUserRepository : IRepository<SystemUser>
     {
+        Task<SystemUser> GetByUserNameAsync(string userName);
+
         //Task<SystemUserModel> FindByIdAsync(long id);
 
         //Task<Grid<SystemUserGridModel>> GridAsync(SystemUserGridParameterModel paramters);
