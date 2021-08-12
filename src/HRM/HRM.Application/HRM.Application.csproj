@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetCore.Security" Version="15.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HRM.Constant\HRM.Constant.csproj" />
     <ProjectReference Include="..\HRM.Database\HRM.Database.csproj" />
     <ProjectReference Include="..\HRM.Domain\HRM.Domain.csproj" />

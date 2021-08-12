@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetCore.Objects" Version="15.5.0" />
-    <PackageReference Include="DotNetCore.Validation" Version="15.5.0" />
+    <PackageReference Include="DotNetCore.Objects" Version="15.10.0" />
+    <PackageReference Include="DotNetCore.Validation" Version="15.10.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
   </ItemGroup>
