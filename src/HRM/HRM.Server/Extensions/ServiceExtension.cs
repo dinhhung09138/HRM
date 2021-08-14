@@ -15,6 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
+using Blazored.SessionStorage;
 
 namespace HRM.Server.Extensions
 {
@@ -25,7 +27,6 @@ namespace HRM.Server.Extensions
         {
             var connectionString = services.GetConnectionString(nameof(Context));
             services.AddContext<Context>(options => options.UseSqlServer(connectionString));
-            //services.AddUnitOfWork<Context>();
             return services;
         }
 
@@ -41,19 +42,24 @@ namespace HRM.Server.Extensions
         {
             services.AddScoped<Database.IUnitOfWork, UnitOfWork>();
             services.AddScoped<IMemoryCaching, MemoryCaching>();
-            //services.AddScoped<IHashService, HashService>();
-            //services.AddScoped<IJsonWebTokenService, JsonWebTokenService>();
+            // Authentication
+            services.AddBlazoredSessionStorage();
+            //services.AddOptions();
+            //services.AddAuthenticationCore();
+            services.AddAuthorizationCore();
+            services.AddScoped<AuthenticationStateProvider, HrmAuthenticationStateProvider>();
 
+            // Message and notification
             services.AddScoped<ToastMessageHelper, ToastMessageHelper>();
 
             services.AddScoped<ICertificatedRepository, CertificatedRepository>();
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();
             services.AddScoped<ICertificatedService, CertificatedService>();
 
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<ISystemUserRepository, SystemUserRepository>();
-            services.AddScoped<ISystemUserRoleRepository, SystemUserRoleRepository>();
-            services.AddScoped<ISystemFunctionRepository, SystemFunctionRepository>();
+            //services.AddScoped<IAuthenticationService, AuthenticationService>();
+            //services.AddScoped<ISystemUserRepository, SystemUserRepository>();
+            //services.AddScoped<ISystemUserRoleRepository, SystemUserRoleRepository>();
+            //services.AddScoped<ISystemFunctionRepository, SystemFunctionRepository>();
 
             return services;
         }

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HRM.Server.Extensions;
+using Blazored.SessionStorage;
 
 namespace HRM.Server
 {
@@ -55,6 +56,9 @@ namespace HRM.Server
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

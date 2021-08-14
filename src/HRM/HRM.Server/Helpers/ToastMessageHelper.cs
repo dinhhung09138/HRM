@@ -24,6 +24,24 @@ namespace HRM.Server.Helpers
         private readonly string successType = "success";
         private readonly string errorType = "error";
 
+        public async Task Success(string message)
+        {
+            await _jsRuntime.InvokeVoidAsync("showToastMessage",
+                                            ToastMessageType.TitleSuccess.GetToastMessage(),
+                                            message,
+                                            successType,
+                                            successTime);
+        }
+
+        public async Task Error(string message)
+        {
+            await _jsRuntime.InvokeVoidAsync("showToastMessage",
+                                            ToastMessageType.TitleError.GetToastMessage(),
+                                            message,
+                                            errorType,
+                                            errorTime);
+        }
+
         public async Task CreateSuccess()
         {
             await _jsRuntime.InvokeVoidAsync("showToastMessage", 
