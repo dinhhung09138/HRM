@@ -8,7 +8,7 @@ namespace HRM.Model.System
 {
     public class TokenModel
     {
-        public string Token { get; init; }
+        public string Token { get; set; }
 
         public long EmployeeId { get; set; }
 

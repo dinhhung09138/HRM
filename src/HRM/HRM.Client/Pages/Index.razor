@@ -1,262 +1,284 @@
 ﻿@page "/"
 
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <h1>Hello, world!</h1>
+@inject ToastMessageHelper toastMessageHelper
+@inject IHttpClientService httpClientService 
 
-        Welcome to your new app.
-        <SurveyPrompt Title="How is Blazor working for you?" />
+    <AuthorizeView>
+        <NotAuthorized>
+            <text>You not authorize</text>
+        </NotAuthorized>
+        <Authorized>
+            <text>Authorize @context.User.Identity.Name</text>
+        </Authorized>
+    </AuthorizeView>
 
-        <HRMButtonSave OnClick="Click" IsShow="true" IsSubmit="false" />
-        <HRMButtonSave OnClick="Click" IsShow="true" IsSubmit="true" />
-        <HRMButtonReset OnClick="Click" IsShow="true" />
-        <br />
-        <HRMButtonIconEdit OnClick="Click" />
-        <HRMButtonIconDelete OnClick="Click" />
-        <HRMButtonIconAdd OnClick="Click" />
-        <br />
-        <EditForm Model="model">
-            <InputText @bind-Value="@model" class="form-control" />
-        </EditForm>
-        <br />
-        <HRMPanel Title="Panel title" />
-    </div>
-</div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h1>Hello, world!</h1>
 
-<h1>Alert</h1>
-<div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Normal" Message="Default text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Normal" Message="Info text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Normal" Message="Success text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Normal" Message="Waring text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Normal" Message="Error text" />
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Outlined" Message="Default text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Outlined" Message="Info text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Outlined" Message="Success text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Outlined" Message="Waring text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Outlined" Message="Error text" />
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Filled" Message="Default text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Filled" Message="Info text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Filled" Message="Success text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Filled" Message="Waring text" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Filled" Message="Error text" />
-    </div>
-</div>
-<h4>Disable alert icon with <b>UseIcon</b> property</h4>
-<div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Normal" Message="Default text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Normal" Message="Info text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Normal" Message="Success text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Normal" Message="Waring text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Normal" Message="Error text" UseIcon="false" />
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Outlined" Message="Default text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Outlined" Message="Info text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Outlined" Message="Success text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Outlined" Message="Waring text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Outlined" Message="Error text" UseIcon="false" />
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-12">
-        <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Filled" Message="Default text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Filled" Message="Info text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Filled" Message="Success text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Filled" Message="Waring text" UseIcon="false" />
-        <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Filled" Message="Error text" UseIcon="false" />
-    </div>
-</div>
-<h1>Button</h1>
-<div class="row">
-    <div class="col-12">
+            Welcome to your new app.
+            <SurveyPrompt Title="How is Blazor working for you?" />
 
+            <HRMButtonSave OnClick="Click" IsShow="true" IsSubmit="false" />
+            <HRMButtonSave OnClick="Click" IsShow="true" IsSubmit="true" />
+            <HRMButtonReset OnClick="Click" IsShow="true" />
+            <br />
+            <HRMButtonIconEdit OnClick="Click" />
+            <HRMButtonIconDelete OnClick="Click" />
+            <HRMButtonIconAdd OnClick="Click" />
+            <br />
+            <EditForm Model="model">
+                <InputText @bind-Value="@model" class="form-control" />
+            </EditForm>
+            <br />
+            <HRMPanel Title="Panel title" />
+        </div>
     </div>
-    <div class="col-12">
-        <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" />
-        <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Primary" Size="@Constant.Enums.Size.Medium" Text="Primary" />
-        <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Secondary" Size="@Constant.Enums.Size.Medium" Text="Secondary" />
-        <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" Disable="true" />
-    </div>
-    <div class="col-12">
-        <HrmButton Variant="@Constant.Enums.Variant.Outlined" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" />
-        <HrmButton Variant="@Constant.Enums.Variant.Outlined" Color="@Constant.Enums.Color.Primary" Size="@Constant.Enums.Size.Medium" Text="Primary" />
-        <HrmButton Variant="@Constant.Enums.Variant.Outlined" Color="@Constant.Enums.Color.Secondary" Size="@Constant.Enums.Size.Medium" Text="Secondary" />
-        <HrmButton Variant="@Constant.Enums.Variant.Outlined" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" Disable="true" />
-    </div>
-    <div class="col-12">
-        <HrmButton Variant="@Constant.Enums.Variant.Text" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" />
-        <HrmButton Variant="@Constant.Enums.Variant.Text" Color="@Constant.Enums.Color.Primary" Size="@Constant.Enums.Size.Medium" Text="Primary" />
-        <HrmButton Variant="@Constant.Enums.Variant.Text" Color="@Constant.Enums.Color.Secondary" Size="@Constant.Enums.Size.Medium" Text="Secondary" />
-        <HrmButton Variant="@Constant.Enums.Variant.Text" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" Disable="true" />
-    </div>
-    <div class="col-12">
-        <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Primary" Size="@Constant.Enums.Size.Medium" Text="Primary" FullWidth="true" />
 
+    <h1>Alert</h1>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Normal" Message="Default text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Normal" Message="Info text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Normal" Message="Success text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Normal" Message="Waring text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Normal" Message="Error text" />
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Outlined" Message="Default text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Outlined" Message="Info text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Outlined" Message="Success text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Outlined" Message="Waring text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Outlined" Message="Error text" />
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Filled" Message="Default text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Filled" Message="Info text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Filled" Message="Success text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Filled" Message="Waring text" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Filled" Message="Error text" />
+        </div>
     </div>
-</div>
-<h1>Icon button</h1>
-<div class="row">
-    <div class="col-12">
-        <HrmIconButton Size="@Constant.Enums.Size.Small"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Tertiary" />
-        <HrmIconButton Size="@Constant.Enums.Size.Medium"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Tertiary" />
-        <HrmIconButton Size="@Constant.Enums.Size.Large"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Tertiary" />
+    <h4>Disable alert icon with <b>UseIcon</b> property</h4>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Normal" Message="Default text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Normal" Message="Info text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Normal" Message="Success text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Normal" Message="Waring text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Normal" Message="Error text" UseIcon="false" />
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Outlined" Message="Default text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Outlined" Message="Info text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Outlined" Message="Success text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Outlined" Message="Waring text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Outlined" Message="Error text" UseIcon="false" />
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <HrmAlert Severity="@Constant.Enums.Severity.Normal" Variant="@Constant.Enums.Variant.Filled" Message="Default text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Info" Variant="@Constant.Enums.Variant.Filled" Message="Info text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Success" Variant="@Constant.Enums.Variant.Filled" Message="Success text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Waring" Variant="@Constant.Enums.Variant.Filled" Message="Waring text" UseIcon="false" />
+            <HrmAlert Severity="@Constant.Enums.Severity.Error" Variant="@Constant.Enums.Variant.Filled" Message="Error text" UseIcon="false" />
+        </div>
     </div>
-    <div class="col-12">
-        <HrmIconButton Size="@Constant.Enums.Size.Small"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Default" />
-        <HrmIconButton Size="@Constant.Enums.Size.Medium"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Default" />
-        <HrmIconButton Size="@Constant.Enums.Size.Large"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Default" />
-    </div>
-    <div class="col-12">
-        <HrmIconButton Size="@Constant.Enums.Size.Small"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Dark" />
-        <HrmIconButton Size="@Constant.Enums.Size.Medium"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Dark" />
-        <HrmIconButton Size="@Constant.Enums.Size.Large"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Dark" />
-    </div>
-    <div class="col-12">
-        <HrmIconButton Size="@Constant.Enums.Size.Small"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Error" />
-        <HrmIconButton Size="@Constant.Enums.Size.Medium"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Error" />
-        <HrmIconButton Size="@Constant.Enums.Size.Large"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Error" Disable="true" />
-    </div>
-    <div class="col-12">
-        <HrmIconButton Size="@Constant.Enums.Size.Small"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Primary" />
-        <HrmIconButton Size="@Constant.Enums.Size.Medium"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Primary" />
-        <HrmIconButton Size="@Constant.Enums.Size.Large"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Primary" />
-    </div>
-    <div class="col-12">
-        <HrmIconButton Size="@Constant.Enums.Size.Small"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Secondary" />
-        <HrmIconButton Size="@Constant.Enums.Size.Medium"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Secondary" />
-        <HrmIconButton Size="@Constant.Enums.Size.Large"
-                       Icon="fa fa-pencil"
-                       Color="@Constant.Enums.Color.Secondary" Disable="true" />
-    </div>
-</div>
-<h1>Link</h1>
-<div class="row">
-    <div class="col-12">
-        <HrmLink Text="Default Link" Href="#" Underline="@Constant.Enums.UnderLine.Always" />
-        <HrmLink Text="Default Link" Href="#" Underline="@Constant.Enums.UnderLine.None" />
-        <HrmLink Text="Default Link" Href="#" Underline="@Constant.Enums.UnderLine.Hover" />
-    </div>
-</div>
-<h1>List</h1>
-<div class="row">
-    <div class="col-3">
-        <HrmList>
-            <Child>
-                <HrmListItem Icon="fa fa-pencil" Text="Item 1" Clickable="false" DisableGutter="true" />
-                <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
-                <HrmDivider />
-                <HrmListItem Text="Item 3" />
-                <HrmListItem Text="Item 4" />
-            </Child>
-        </HrmList>
-    </div>
-    <div class="col-3">
-        <HrmList>
-            <Child>
-                <HrmListSubHeader Text="Nested List Items" />
-                <HrmListItem Icon="fa fa-pencil" Text="Item 1" />
-                <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
-                <HrmDivider />
-                <HrmListItem Icon="fa fa-pencil" Text="Item 3">
-                    <NestedList>
-                        <HrmListItem Icon="fa fa-pencil" Text="Item 1" />
-                        <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
-                    </NestedList>
-                </HrmListItem>
-            </Child>
-        </HrmList>
-    </div>
-</div>
-<br />
-<h1>Comming soon</h1>
-<div class="row">
-    <div class="col-12">
-        <HrmCommingSoon />
-    </div>
-</div>
-<h1>Loading</h1>
-<div class="row">
-    <div class="col-12">
-        <HrmLinearLoading />
-    </div>
-    <div class="col-12">
+    <h1>Button</h1>
+    <div class="row">
+        <div class="col-12">
 
+        </div>
+        <div class="col-12">
+            <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" />
+            <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Primary" Size="@Constant.Enums.Size.Medium" Text="Primary" />
+            <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Secondary" Size="@Constant.Enums.Size.Medium" Text="Secondary" />
+            <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" Disable="true" />
+        </div>
+        <div class="col-12">
+            <HrmButton Variant="@Constant.Enums.Variant.Outlined" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" />
+            <HrmButton Variant="@Constant.Enums.Variant.Outlined" Color="@Constant.Enums.Color.Primary" Size="@Constant.Enums.Size.Medium" Text="Primary" />
+            <HrmButton Variant="@Constant.Enums.Variant.Outlined" Color="@Constant.Enums.Color.Secondary" Size="@Constant.Enums.Size.Medium" Text="Secondary" />
+            <HrmButton Variant="@Constant.Enums.Variant.Outlined" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" Disable="true" />
+        </div>
+        <div class="col-12">
+            <HrmButton Variant="@Constant.Enums.Variant.Text" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" />
+            <HrmButton Variant="@Constant.Enums.Variant.Text" Color="@Constant.Enums.Color.Primary" Size="@Constant.Enums.Size.Medium" Text="Primary" />
+            <HrmButton Variant="@Constant.Enums.Variant.Text" Color="@Constant.Enums.Color.Secondary" Size="@Constant.Enums.Size.Medium" Text="Secondary" />
+            <HrmButton Variant="@Constant.Enums.Variant.Text" Color="@Constant.Enums.Color.Default" Size="@Constant.Enums.Size.Medium" Text="Default" Disable="true" />
+        </div>
+        <div class="col-12">
+            <HrmButton Variant="@Constant.Enums.Variant.Filled" Color="@Constant.Enums.Color.Primary" Size="@Constant.Enums.Size.Medium" Text="Primary" FullWidth="true" />
+
+        </div>
     </div>
-    <div class="col-12">
-
+    <h1>Icon button</h1>
+    <div class="row">
+        <div class="col-12">
+            <HrmIconButton Size="@Constant.Enums.Size.Small"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Tertiary" />
+            <HrmIconButton Size="@Constant.Enums.Size.Medium"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Tertiary" />
+            <HrmIconButton Size="@Constant.Enums.Size.Large"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Tertiary" />
+        </div>
+        <div class="col-12">
+            <HrmIconButton Size="@Constant.Enums.Size.Small"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Default" />
+            <HrmIconButton Size="@Constant.Enums.Size.Medium"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Default" />
+            <HrmIconButton Size="@Constant.Enums.Size.Large"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Default" />
+        </div>
+        <div class="col-12">
+            <HrmIconButton Size="@Constant.Enums.Size.Small"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Dark" />
+            <HrmIconButton Size="@Constant.Enums.Size.Medium"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Dark" />
+            <HrmIconButton Size="@Constant.Enums.Size.Large"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Dark" />
+        </div>
+        <div class="col-12">
+            <HrmIconButton Size="@Constant.Enums.Size.Small"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Error" />
+            <HrmIconButton Size="@Constant.Enums.Size.Medium"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Error" />
+            <HrmIconButton Size="@Constant.Enums.Size.Large"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Error" Disable="true" />
+        </div>
+        <div class="col-12">
+            <HrmIconButton Size="@Constant.Enums.Size.Small"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Primary" />
+            <HrmIconButton Size="@Constant.Enums.Size.Medium"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Primary" />
+            <HrmIconButton Size="@Constant.Enums.Size.Large"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Primary" />
+        </div>
+        <div class="col-12">
+            <HrmIconButton Size="@Constant.Enums.Size.Small"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Secondary" />
+            <HrmIconButton Size="@Constant.Enums.Size.Medium"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Secondary" />
+            <HrmIconButton Size="@Constant.Enums.Size.Large"
+                           Icon="fa fa-pencil"
+                           Color="@Constant.Enums.Color.Secondary" Disable="true" />
+        </div>
     </div>
-    <div class="col-12">
-
+    <h1>Link</h1>
+    <div class="row">
+        <div class="col-12">
+            <HrmLink Text="Default Link" Href="#" Underline="@Constant.Enums.UnderLine.Always" />
+            <HrmLink Text="Default Link" Href="#" Underline="@Constant.Enums.UnderLine.None" />
+            <HrmLink Text="Default Link" Href="#" Underline="@Constant.Enums.UnderLine.Hover" />
+        </div>
     </div>
-    <div class="col-12">
-
+    <h1>List</h1>
+    <div class="row">
+        <div class="col-3">
+            <HrmList>
+                <Child>
+                    <HrmListItem Icon="fa fa-pencil" Text="Item 1" Clickable="false" DisableGutter="true" />
+                    <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
+                    <HrmDivider />
+                    <HrmListItem Text="Item 3" />
+                    <HrmListItem Text="Item 4" />
+                </Child>
+            </HrmList>
+        </div>
+        <div class="col-3">
+            <HrmList>
+                <Child>
+                    <HrmListSubHeader Text="Nested List Items" />
+                    <HrmListItem Icon="fa fa-pencil" Text="Item 1" />
+                    <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
+                    <HrmDivider />
+                    <HrmListItem Icon="fa fa-pencil" Text="Item 3">
+                        <NestedList>
+                            <HrmListItem Icon="fa fa-pencil" Text="Item 1" />
+                            <HrmListItem Icon="fa fa-pencil" Text="Item 2" />
+                        </NestedList>
+                    </HrmListItem>
+                </Child>
+            </HrmList>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12">
-
+    <br />
+    <h1>Comming soon</h1>
+    <div class="row">
+        <div class="col-12">
+            <HrmCommingSoon />
+        </div>
     </div>
-    <div class="col-12">
+    <h1>Loading</h1>
+    <div class="row">
+        <div class="col-12">
+            <HrmLinearLoading />
+        </div>
+        <div class="col-12">
 
+        </div>
+        <div class="col-12">
+
+        </div>
+        <div class="col-12">
+
+        </div>
+        <div class="col-12">
+
+        </div>
     </div>
-    <div class="col-12">
+    <div class="row">
+        <div class="col-12">
 
+        </div>
+        <div class="col-12">
+
+        </div>
+        <div class="col-12">
+
+        </div>
+        <div class="col-12">
+
+        </div>
+        <div class="col-12">
+
+        </div>
     </div>
-    <div class="col-12">
+    <br />
 
-    </div>
-    <div class="col-12">
-
-    </div>
-</div>
+    <button @onclick="Click" value="Get data" />
 
 
+    @code {
 
-@code {
+        protected override void OnAfterRender(bool firstRender)
+        {
+            //toastMessageHelper.Success("Message success");
+            base.OnAfterRender(firstRender);
+        }
 
-    string model = "1";
+        string model = "1";
 
-    private void Click()
-    {
-        Console.WriteLine("Click");
+        private async Task Click()
+        {
+            var abc = await httpClientService.GetT<CertificatedGridParameterModel>("certificated/demo");
+            //var abc = await httpClientService.Get<HttpResponseWrapper<CertificatedGridModel>>("https://localhost:44300/api/certificated/demo");
+            Console.WriteLine("Click");
+        }
     }
-}

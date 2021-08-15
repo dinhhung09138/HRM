@@ -31,6 +31,8 @@ namespace HRM.Constant.Extensions
                     return Message.ToastMessage.DELETE_SUCCESS;
                 case ToastMessageType.DeleteError:
                     return Message.ToastMessage.DELETE_ERROR;
+                case ToastMessageType.InternalError:
+                    return Message.ToastMessage.INTERNAL_ERROR;
             }
             return string.Empty;
         }

@@ -18,6 +18,12 @@ namespace HRM.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(option => {
+                option.AddPolicy("CORS", builder =>
+                {
+                    builder.AllowAnyOrigin();
+                });
+            });
             services.AddContext();
 
             services.AddServices();
@@ -40,6 +46,8 @@ namespace HRM.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CORS");
 
             app.UseAuthorization();
 

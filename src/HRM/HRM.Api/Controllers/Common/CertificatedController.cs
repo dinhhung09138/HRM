@@ -19,6 +19,18 @@ namespace HRM.Api.Controllers.Common
             _certificatedService = certificatedService;
         }
 
+        [HttpGet("demo")]
+        public async Task<IActionResult> Demo()
+        {
+            //throw new System.Exception("This is error message");
+            await Task.Delay(1000);
+            CertificatedGridParameterModel model = new CertificatedGridParameterModel();
+            model.TextSearch = "abc";
+            model.Page.Size = 1;
+            model.Page.Index = 10;
+            return Ok(model);
+        }
+
         [HttpPost("grid")]
         public async Task<IActionResult> Grid(CertificatedGridParameterModel model)
         {

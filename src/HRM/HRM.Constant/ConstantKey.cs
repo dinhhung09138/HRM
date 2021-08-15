@@ -9,5 +9,6 @@ namespace HRM.Constant
     public static class ConstantKey
     {
         public static readonly string USER_SESSION_STORAGE_KEY = "user";
+        public static readonly string USER_SESSION_TIMEOUT = "timeout";
     }
 }

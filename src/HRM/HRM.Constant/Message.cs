@@ -22,6 +22,7 @@ namespace HRM.Constant
             public static readonly string UPDATE_ERROR = "Cập nhật dữ liệu thất bại";
             public static readonly string DELETE_SUCCESS = "Dữ liệu đã được xóa";
             public static readonly string DELETE_ERROR = "Lỗi khi xóa dữ liệu";
+            public static readonly string INTERNAL_ERROR = "Lỗi hệ thống";
         }
     }
 }

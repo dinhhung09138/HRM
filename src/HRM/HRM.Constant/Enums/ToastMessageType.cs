@@ -16,6 +16,7 @@ namespace HRM.Constant.Enums
         UpdateSuccess = 6,
         UpdateError = 7,
         DeleteSuccess = 8,
-        DeleteError = 9
+        DeleteError = 9,
+        InternalError = 10
     }
 }
