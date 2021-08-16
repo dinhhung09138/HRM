@@ -7,6 +7,7 @@ using DotNetCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DotNetCore.Objects;
 using System.Linq;
+using HRM.Model;
 
 namespace HRM.Database.Common
 {
@@ -19,7 +20,7 @@ namespace HRM.Database.Common
             return await Queryable.Where(m => m.Id == id && m.Deleted == false).Select(CertificatedExpression.FindByIdAsync).FirstOrDefaultAsync();
         }
 
-        public Task<Grid<CertificatedGridModel>> GridAsync(CertificatedGridParameterModel paramters)
+        public async Task<Model.Grid<CertificatedGridModel>> GridAsync(CertificatedGridParameterModel paramters)
         {
             var query = Queryable.Where(m => m.Deleted == false).AsQueryable();
 
@@ -28,9 +29,15 @@ namespace HRM.Database.Common
                 query = query.Where(m => m.Name.ToLower().Contains(paramters.TextSearch));
             }
 
-            var grid = query.Select(CertificatedExpression.GridAsync).GridAsync(paramters);
+            var grid = await query.Select(CertificatedExpression.GridAsync).GridAsync(paramters);
 
-            return grid;
+            var result = new Model.Grid<CertificatedGridModel>();
+
+            result.Count = grid.Count;
+            result.List = grid.List;
+            result.Parameters = grid.Parameters;
+
+            return result;
         }
 
         public async Task<bool> SaveAsync(Certificated model, bool isCreate)

@@ -23,6 +23,7 @@ namespace HRM.Constant
             public static readonly string DELETE_SUCCESS = "Dữ liệu đã được xóa";
             public static readonly string DELETE_ERROR = "Lỗi khi xóa dữ liệu";
             public static readonly string INTERNAL_ERROR = "Lỗi hệ thống";
+            public static readonly string API_METHOD_NOT_ALLOW = "Không thể kết nối tới api";
         }
     }
 }

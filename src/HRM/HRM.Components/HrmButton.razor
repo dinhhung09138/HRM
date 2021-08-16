@@ -2,8 +2,8 @@
 
 @if (!string.IsNullOrEmpty(cssClass))
 {
-    <button type="@Type" 
-            class="hrm-button hrm-button-root @cssClass hrm-ripple" 
+    <button type="@Type"
+            class="hrm-button hrm-button-root @cssClass hrm-ripple"
             disabled="@Disable"
             @onclick="@(() => OnClick.InvokeAsync())">
         <span class="hrm-button-label">@Text</span>
@@ -44,6 +44,7 @@
     protected override void OnParametersSet()
     {
         cssClass = $"{Variant.GetVariantClass()} {Variant.GetVariantClass()}-{Color.GetColorClass()} {Variant.GetVariantClass()}-size-{Size.GetSizeClass()} {FullWidth.GetFullWidthClass()}";
+
     }
 
 }

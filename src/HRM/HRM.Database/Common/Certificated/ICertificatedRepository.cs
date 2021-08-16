@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using HRM.Model.Common;
 using HRM.Domain.Common;
 using DotNetCore.Repositories;
-using DotNetCore.Objects;
+using HRM.Model;
 
 namespace HRM.Database.Common
 {

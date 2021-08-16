@@ -19,41 +19,37 @@ namespace HRM.Api.Controllers.Common
             _certificatedService = certificatedService;
         }
 
-        [HttpGet("demo")]
-        public async Task<IActionResult> Demo()
-        {
-            //throw new System.Exception("This is error message");
-            await Task.Delay(1000);
-            CertificatedGridParameterModel model = new CertificatedGridParameterModel();
-            model.TextSearch = "abc";
-            model.Page.Size = 1;
-            model.Page.Index = 10;
-            return Ok(model);
-        }
-
         [HttpPost("grid")]
-        public async Task<IActionResult> Grid(CertificatedGridParameterModel model)
+        public async Task<IActionResult> Grid([FromBody] CertificatedGridParameterModel model)
         {
             return Ok(await _certificatedService.GridAsync(model));
         }
 
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateAsync(CertificatedModel model)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Item(long id)
+        {
+            return Ok(await _certificatedService.FindByIdAsync(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync([FromBody] CertificatedModel model)
         {
             model.CreateBy = base.EmployeeId;
             return Ok(await _certificatedService.SaveAsync(model, true));
         }
 
-        [HttpPost("update")]
-        public async Task<IActionResult> UpdateAsync(CertificatedModel model)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(long id, CertificatedModel model)
         {
             model.UpdateBy = base.EmployeeId;
             return Ok(await _certificatedService.SaveAsync(model, false));
         }
 
-        [HttpPost("delete")]
-        public async Task<IActionResult> DeleteAsync(CertificatedModel model)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(long id)
         {
+            CertificatedModel model = new CertificatedModel();
+            model.Id = id;
             model.UpdateBy = base.EmployeeId;
             return Ok(await _certificatedService.DeleteAsync(model));
         }

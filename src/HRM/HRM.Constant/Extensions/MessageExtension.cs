@@ -33,6 +33,8 @@ namespace HRM.Constant.Extensions
                     return Message.ToastMessage.DELETE_ERROR;
                 case ToastMessageType.InternalError:
                     return Message.ToastMessage.INTERNAL_ERROR;
+                case ToastMessageType.MethodNotAllow:
+                    return Message.ToastMessage.API_METHOD_NOT_ALLOW;
             }
             return string.Empty;
         }

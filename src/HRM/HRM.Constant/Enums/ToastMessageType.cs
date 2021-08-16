@@ -17,6 +17,7 @@ namespace HRM.Constant.Enums
         UpdateError = 7,
         DeleteSuccess = 8,
         DeleteError = 9,
-        InternalError = 10
+        InternalError = 10,
+        MethodNotAllow = 11
     }
 }

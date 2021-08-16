@@ -21,7 +21,9 @@ namespace HRM.Api
             services.AddCors(option => {
                 option.AddPolicy("CORS", builder =>
                 {
-                    builder.AllowAnyOrigin();
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
                 });
             });
             services.AddContext();

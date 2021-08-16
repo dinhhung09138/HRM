@@ -3,11 +3,11 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using HRM.Database.Common;
+using HRM.Model;
 using HRM.Model.Common;
 using HRM.Database;
 using System.Threading.Tasks;
 using DotNetCore.Results;
-using DotNetCore.Objects;
 using HRM.Infrastructure.Extension;
 using HRM.Infrastructure.Services;
 

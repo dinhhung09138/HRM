@@ -1,0 +1,171 @@
+﻿@page "/hr/certificated"
+
+@inject ToastMessageHelper toastMessageHelper
+@inject NavigationManager navigationManager
+@inject IHttpClientService httpClientService
+
+<HRMPanel Title="Danh sách chứng chỉ">
+    <ButtonGroup>
+        <HrmButton Color="@Constant.Enums.Color.Primary" Text="Thêm mới" OnClick="AddNew" />
+    </ButtonGroup>
+    <PanelContent>
+        <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
+            <Header>
+                <HrmTableTr>
+                    <HrmTableTh Id="Name" SortColumnId="@currentSortColumn" Text="Tên loại chứng chỉ" Sort="true"
+                                OnSortClick="@((arg) => OrderColumnClick(m => m.Name, arg, "Name"))"
+                                style="min-width: 200px;" />
+                    <HrmTableTh Id="Precedence" SortColumnId="@currentSortColumn" Text="Thứ tự" Sort="true"
+                                OnSortClick="@((arg) => OrderColumnClick(m => m.Precedence, arg, "Precedence"))"
+                                style="width: 120px" TextAlign="@Constant.Enums.TextAlign.Right" />
+                    <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
+                    <HrmTableTh Text="" Sort="false" style="width: 100px;" />
+                </HrmTableTr>
+            </Header>
+            <Body>
+                @if (tableLoading == true)
+                {
+                    <HrmTableTr>
+                        <HrmTableTd Col="4">
+                            <HrmLinearLoading />
+                        </HrmTableTd>
+                    </HrmTableTr>
+                }
+                else
+                {
+                    if (totalItems == 0)
+                    {
+                        <HrmTableNoData Column="4" />
+                    }
+                    else
+                    {
+                        int count = 0;
+                        foreach (var item in listData)
+                        {
+                            count++;
+                            <HrmTableTr class="@(count % 2 == 0 ? "odd" : "even")">
+                                <HrmTableTd>
+                                    @item.Name
+                                </HrmTableTd>
+                                <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Right">
+                                    @item.Precedence
+                                </HrmTableTd>
+                                <HrmTableTd>
+                                    <HrmSwitch Checked="@item.IsActive" Disabled="true" />
+                                </HrmTableTd>
+                                <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
+                                    <HrmButtonGroup Text="Chọn">
+                                        <ActionItems>
+                                            <HrmButtonGroupItem Text="Cập nhật" Data="item" T="CertificatedGridModel" OnClick="@UpdateClick" />
+                                            <HrmDivider />
+                                            <HrmButtonGroupItem text="Xóa" T="CertificatedGridModel" Data="item" OnClick="@DeleteClick" />
+                                        </ActionItems>
+                                    </HrmButtonGroup>
+                                </HrmTableTd>
+                            </HrmTableTr>
+                        }
+                    }
+                }
+            </Body>
+        </HrmTable>
+    </PanelContent>
+</HRMPanel>
+
+<HrmConfirmDialog Title="Xác nhận" @ref="deleteDialog" T="CertificatedGridModel" Data="deletedItem" AgreeeClick="@AgreeDeleteClick">
+    <Body>
+        <p>Bạn có muốn xóa dữ liệu đang chọn?</p>
+    </Body>
+    <Buttons>
+        <p></p>
+    </Buttons>
+</HrmConfirmDialog>
+
+@code {
+
+    private bool tableLoading = true;
+
+    private List<CertificatedGridModel> listData = new List<CertificatedGridModel>();
+    private long totalItems = 0;
+    private int tableCounter = 0;
+    private string currentSortColumn = string.Empty;
+
+    private CertificatedGridParameterModel parameterModel = new CertificatedGridParameterModel();
+
+    private HrmConfirmDialog<CertificatedGridModel> deleteDialog = new HrmConfirmDialog<CertificatedGridModel>();
+    private CertificatedGridModel deletedItem = new CertificatedGridModel();
+
+    protected async override Task OnInitializedAsync()
+    {
+        await LoadGridData();
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        //await LoadGridData();
+    }
+
+    private async Task PageChange(Page page)
+    {
+        parameterModel.Page = page;
+        await LoadGridData();
+    }
+
+    private void AddNew()
+    {
+        navigationManager.NavigateTo("hr/certificated/create");
+    }
+
+    private void UpdateClick(CertificatedGridModel item)
+    {
+        navigationManager.NavigateTo($"hr/certificated/update/{item.Id}");
+    }
+
+    private void DeleteClick(CertificatedGridModel item)
+    {
+        deletedItem = item;
+        deleteDialog.Open();
+    }
+
+    private async Task AgreeDeleteClick(CertificatedGridModel item)
+    {
+        deleteDialog.Close();
+        CertificatedModel model = new CertificatedModel()
+        {
+            Id = item.Id,
+            UpdateBy = 1
+        };
+        var result = await httpClientService.Delete<CertificatedModel, HttpActionResponseWrapper>($"certificated/{model.Id}");
+        if (result.Succeeded)
+        {
+            await toastMessageHelper.DeleteSuccess();
+            await LoadGridData();
+        }
+        else
+        {
+            await toastMessageHelper.DeleteError();
+        }
+    }
+
+    private async Task LoadGridData()
+    {
+        tableLoading = true;
+        currentSortColumn = string.Empty;
+
+        var result = await httpClientService.Post<CertificatedGridParameterModel, HttpDataResponseWrapper<Model.Grid<CertificatedGridModel>>>("certificated/grid", parameterModel);
+        if (result != null)
+        {
+            listData = result.Data.List?.ToList() ?? new List<CertificatedGridModel>();
+            totalItems = result.Data.Count;
+            tableCounter = ((parameterModel.Page.Index - 1) * parameterModel.Page.Size);
+        }
+        tableLoading = false;
+        StateHasChanged();
+    }
+
+    private void OrderColumnClick(Expression<Func<CertificatedGridModel, dynamic>> expression, TableSort sort, string sortColumnId)
+    {
+        listData = listData.ColumnSort(expression, sort);
+        currentSortColumn = sortColumnId;
+    }
+
+}

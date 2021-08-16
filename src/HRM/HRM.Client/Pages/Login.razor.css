@@ -1,0 +1,36 @@
+﻿html, body {
+    min-height: 100%;
+}
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: #374767;
+    background-color: #f1f3f6;
+    font-family: open sans,helvetica neue,Helvetica,Arial,sans-serif;
+}
+.view-header {
+    margin: 10px 15px;
+}
+    .view-header .header-icon {
+        font-size: 60px;
+        color: #37a000;
+        width: 68px;
+        float: left;
+        margin-top: -8px;
+        line-height: 0;
+    }
+    .view-header .header-title {
+        margin-left: 68px;
+    }
+.container-center {
+    max-width: 400px;
+    margin: 10% auto 0;
+    padding: 20px;
+}
+.panel-bd {
+    -webkit-box-shadow: 0 1px 15px 1px rgb(113 106 202 / 8%);
+    -moz-box-shadow: 0 1px 15px 1px rgba(113,106,202,.08);
+    box-shadow: 0 1px 15px 1px rgb(113 106 202 / 8%);
+    border-radius: 0;
+    border: 1px solid #e1e6ef;
+}

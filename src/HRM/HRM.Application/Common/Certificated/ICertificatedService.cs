@@ -1,8 +1,8 @@
 ﻿using System;
+using HRM.Model;
 using HRM.Model.Common;
 using System.Threading.Tasks;
 using DotNetCore.Results;
-using DotNetCore.Objects;
 
 namespace HRM.Application.Common
 {

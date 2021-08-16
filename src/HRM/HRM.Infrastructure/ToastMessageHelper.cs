@@ -100,6 +100,10 @@ namespace HRM.Infrastructure
                 case HttpStatusCode.InternalServerError:
                     message = ToastMessageType.InternalError.GetToastMessage();
                     break;
+                case HttpStatusCode.BadRequest:
+                case HttpStatusCode.MethodNotAllowed:
+                    message = ToastMessageType.MethodNotAllow.GetToastMessage();
+                    break;
                 default:
                     message = string.Empty;
                     break;

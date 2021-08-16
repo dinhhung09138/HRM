@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\libs\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HRM.Components\HRM.Components.csproj" />
     <ProjectReference Include="..\HRM.Infrastructure\HRM.Infrastructure.csproj" />
   </ItemGroup>

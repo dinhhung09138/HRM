@@ -17,7 +17,6 @@
             <h1>Hello, world!</h1>
 
             Welcome to your new app.
-            <SurveyPrompt Title="How is Blazor working for you?" />
 
             <HRMButtonSave OnClick="Click" IsShow="true" IsSubmit="false" />
             <HRMButtonSave OnClick="Click" IsShow="true" IsSubmit="true" />
@@ -277,7 +276,7 @@
 
         private async Task Click()
         {
-            var abc = await httpClientService.GetT<CertificatedGridParameterModel>("certificated/demo");
+            var abc = await httpClientService.Get<CertificatedGridParameterModel, CertificatedGridParameterModel>("certificated/demo?id=1");
             //var abc = await httpClientService.Get<HttpResponseWrapper<CertificatedGridModel>>("https://localhost:44300/api/certificated/demo");
             Console.WriteLine("Click");
         }

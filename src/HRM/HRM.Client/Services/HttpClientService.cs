@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Text.Json;
+//using System.Text.Json;
 using HRM.Model;
 using HRM.Client.Models;
-using Newtonsoft.Json;
 using HRM.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace HRM.Client.Services
 {
@@ -18,35 +19,37 @@ namespace HRM.Client.Services
 
         private readonly IConfiguration _config;
         private readonly HttpClient _httpClient;
-        //private readonly Task<Setting> _settingTask;
 
-        private readonly JsonSerializerOptions _defaultJsonOption;
+        private readonly JsonSerializerSettings _defaultJsonOption;
         private readonly ToastMessageHelper _toastMessageHelper;
 
         public HttpClientService(
             IConfiguration config,
             HttpClient httpClient,
-            //Task<Setting> settingTask,
             ToastMessageHelper toastMessageHelper)
         {
             _config = config;
             _httpClient = httpClient;
-            //_settingTask = settingTask;
             _toastMessageHelper = toastMessageHelper;
-            _defaultJsonOption = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+            _defaultJsonOption = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+                TypeNameHandling = TypeNameHandling.All,
+                StringEscapeHandling = StringEscapeHandling.Default,
+            };
 
             _baseApiUrl = _config.GetSection("AppSettings")["ApiUrl"];
 
         }
 
-        public async Task<T> GetT<T>(string url)
+        public async Task<T> Get<T>(string url)
         {
             var httpResponse = await _httpClient.GetAsync($"{_baseApiUrl}{url}");
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                var response = await Deserialize<T>(httpResponse, _defaultJsonOption);
-                return response;
+                return await Deserialize<T>(httpResponse, _defaultJsonOption);
             }
             else
             {
@@ -55,61 +58,80 @@ namespace HRM.Client.Services
             return default;
         }
 
-        public async Task<HttpResponseWrapper<T>> Get<T>(string url)
+        public async Task<TResponse> Get<T, TResponse>(string url)
         {
-            var httpResponse = await _httpClient.GetAsync(url);
+            var httpResponse = await _httpClient.GetAsync($"{_baseApiUrl}{url}");
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                var content = await httpResponse.Content.ReadAsStringAsync();
-
-                var products = JsonConvert.DeserializeObject<T>(content);
-
-
-                var responseStream = await httpResponse.Content.ReadAsStringAsync();
-
-                var result1 = System.Text.Json.JsonSerializer.Deserialize<T>(responseStream, _defaultJsonOption);
-
-                var data = await Deserialize<T>(httpResponse, _defaultJsonOption);
-                var response = new HttpResponseWrapper<T>(data, true, httpResponse);
-                return response;
+                return await Deserialize<TResponse>(httpResponse, _defaultJsonOption);
             }
-            return new HttpResponseWrapper<T>(default, false, httpResponse);
-        }
-
-        public Task<HttpResponseWrapper<object>> Post<T>(string url, T data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<HttpResponseWrapper<object>> Delete(string url)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<HttpResponseWrapper<TResponse>> Post<T, TResponse>(string url, T data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<HttpResponseWrapper<object>> Put<T>(string url, T data)
-        {
-            throw new NotImplementedException();
-        }
-
-        private async Task<T> Deserialize<T>(HttpResponseMessage httpResponse, JsonSerializerOptions options)
-        {
-            try
+            else
             {
-                var responseString = await httpResponse.Content.ReadAsStringAsync();
-                var result = System.Text.Json.JsonSerializer.Deserialize<T>(responseString, options);
-                return result;
-            }
-            catch (Exception ex)
-            {
-
+                await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
             }
             return default;
         }
+
+        public async Task<TResponse> Post<T, TResponse>(string url, T model)
+        {
+            var dataJson = JsonConvert.SerializeObject(model);
+
+            var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
+
+            var httpResponse = await _httpClient.PostAsync($"{_baseApiUrl}{url}", stringContent);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                return await Deserialize<TResponse>(httpResponse, _defaultJsonOption);
+            }
+            else
+            {
+                await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
+            }
+            return default;
+        }
+
+        public async Task<TResponse> Put<T, TResponse>(string url, T model)
+        {
+            var dataJson = JsonConvert.SerializeObject(model);
+
+            var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
+
+            var httpResponse = await _httpClient.PutAsync($"{_baseApiUrl}{url}", stringContent);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                return await Deserialize<TResponse>(httpResponse, _defaultJsonOption);
+            }
+            else
+            {
+                await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
+            }
+            return default;
+        }
+
+        public async Task<TResponse> Delete<T, TResponse>(string url)
+        {
+            var httpResponse = await _httpClient.DeleteAsync($"{_baseApiUrl}{url}");
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                return await Deserialize<TResponse>(httpResponse, _defaultJsonOption);
+            }
+            else
+            {
+                await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
+            }
+            return default;
+        }
+
+        private async Task<T> Deserialize<T>(HttpResponseMessage httpResponse, JsonSerializerSettings options)
+        {
+            var responseString = await httpResponse.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<T>(responseString);
+            return response;
+        }
+
     }
 }

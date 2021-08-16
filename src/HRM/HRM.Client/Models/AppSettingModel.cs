@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HRM.Client.Models
 {
-    public class Setting
+    public class AppSettingModel
     {
         public string Cors { get; set; }
         public AppSettings AppSettings { get; set; }
