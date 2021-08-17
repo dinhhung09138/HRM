@@ -851,6 +851,7 @@ a:focus {
 
 .panel-button-place {
     text-align: right;
+    padding-right: 35px;
 }
 
 .panel-bd > .panel-heading {

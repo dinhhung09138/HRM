@@ -99,11 +99,6 @@
         await LoadGridData();
     }
 
-    protected async override Task OnAfterRenderAsync(bool firstRender)
-    {
-        //await LoadGridData();
-    }
-
     private async Task PageChange(Page page)
     {
         parameterModel.Page = page;

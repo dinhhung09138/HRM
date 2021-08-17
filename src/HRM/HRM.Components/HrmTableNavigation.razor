@@ -1,5 +1,4 @@
-﻿
-<style>
+﻿<style>
     .page-item {
         margin-left: 2px;
         margin-right: 2px;
@@ -10,11 +9,11 @@
         @if (TotalItems > 0)
         {
             long display = TotalItems;
-            if (Page.Size < TotalItems)
+            if (Page.Size * Page.Index < TotalItems)
             {
                 display = Page.Size;
             }
-            <p>Hiển thị @display / @TotalItems</p>
+            <p>Hiển thị (@((Page.Index - 1) * Page.Size + 1)-@display)/@TotalItems</p>
         }
 
     </div>
@@ -109,15 +108,13 @@
     private bool isDisablePrev = true;
     private bool isDisableNext = true;
 
-    protected override void OnInitialized()
+    protected async override Task OnParametersSetAsync()
     {
         isPageSizeChangeWhenSelect = false;
         pageSelected = Page.Index;
         sizeSelected = Page.Size;
 
         CalculateNavigation();
-
-        base.OnInitialized();
     }
 
     private async Task PageIndexSelected(int pageIndex)
