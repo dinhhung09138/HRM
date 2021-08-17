@@ -11,7 +11,7 @@
         {
             <HrmLoadingContainer />
         }
-        <EditForm OnValidSubmit="OnValidSubmit" EditContext="@editContext">
+        <EditForm EditContext="@editContext">
             <DataAnnotationsValidator />
             <div class="row">
                 <div class="col-md-4 col-sm-12 col-xs-12">
@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
-                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@(() => default)" />
+                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@OnValidSubmit" />
                     <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" />
                 </div>
             </div>
