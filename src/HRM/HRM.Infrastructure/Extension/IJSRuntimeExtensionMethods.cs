@@ -18,5 +18,8 @@ namespace HRM.Infrastructure.Extension
 
         public static ValueTask<T> RemoveItem<T>(this IJSRuntime js, string key)
             => js.InvokeAsync<T>("localStorage.removeItem", key);
+
+        public static ValueTask<T> WriteLog<T>(this IJSRuntime js, string key)
+            => js.InvokeAsync<T>("console.log", key);
     }
 }
