@@ -22,29 +22,41 @@ namespace HRM.Client.Auth
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            try
-            {
-                //TokenModel userInfo = new TokenModel("abc", 1);
-                var userInfo = await _localStorageService.GetItemAsync<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY);
 
-                if (userInfo != null)
-                {
-                    var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, userInfo.EmployeeId.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, userInfo.EmployeeId.ToString()),
-                    new Claim(ClaimTypes.Email, userInfo.EmployeeId.ToString())
+            var identity = new ClaimsIdentity(new[] {
+                    new Claim(ClaimTypes.Name, "1"),
+                    new Claim(ClaimTypes.NameIdentifier, "hung"),
+                    new Claim(ClaimTypes.Email, "abc@gmail.com"),
+                    new Claim(ClaimTypes.Role, "Admin"),
+                    new Claim(ClaimTypes.Role, "Account")
                 }, "apiauth_type");
 
-                    var user = new ClaimsPrincipal(identity);
+            var user = new ClaimsPrincipal(identity);
 
-                    return await Task.FromResult(new AuthenticationState(user));
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            var anonymous = new ClaimsIdentity();
-            return new AuthenticationState(new ClaimsPrincipal(anonymous));
+            return await Task.FromResult(new AuthenticationState(user));
+            //try
+            //{
+            //    //TokenModel userInfo = new TokenModel("abc", 1);
+            //    var userInfo = await _localStorageService.GetItemAsync<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY);
+
+            //    if (userInfo != null)
+            //    {
+            //        var identity = new ClaimsIdentity(new[] {
+            //        new Claim(ClaimTypes.Name, userInfo.EmployeeId.ToString()),
+            //        new Claim(ClaimTypes.NameIdentifier, userInfo.EmployeeId.ToString()),
+            //        new Claim(ClaimTypes.Email, userInfo.EmployeeId.ToString())
+            //    }, "apiauth_type");
+
+            //        var user = new ClaimsPrincipal(identity);
+
+            //        return await Task.FromResult(new AuthenticationState(user));
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //}
+            //var anonymous = new ClaimsIdentity();
+            //return new AuthenticationState(new ClaimsPrincipal(anonymous));
         }
 
         public void NotifyAuthenticationStateChanged()

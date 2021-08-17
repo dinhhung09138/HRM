@@ -3,7 +3,7 @@
 @inject ToastMessageHelper toastMessageHelper
 @inject IHttpClientService httpClientService 
 
-    <AuthorizeView>
+    <AuthorizeView Roles="Admin">
         <NotAuthorized>
             <text>You not authorize</text>
         </NotAuthorized>
