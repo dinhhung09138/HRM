@@ -17,6 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blazored.SessionStorage;
+using Microsoft.Extensions.Configuration;
 
 namespace HRM.Server.Extensions
 {
@@ -30,10 +31,10 @@ namespace HRM.Server.Extensions
             return services;
         }
 
-        public static IServiceCollection UseSecurity(this IServiceCollection services)
+        public static IServiceCollection UseSecurity(this IServiceCollection services, IConfiguration config)
         {
             services.AddHashService();
-            services.AddJsonWebTokenService(SecretKey, TimeSpan.FromHours(12));
+            services.AddJsonWebTokenService(config["AppSettings:SecretKey"], TimeSpan.FromHours(12));
             services.AddAuthenticationJwtBearer();
             return services;
         }

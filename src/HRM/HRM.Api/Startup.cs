@@ -1,3 +1,4 @@
+using HRM.Api.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +29,7 @@ namespace HRM.Api
             });
             services.AddContext();
 
-            services.AddServices();
+            services.AddServices(Configuration);
 
             services.AddControllers();
 
@@ -52,6 +53,8 @@ namespace HRM.Api
             app.UseCors("CORS");
 
             app.UseAuthorization();
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

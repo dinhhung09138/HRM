@@ -4,8 +4,9 @@
 @page "/login/{ReturnUrl}"
 
 @inject NavigationManager navigationManager
-@*@inject HrmAuthenticationStateProvider authenticationStateProvider*@
+@inject IJSRuntime jsRuntime 
 @inject ToastMessageHelper toastMessage
+@inject IHttpClientService httpClientService
 
 
 <div class="row">
@@ -119,7 +120,12 @@
 
     private async Task LoginClick()
     {
-        //var response = await authenticationService.SignInAsync(model);
+        var response = await httpClientService.Post<LoginModel, HttpDataResponseWrapper<TokenModel>>("auth/login", model);
+
+        if (response.Succeeded)
+        {
+            await jsRuntime.SetInLocalStorage<string>(HRM.Constant.ConstantKey.USER_SESSION_STORAGE_KEY, response.Data.Token);
+        }
 
         //if (response.Succeeded)
         //{

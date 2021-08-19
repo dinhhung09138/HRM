@@ -14,11 +14,19 @@ using HRM.Database.Common;
 using HRM.Database.HR;
 using Microsoft.Extensions.Caching.Memory;
 using HRM.Infrastructure.Services;
+using HRM.Application.System;
+using HRM.Database.System;
+using DotNetCore.Security;
+using DotNetCore.AspNetCore;
+using HRM.Model;
+using Microsoft.Extensions.Configuration;
 
 namespace HRM.Api
 {
     public static class Extension
     {
+        public const string SecretKey = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWGfghf30iTOdtVWJGfghfGlOgJuQZdcF2Luqm/hccMw==";
+
         public static void AddContext(this IServiceCollection services)
         {
             var connectionString = services.GetConnectionString(nameof(Context));
@@ -38,7 +46,7 @@ namespace HRM.Api
             });
         }
 
-        public static void AddServices(this IServiceCollection services)
+        public static void AddServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -46,6 +54,12 @@ namespace HRM.Api
             services.AddScoped<IMemoryCaching, MemoryCaching>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.Configure<ApiSettingModel>(config.GetSection("AppSettings"));
+
+            services.AddHashService();
+            services.AddJsonWebTokenService(SecretKey, TimeSpan.FromHours(12));
+            services.AddAuthenticationJwtBearer();
 
             services.AddScoped<ICertificatedRepository, CertificatedRepository>();
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();
@@ -62,6 +76,9 @@ namespace HRM.Api
             services.AddScoped<IWardRepository, WardRepository>();
             services.AddScoped<IWardFactory, WardFactory>();
             services.AddScoped<IWardService, WardService>();
+
+            services.AddScoped<ISystemUserRepository, SystemUserRepository>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
     }
 }

@@ -10,6 +10,10 @@ using HRM.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using Microsoft.JSInterop;
+using HRM.Infrastructure.Extension;
+using HRM.Model.System;
 
 namespace HRM.Client.Services
 {
@@ -17,6 +21,7 @@ namespace HRM.Client.Services
     {
         private string _baseApiUrl = string.Empty;
 
+        private readonly IJSRuntime _jsRuntime;
         private readonly IConfiguration _config;
         private readonly HttpClient _httpClient;
 
@@ -25,10 +30,12 @@ namespace HRM.Client.Services
 
         public HttpClientService(
             IConfiguration config,
+            IJSRuntime jsRuntime,
             HttpClient httpClient,
             ToastMessageHelper toastMessageHelper)
         {
             _config = config;
+            _jsRuntime = jsRuntime;
             _httpClient = httpClient;
             _toastMessageHelper = toastMessageHelper;
             _defaultJsonOption = new JsonSerializerSettings()
@@ -43,9 +50,26 @@ namespace HRM.Client.Services
 
         }
 
+        private async Task<HttpRequestMessage> CreateHeaderRequest(string url, HttpMethod method)
+        {
+            var request = new HttpRequestMessage(method, url);
+
+            string token = await _jsRuntime.GetFromLocalStorage<string>(Constant.ConstantKey.USER_SESSION_STORAGE_KEY);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+
+
+            return request;
+        }
+
         public async Task<T> Get<T>(string url)
         {
-            var httpResponse = await _httpClient.GetAsync($"{_baseApiUrl}{url}");
+            var request = await CreateHeaderRequest($"{_baseApiUrl}{url}", HttpMethod.Get);
+
+            var httpResponse = await _httpClient.SendAsync(request);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -60,7 +84,9 @@ namespace HRM.Client.Services
 
         public async Task<TResponse> Get<T, TResponse>(string url)
         {
-            var httpResponse = await _httpClient.GetAsync($"{_baseApiUrl}{url}");
+            var request = await CreateHeaderRequest($"{_baseApiUrl}{url}", HttpMethod.Get);
+
+            var httpResponse = await _httpClient.SendAsync(request);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -79,7 +105,10 @@ namespace HRM.Client.Services
 
             var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
 
-            var httpResponse = await _httpClient.PostAsync($"{_baseApiUrl}{url}", stringContent);
+            var request = await CreateHeaderRequest($"{_baseApiUrl}{url}", HttpMethod.Post);
+            request.Content = stringContent;
+
+            var httpResponse = await _httpClient.SendAsync(request);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -98,7 +127,10 @@ namespace HRM.Client.Services
 
             var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
 
-            var httpResponse = await _httpClient.PutAsync($"{_baseApiUrl}{url}", stringContent);
+            var request = await CreateHeaderRequest($"{_baseApiUrl}{url}", HttpMethod.Put);
+            request.Content = stringContent;
+
+            var httpResponse = await _httpClient.SendAsync(request);
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -113,7 +145,9 @@ namespace HRM.Client.Services
 
         public async Task<TResponse> Delete<T, TResponse>(string url)
         {
-            var httpResponse = await _httpClient.DeleteAsync($"{_baseApiUrl}{url}");
+            var request = await CreateHeaderRequest($"{_baseApiUrl}{url}", HttpMethod.Delete);
+
+            var httpResponse = await _httpClient.SendAsync(request);
 
             if (httpResponse.IsSuccessStatusCode)
             {

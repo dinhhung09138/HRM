@@ -28,7 +28,7 @@ namespace HRM.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.UseDatabase();
-            services.UseSecurity();
+            services.UseSecurity(Configuration);
             services.UseServices();
             services.UseStaticFiles();
 
