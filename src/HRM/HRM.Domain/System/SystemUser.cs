@@ -70,5 +70,7 @@ namespace HRM.Domain.System
 
         public virtual List<SystemUserRole> SystemUserRoless { get; set; }
 
+        public virtual List<SystemRefreshToken> SystemRefreshTokens { get; set; }
+
     }
 }

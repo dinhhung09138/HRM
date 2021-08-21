@@ -12,7 +12,7 @@ namespace HRM.Database.System
     {
         Task<SystemUser> GetByUserNameAsync(string userName);
 
-        //Task<SystemUserModel> FindByIdAsync(long id);
+        Task<SystemUser> FindByIdAsync(long id);
 
         //Task<Grid<SystemUserGridModel>> GridAsync(SystemUserGridParameterModel paramters);
 

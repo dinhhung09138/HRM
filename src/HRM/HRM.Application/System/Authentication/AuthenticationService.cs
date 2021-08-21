@@ -17,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using HRM.Model;
 using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
+using HRM.Model.System.Authentication;
 
 namespace HRM.Application.System
 {
@@ -25,21 +27,27 @@ namespace HRM.Application.System
         private readonly ApiSettingModel _apiSettingModel;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHashService _hashService;
+        private readonly IRefreshTokenFactory _refreshTokenFactory;
         private readonly IJsonWebTokenService _jsonWebTokenService;
         private readonly ISystemUserRepository _systemUserRepository;
+        private readonly ISystemRefreshTokenRepository _refreshTokenRepository;
 
         public AuthenticationService(
             IOptions<ApiSettingModel> apiSettingModel,
             IUnitOfWork unitOfWork,
             IHashService hashService,
+            IRefreshTokenFactory refreshTokenFactory,
             IJsonWebTokenService jsonWebTokenService,
-            ISystemUserRepository systemUserRepository)
+            ISystemUserRepository systemUserRepository,
+            ISystemRefreshTokenRepository refreshTokenRepository)
         {
             _apiSettingModel = apiSettingModel.Value;
             _unitOfWork = unitOfWork;
             _hashService = hashService;
+            _refreshTokenFactory = refreshTokenFactory;
             _systemUserRepository = systemUserRepository;
             _jsonWebTokenService = jsonWebTokenService;
+            _refreshTokenRepository = refreshTokenRepository;
         }
 
 
@@ -67,10 +75,74 @@ namespace HRM.Application.System
                 return failResult;
             }
 
+            var refreshTokenModel = GenerateRefreshToken(model.IpAddress);
+            refreshTokenModel.UserId = user.Id;
+
             var token = CreateToken(user);
+            token.RefreshToken = refreshTokenModel.Token;
+
+            var refreshToken = _refreshTokenFactory.Create(refreshTokenModel);
+
+            await _refreshTokenRepository.SaveAsync(refreshToken, true);
+            await _unitOfWork.SaveChangesAsync();
 
             return Result<TokenModel>.Success(token);
         }
+
+        public async Task<IResult<TokenModel>> RefreshToken(long userId, string token, string ipAddress)
+        {
+            var user = await _systemUserRepository.FindByIdAsync(userId);
+
+            // return null if no user found with token
+            if (user == null) return null;
+
+            var refreshToken = await _refreshTokenRepository.GetByToken(token, userId);
+
+            // return null if token is no longer active
+            if (!refreshToken.IsActive) return null;
+
+            // replace old refresh token with a new one and save
+            var newRefreshToken = GenerateRefreshToken(ipAddress);
+            refreshToken.Revoked = DateTime.UtcNow;
+            refreshToken.RevokedByIp = ipAddress;
+            refreshToken.ReplacedByToken = newRefreshToken.Token;
+            //user.RefreshTokens.Add(newRefreshToken);
+
+            var revokedModel = _refreshTokenFactory.Revoke(newRefreshToken);
+            await _refreshTokenRepository.RevokeAsync(revokedModel);
+
+            var tokenModel = _refreshTokenFactory.Create(newRefreshToken);
+            await _refreshTokenRepository.SaveAsync(tokenModel, true);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            // generate new jwt
+            var jwtToken = CreateToken(user);
+            jwtToken.RefreshToken = newRefreshToken.Token;
+
+            return Result<TokenModel>.Success(jwtToken);
+        }
+
+        //public bool RevokeToken(string token, string ipAddress)
+        //{
+        //    var user = await _refreshTokenRepository.GetByToken(token, 0);
+
+        //    // return false if no user found with token
+        //    if (user == null) return false;
+
+        //    var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
+
+        //    // return false if token is not active
+        //    if (!refreshToken.IsActive) return false;
+
+        //    // revoke token and save
+        //    refreshToken.Revoked = DateTime.UtcNow;
+        //    refreshToken.RevokedByIp = ipAddress;
+        //    _context.Update(user);
+        //    _context.SaveChanges();
+
+        //    return true;
+        //}
 
         public TokenModel CreateToken(long employeeId)
         {
@@ -108,5 +180,20 @@ namespace HRM.Application.System
             return new TokenModel(tokenString, user.EmployeeId);
         }
 
+        private RefreshTokenModel GenerateRefreshToken(string ipAddress)
+        {
+            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+            {
+                var randomBytes = new byte[64];
+                rngCryptoServiceProvider.GetBytes(randomBytes);
+                return new RefreshTokenModel
+                {
+                    Token = Convert.ToBase64String(randomBytes),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    Created = DateTime.UtcNow,
+                    CreatedByIp = ipAddress
+                };
+            }
+        }
     }
 }

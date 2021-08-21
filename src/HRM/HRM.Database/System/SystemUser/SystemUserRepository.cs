@@ -19,10 +19,11 @@ namespace HRM.Database.System
             return await Queryable.FirstOrDefaultAsync(m => m.UserName == userName && m.IsActive && !m.Deleted);
         }
 
-        //public async Task<SystemUserModel> FindByIdAsync(long id)
-        //{
-        //    return await Queryable.Where(m => m.Id == id && m.Deleted == false).Select(SystemUserExpression.FindByIdAsync).FirstOrDefaultAsync();
-        //}
+        public async Task<SystemUser> FindByIdAsync(long id)
+        {
+            return await Queryable.Where(m => m.Id == id && m.Deleted == false && m.IsActive == true)
+                                  .FirstOrDefaultAsync();
+        }
 
         //public Task<Grid<SystemUserGridModel>> GridAsync(SystemUserGridParameterModel paramters)
         //{
