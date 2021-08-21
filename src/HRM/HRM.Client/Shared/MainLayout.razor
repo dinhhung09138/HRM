@@ -35,6 +35,12 @@
 
     protected async override Task OnInitializedAsync()
     {
+        var authState = await AuthenticationState;
+
+        if (!authState.User.Identity.IsAuthenticated)
+        {
+            navigationManager.NavigateTo($"/login?returnUrl={navigationManager.BaseUri}");
+        }
         await jsRuntime.InitializeInactiveTimer(DotNetObjectReference.Create(this));
     }
 

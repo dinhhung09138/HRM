@@ -6,7 +6,7 @@
     </a>
     <div class="se-pre-con" style="display: none;"></div>
     <nav class="navbar navbar-static-top">
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" @onclick="ShowHideSidebar">
+        <a href="javascript:{}" class="sidebar-toggle" data-toggle="offcanvas" role="button" @onclick="ShowHideSidebar">
             <span class="sr-only">Toggle navigation</span>
             <span class="pe-7s-keypad"></span>
         </a>
@@ -36,7 +36,7 @@
                     <ul class="dropdown-menu" aria-labelledby="userMenu">
                         <li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home/profile"><i class="pe-7s-users"></i> Profile</a></li>
                         <li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home/setting"><i class="pe-7s-settings"></i> Setting</a></li>
-                        <li><a href="https://newhrm.bdtask.com/hrm_v4.3_demo/logout"><i class="pe-7s-key"></i> Logout</a></li>
+                        <li><a href="javascript:{}" @onclick="@LogoutClick"><i class="pe-7s-key"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>
