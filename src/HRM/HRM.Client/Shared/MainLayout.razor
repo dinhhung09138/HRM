@@ -1,5 +1,9 @@
 ﻿@inherits LayoutComponentBase
 
+@inject IJSRuntime jsRuntime 
+@inject AuthenticationStateProvider authticationStateProvider
+@inject NavigationManager navigationManager 
+
 <div class="wrapper">
     <Header />
     <Sidebar />
@@ -23,3 +27,26 @@
         <span class="ti-arrow-up"></span>
     </div>
 </div>
+
+@code {
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await jsRuntime.InitializeInactiveTimer(DotNetObjectReference.Create(this));
+    }
+
+    [JSInvokable]
+    public async Task Logout()
+    {
+        var authState = await AuthenticationState;
+
+        if (authState.User.Identity.IsAuthenticated)
+        {
+            await ((HrmAuthenticationStateProvider)authticationStateProvider).DoLogout();
+            navigationManager.NavigateTo("/login");
+        }
+    }
+}

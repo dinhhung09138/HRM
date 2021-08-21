@@ -11,5 +11,9 @@ namespace HRM.Infrastructure.Extension
     public static class IJSRuntimeExtensionMethods
     {
 
+        public static async ValueTask InitializeInactiveTimer<T>(this IJSRuntime js, DotNetObjectReference<T> dotNetObjectReference) where T : class
+        {
+            await js.InvokeVoidAsync("initilizeInactivityTimer", dotNetObjectReference);
+        }
     }
 }
