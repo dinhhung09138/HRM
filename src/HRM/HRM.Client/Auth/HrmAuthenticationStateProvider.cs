@@ -53,33 +53,25 @@ namespace HRM.Client.Auth
             NotifyAuthenticationStateChanged(auth);
         }
 
-        public async Task Login(TokenModel model)
+        public async Task DoLogin(TokenModel model)
         {
-            //await _localStorageService.SetItemAsync<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY, model);
 
             if (model != null)
             {
-                var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, model.EmployeeId.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, model.EmployeeId.ToString()),
-                    new Claim(ClaimTypes.Email, model.EmployeeId.ToString())
-                }, "apiauth_type");
+                await _localStorageService.SetItem(ConstantKey.TOKEN_STORAGE_KEY, model.Token);
+                await _localStorageService.SetItem(ConstantKey.EMPLOYEE_ID_STORAGE_KEY, model.EmployeeId.ToString());
 
-                var claimsPrincipal = new ClaimsPrincipal(identity);
-
-                NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claimsPrincipal)));
+                NotifyAuthenticationStateChanged();
             }
         }
 
         public async Task DoLogout()
         {
-            //await _localStorageService.RemoveItemAsync(ConstantKey.USER_SESSION_STORAGE_KEY);
+            await _localStorageService.RemoveItem(ConstantKey.TOKEN_STORAGE_KEY);
+            await _localStorageService.RemoveItem(ConstantKey.EMPLOYEE_ID_STORAGE_KEY);
+            await _localStorageService.RemoveItem(ConstantKey.USER_SESSION_TIMEOUT);
 
-            var identity = new ClaimsIdentity();
-
-            var claimsPrincipal = new ClaimsPrincipal(identity);
-
-            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(claimsPrincipal)));
+            NotifyAuthenticationStateChanged();
         }
 
     }

@@ -116,10 +116,7 @@
 
         if (response.Succeeded)
         {
-            await localStorage.SetItem(HRM.Constant.ConstantKey.TOKEN_STORAGE_KEY, response.Data.Token);
-            await localStorage.SetItem(HRM.Constant.ConstantKey.EMPLOYEE_ID_STORAGE_KEY, response.Data.EmployeeId.ToString());
-            
-            ((HrmAuthenticationStateProvider)authenticationStateProvider).NotifyAuthenticationStateChanged();
+            await ((HrmAuthenticationStateProvider)authenticationStateProvider).DoLogin(response.Data);
 
             navigationManager.NavigateTo("/");
 
