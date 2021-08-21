@@ -20,13 +20,14 @@ using DotNetCore.Security;
 using DotNetCore.AspNetCore;
 using HRM.Model;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HRM.Api
 {
     public static class Extension
     {
-        public const string SecretKey = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWGfghf30iTOdtVWJGfghfGlOgJuQZdcF2Luqm/hccMw==";
-
         public static void AddContext(this IServiceCollection services)
         {
             var connectionString = services.GetConnectionString(nameof(Context));
@@ -57,9 +58,32 @@ namespace HRM.Api
 
             services.Configure<ApiSettingModel>(config.GetSection("AppSettings"));
 
+            var appSettingsSection = config.GetSection("AppSettings");
+            var appSettings = appSettingsSection.Get<ApiSettingModel>();
+            var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
             services.AddHashService();
-            services.AddJsonWebTokenService(SecretKey, TimeSpan.FromHours(12));
-            services.AddAuthenticationJwtBearer();
+            services.AddJsonWebTokenService(appSettings.SecretKey, TimeSpan.FromHours(0));
+            //services.AddAuthenticationJwtBearer();
 
             services.AddScoped<ICertificatedRepository, CertificatedRepository>();
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();
@@ -77,6 +101,8 @@ namespace HRM.Api
             services.AddScoped<IWardFactory, WardFactory>();
             services.AddScoped<IWardService, WardService>();
 
+            services.AddScoped<ISystemRefreshTokenRepository, SystemRefreshTokenRepository>();
+            services.AddScoped<IRefreshTokenFactory, RefreshTokenFactory>();
             services.AddScoped<ISystemUserRepository, SystemUserRepository>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
         }

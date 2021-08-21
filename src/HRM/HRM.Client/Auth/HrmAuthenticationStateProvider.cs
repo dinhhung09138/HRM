@@ -7,15 +7,16 @@ using System.Threading.Tasks;
 using HRM.Model;
 using HRM.Model.System;
 using System.Security.Claims;
+using HRM.Client.Services;
 using HRM.Constant;
 
 namespace HRM.Client.Auth
 {
     public class HrmAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private readonly ILocalStorageService _localStorageService;
+        private readonly IClientStorageService _localStorageService;
 
-        public HrmAuthenticationStateProvider(ILocalStorageService localStorageService)
+        public HrmAuthenticationStateProvider(IClientStorageService localStorageService)
         {
             _localStorageService = localStorageService;
         }
@@ -23,9 +24,19 @@ namespace HRM.Client.Auth
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
 
+            var token = await _localStorageService.GetItem(Constant.ConstantKey.TOKEN_STORAGE_KEY);
+
+            if (string.IsNullOrEmpty(token))
+            {
+                var anonymous = new ClaimsIdentity();
+                return new AuthenticationState(new ClaimsPrincipal(anonymous));
+            }
+
+            var employeeId = await _localStorageService.GetItem(Constant.ConstantKey.EMPLOYEE_ID_STORAGE_KEY);
+
             var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, "1"),
-                    new Claim(ClaimTypes.NameIdentifier, "hung"),
+                    new Claim(ClaimTypes.Name, employeeId),
+                    new Claim(ClaimTypes.NameIdentifier, employeeId),
                     new Claim(ClaimTypes.Email, "abc@gmail.com"),
                     new Claim(ClaimTypes.Role, "Admin"),
                     new Claim(ClaimTypes.Role, "Account")
@@ -34,29 +45,6 @@ namespace HRM.Client.Auth
             var user = new ClaimsPrincipal(identity);
 
             return await Task.FromResult(new AuthenticationState(user));
-            //try
-            //{
-            //    //TokenModel userInfo = new TokenModel("abc", 1);
-            //    var userInfo = await _localStorageService.GetItemAsync<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY);
-
-            //    if (userInfo != null)
-            //    {
-            //        var identity = new ClaimsIdentity(new[] {
-            //        new Claim(ClaimTypes.Name, userInfo.EmployeeId.ToString()),
-            //        new Claim(ClaimTypes.NameIdentifier, userInfo.EmployeeId.ToString()),
-            //        new Claim(ClaimTypes.Email, userInfo.EmployeeId.ToString())
-            //    }, "apiauth_type");
-
-            //        var user = new ClaimsPrincipal(identity);
-
-            //        return await Task.FromResult(new AuthenticationState(user));
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //}
-            //var anonymous = new ClaimsIdentity();
-            //return new AuthenticationState(new ClaimsPrincipal(anonymous));
         }
 
         public void NotifyAuthenticationStateChanged()
@@ -67,7 +55,7 @@ namespace HRM.Client.Auth
 
         public async Task Login(TokenModel model)
         {
-            await _localStorageService.SetItemAsync<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY, model);
+            //await _localStorageService.SetItemAsync<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY, model);
 
             if (model != null)
             {
@@ -85,7 +73,7 @@ namespace HRM.Client.Auth
 
         public async Task DoLogout()
         {
-            await _localStorageService.RemoveItemAsync(ConstantKey.USER_SESSION_STORAGE_KEY);
+            //await _localStorageService.RemoveItemAsync(ConstantKey.USER_SESSION_STORAGE_KEY);
 
             var identity = new ClaimsIdentity();
 

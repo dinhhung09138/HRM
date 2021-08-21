@@ -1,4 +1,5 @@
-﻿using HRM.Application.Common;
+﻿using HRM.Api.Providers;
+using HRM.Application.Common;
 using HRM.Model.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ namespace HRM.Api.Controllers.Common
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[ApiAuthorizeAttribute]
     public class CertificatedController : BaseController
     {
         private readonly ICertificatedService _certificatedService;

@@ -10,5 +10,7 @@ namespace HRM.Model.System
         [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
         public string Password { get; set; } = string.Empty;
 
+        public string IpAddress { get; set; } = string.Empty;
+
     }
 }

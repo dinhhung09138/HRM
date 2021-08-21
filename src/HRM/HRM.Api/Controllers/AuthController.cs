@@ -21,7 +21,7 @@ namespace HRM.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Grid([FromBody] LoginModel model)
+        public async Task<IActionResult> SignInAsync([FromBody] LoginModel model)
         {
             var token = await _authenticationService.SignInAsync(model);
             return Ok(token);

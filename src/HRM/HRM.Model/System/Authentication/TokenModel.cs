@@ -12,10 +12,13 @@ namespace HRM.Model.System
 
         public long EmployeeId { get; set; }
 
-        public TokenModel(string token, long employeeId)
+        public string RefreshToken { get; set; }
+
+        public TokenModel(string token, long employeeId, string refreshToken = "")
         {
             Token = token;
             EmployeeId = employeeId;
+            RefreshToken = refreshToken;
         }
     }
 }

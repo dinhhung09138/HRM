@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +10,21 @@ using HRM.Model.System;
 using System.Security.Claims;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using HRM.Client.Services;
 
 namespace HRM.Client.Auth
 {
     public class JwtAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private readonly IJSRuntime _js;
+        private readonly IClientStorageService _clientStorage;
         private readonly HttpClient _httpClient;
 
-        public JwtAuthenticationStateProvider(IJSRuntime js, HttpClient httpClient)
+        public JwtAuthenticationStateProvider(
+            HttpClient httpClient, 
+            IClientStorageService clientStorage)
         {
-            _js = js;
             _httpClient = httpClient;
+            _clientStorage = clientStorage;
         }
 
         private AuthenticationState Anonymous =>
@@ -30,14 +32,14 @@ namespace HRM.Client.Auth
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var tokenInfo = await _js.GetFromLocalStorage<TokenModel>(Constant.ConstantKey.USER_SESSION_STORAGE_KEY);
+            var tokenInfo = await _clientStorage.GetItem(Constant.ConstantKey.TOKEN_STORAGE_KEY);
 
             if (tokenInfo == null) {
                 return Anonymous;
             }
 
 
-            var expirationTimeString = await _js.GetFromLocalStorage<string>(Constant.ConstantKey.USER_SESSION_TIMEOUT);
+            var expirationTimeString = await _clientStorage.GetItem(Constant.ConstantKey.USER_SESSION_TIMEOUT);
             DateTime expirationTime;
 
             if (DateTime.TryParse(expirationTimeString, out expirationTime))
@@ -50,11 +52,11 @@ namespace HRM.Client.Auth
 
                 if (ShouldRenewToken(expirationTime))
                 {
-                    tokenInfo = await RenewToken(tokenInfo);
+                    //tokenInfo = await RenewToken(tokenInfo);
                 }
             }
 
-            return BuildAuthenticationState(tokenInfo.Token);
+            return BuildAuthenticationState(tokenInfo);
         }
 
         private async Task<TokenModel> RenewToken(TokenModel token)
@@ -62,8 +64,8 @@ namespace HRM.Client.Auth
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Token);
             //var newToken = await accountsRepository.RenewToken(); TODO
             var newToken = "123";//TODO
-            await _js.SetInLocalStorage<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY, token);
-            await _js.SetInLocalStorage<string>(ConstantKey.USER_SESSION_TIMEOUT, newToken);
+            //await _clientStorage.SetItem<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY, token);
+            //await _clientStorage.SetItem<string>(ConstantKey.USER_SESSION_TIMEOUT, newToken);
             return token;
         }
 
@@ -127,8 +129,8 @@ namespace HRM.Client.Auth
 
         private async Task CleanUp()
         {
-            await _js.RemoveItem<TokenModel>(ConstantKey.USER_SESSION_STORAGE_KEY);
-            await _js.RemoveItem<string>(ConstantKey.USER_SESSION_TIMEOUT);
+            //await _clientStorage.RemoveItem(ConstantKey.USER_SESSION_STORAGE_KEY);
+            //await _clientStorage.RemoveItem(ConstantKey.USER_SESSION_TIMEOUT);
             _httpClient.DefaultRequestHeaders.Authorization = null;
         }
     }

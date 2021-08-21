@@ -85,7 +85,7 @@ namespace HRM.Server.Helpers
 
         public async Task DoLogout()
         {
-            await _sessionStorageService.RemoveItemAsync(ConstantKey.USER_SESSION_STORAGE_KEY);
+            //await _sessionStorageService.RemoveItemAsync(ConstantKey.USER_SESSION_STORAGE_KEY);
 
             var identity = new ClaimsIdentity();
 

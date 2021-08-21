@@ -24,6 +24,7 @@ namespace HRM.Client.Services
         private readonly IJSRuntime _jsRuntime;
         private readonly IConfiguration _config;
         private readonly HttpClient _httpClient;
+        private readonly IClientStorageService _localStorage;
 
         private readonly JsonSerializerSettings _defaultJsonOption;
         private readonly ToastMessageHelper _toastMessageHelper;
@@ -32,11 +33,13 @@ namespace HRM.Client.Services
             IConfiguration config,
             IJSRuntime jsRuntime,
             HttpClient httpClient,
+            IClientStorageService localStorage,
             ToastMessageHelper toastMessageHelper)
         {
             _config = config;
             _jsRuntime = jsRuntime;
             _httpClient = httpClient;
+            _localStorage = localStorage;
             _toastMessageHelper = toastMessageHelper;
             _defaultJsonOption = new JsonSerializerSettings()
             {
@@ -54,13 +57,12 @@ namespace HRM.Client.Services
         {
             var request = new HttpRequestMessage(method, url);
 
-            string token = await _jsRuntime.GetFromLocalStorage<string>(Constant.ConstantKey.USER_SESSION_STORAGE_KEY);
+            var token = await _localStorage.GetItem(Constant.ConstantKey.TOKEN_STORAGE_KEY);
 
             if (!string.IsNullOrEmpty(token))
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
-
 
             return request;
         }

@@ -4,8 +4,8 @@
 @page "/login/{ReturnUrl}"
 
 @inject NavigationManager navigationManager
-@inject IJSRuntime jsRuntime 
-@inject ToastMessageHelper toastMessage
+@inject IClientStorageService localStorage 
+@inject AuthenticationStateProvider authenticationStateProvider
 @inject IHttpClientService httpClientService
 
 
@@ -86,16 +86,12 @@
     </div>
     <div class="col-md-4 col-sm-3"></div>
 </div>
-<br />
-<p>Message: @message</p>
 
 
 @code {
 
     [CascadingParameter]
     Task<AuthenticationState> authenticationTask { get; set; }
-
-    string message = string.Empty;
 
     [Parameter]
     public string ReturnUrl { get; set; }
@@ -104,16 +100,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //var abc = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var authTask = await authenticationTask;
 
-        //var authTask = await authenticationTask;
-
-        //var user = authTask.User;
-
-        //if (user != null && user.Identity.IsAuthenticated == true)
-        //{
-        //    message = "User logined";
-        //}
+        if(authTask.User != null && authTask.User.Identity.IsAuthenticated == true)
+        {
+            navigationManager.NavigateTo("/");
+        }
 
         base.OnInitialized();
     }
@@ -124,45 +116,13 @@
 
         if (response.Succeeded)
         {
-            await jsRuntime.SetInLocalStorage<string>(HRM.Constant.ConstantKey.USER_SESSION_STORAGE_KEY, response.Data.Token);
+            await localStorage.SetItem(HRM.Constant.ConstantKey.TOKEN_STORAGE_KEY, response.Data.Token);
+            await localStorage.SetItem(HRM.Constant.ConstantKey.EMPLOYEE_ID_STORAGE_KEY, response.Data.EmployeeId.ToString());
+            
+            ((HrmAuthenticationStateProvider)authenticationStateProvider).NotifyAuthenticationStateChanged();
+
+            navigationManager.NavigateTo("/");
+
         }
-
-        //if (response.Succeeded)
-        //{
-        //    await sessionStorageService.SetItemAsync<TokenModel>(HRM.Constant.ConstantKey.USER_SESSION_STORAGE_KEY, response.Data);
-
-        //    var abc = await authenticationStateProvider.GetAuthenticationStateAsync();
-
-        //    authenticationStateProvider.SetAuthenticationState(authenticationStateProvider.GetAuthenticationStateAsync());
-
-        //    //authenticationStateProvider.NotifyAuthenticationStateChanged();
-        //    authenticationStateProvider.MarkUserAsAuthenticated(response.Data);
-
-        //    var authTask = await authenticationTask;
-
-        //    var user = authTask.User;
-
-        //    if (user != null && user.Identity.IsAuthenticated == true)
-        //    {
-        //        message = "User logined";
-        //    }
-        //    else
-        //    {
-        //        message = "Not login";
-        //    }
-
-        //    //if (!string.IsNullOrEmpty(ReturnUrl))
-        //    //{
-        //    //    navigationManager.NavigateTo(ReturnUrl);
-        //    //}
-
-        //    //navigationManager.NavigateTo("/");
-        //}
-        //else
-        //{
-        //    await toastMessage.Error(response.Message);
-        //}
-
-
     }
 }

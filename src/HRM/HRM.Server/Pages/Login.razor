@@ -125,7 +125,7 @@
 
         if (response.Succeeded)
         {
-            await sessionStorageService.SetItemAsync<TokenModel>(HRM.Constant.ConstantKey.USER_SESSION_STORAGE_KEY, response.Data);
+            //await sessionStorageService.SetItemAsync<TokenModel>(HRM.Constant.ConstantKey.USER_SESSION_STORAGE_KEY, response.Data);
 
             var abc = await authenticationStateProvider.GetAuthenticationStateAsync();
 
