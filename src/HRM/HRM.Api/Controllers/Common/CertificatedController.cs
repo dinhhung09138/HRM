@@ -9,7 +9,6 @@ namespace HRM.Api.Controllers.Common
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[ApiAuthorizeAttribute]
     public class CertificatedController : BaseController
     {
         private readonly ICertificatedService _certificatedService;

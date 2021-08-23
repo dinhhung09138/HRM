@@ -35,6 +35,8 @@ namespace HRM.Constant.Extensions
                     return Message.ToastMessage.INTERNAL_ERROR;
                 case ToastMessageType.MethodNotAllow:
                     return Message.ToastMessage.API_METHOD_NOT_ALLOW;
+                case ToastMessageType.Unauthorized:
+                    return Message.ToastMessage.NOT_AUTHORIZE;
             }
             return string.Empty;
         }

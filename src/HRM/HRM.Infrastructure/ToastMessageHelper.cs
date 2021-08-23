@@ -104,6 +104,9 @@ namespace HRM.Infrastructure
                 case HttpStatusCode.MethodNotAllowed:
                     message = ToastMessageType.MethodNotAllow.GetToastMessage();
                     break;
+                case HttpStatusCode.Unauthorized:
+                    message = ToastMessageType.Unauthorized.GetToastMessage();
+                    break;
                 default:
                     message = string.Empty;
                     break;

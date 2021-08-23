@@ -24,6 +24,7 @@ namespace HRM.Constant
             public static readonly string DELETE_ERROR = "Lỗi khi xóa dữ liệu";
             public static readonly string INTERNAL_ERROR = "Lỗi hệ thống";
             public static readonly string API_METHOD_NOT_ALLOW = "Không thể kết nối tới api";
+            public static readonly string NOT_AUTHORIZE = "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập";
         }
     }
 }

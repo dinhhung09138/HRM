@@ -1,4 +1,5 @@
 using HRM.Api.Middlewares;
+using HRM.Api.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +32,9 @@ namespace HRM.Api
 
             services.AddServices(Configuration);
 
-            services.AddControllers();
+            services.AddControllers(option => {
+                option.Filters.Add<ApiAuthorizeAttribute>();
+            });
 
             services.AddSwagger();
         }
@@ -51,6 +54,8 @@ namespace HRM.Api
             app.UseRouting();
 
             app.UseCors("CORS");
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

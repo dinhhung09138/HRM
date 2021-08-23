@@ -1,6 +1,7 @@
 ﻿using HRM.Application.System;
 using HRM.Model.Common;
 using HRM.Model.System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace HRM.Api.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> SignInAsync([FromBody] LoginModel model)
         {
             var token = await _authenticationService.SignInAsync(model);

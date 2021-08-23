@@ -19,6 +19,13 @@ namespace HRM.Api.Providers
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
+            bool isAllowAnonymous = context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(AllowAnonymousAttribute));
+
+            if (isAllowAnonymous == true)
+            {
+                return;
+            }
+
             var claims = context.HttpContext.User.Identity as ClaimsIdentity;
 
             if (claims != null && claims.IsAuthenticated == true)
@@ -31,11 +38,17 @@ namespace HRM.Api.Providers
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            throw new NotImplementedException();
         }
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            bool isAllowAnonymous = context.ActionDescriptor.EndpointMetadata.Any(m => m.GetType() == typeof(AllowAnonymousAttribute));
+
+            if (isAllowAnonymous == true)
+            {
+                return;
+            }
+
             var isAuthenticated = context.HttpContext.User.Identity.IsAuthenticated;
             if (isAuthenticated)
             {
