@@ -14,29 +14,29 @@ namespace HRM.Client.Auth
 {
     public class HrmAuthenticationStateProvider : AuthenticationStateProvider
     {
+        private readonly ILocalStorageService _localStorage;
         private readonly IClientStorageService _localStorageService;
 
-        public HrmAuthenticationStateProvider(IClientStorageService localStorageService)
+        public HrmAuthenticationStateProvider(ILocalStorageService localStorage, IClientStorageService localStorageService)
         {
             _localStorageService = localStorageService;
+            _localStorage = localStorage;
         }
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
 
-            var token = await _localStorageService.GetItem(Constant.ConstantKey.TOKEN_STORAGE_KEY);
+            var token = await _localStorageService.GetItem<TokenModel>(Constant.ConstantKey.TOKEN_STORAGE_KEY);
 
-            if (string.IsNullOrEmpty(token))
+            if (token == null)
             {
                 var anonymous = new ClaimsIdentity();
                 return new AuthenticationState(new ClaimsPrincipal(anonymous));
             }
 
-            var employeeId = await _localStorageService.GetItem(Constant.ConstantKey.EMPLOYEE_ID_STORAGE_KEY);
-
             var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, employeeId),
-                    new Claim(ClaimTypes.NameIdentifier, employeeId),
+                    new Claim(ClaimTypes.Name, token.EmployeeId.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, token.EmployeeId.ToString()),
                     new Claim(ClaimTypes.Email, "abc@gmail.com"),
                     new Claim(ClaimTypes.Role, "Admin"),
                     new Claim(ClaimTypes.Role, "Account")
@@ -58,8 +58,7 @@ namespace HRM.Client.Auth
 
             if (model != null)
             {
-                await _localStorageService.SetItem(ConstantKey.TOKEN_STORAGE_KEY, model.Token);
-                await _localStorageService.SetItem(ConstantKey.EMPLOYEE_ID_STORAGE_KEY, model.EmployeeId.ToString());
+                await _localStorageService.SetItem<TokenModel>(ConstantKey.TOKEN_STORAGE_KEY, model);
 
                 NotifyAuthenticationStateChanged();
             }
@@ -68,7 +67,6 @@ namespace HRM.Client.Auth
         public async Task DoLogout()
         {
             await _localStorageService.RemoveItem(ConstantKey.TOKEN_STORAGE_KEY);
-            await _localStorageService.RemoveItem(ConstantKey.EMPLOYEE_ID_STORAGE_KEY);
             await _localStorageService.RemoveItem(ConstantKey.USER_SESSION_TIMEOUT);
 
             NotifyAuthenticationStateChanged();

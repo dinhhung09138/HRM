@@ -9,6 +9,10 @@ namespace HRM.Client.Services
     {
         Task<string> GetItem(string key);
 
+        Task<T> GetItem<T>(string key);
+
+        Task SetItem<T>(string key, T data);
+
         Task SetItem(string key, string data);
 
         Task RemoveItem(string key);

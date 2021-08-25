@@ -16,6 +16,13 @@ namespace HRM.Client.Services
             _localStorage = localStorage;
         }
 
+        public async Task SetItem<T>(string key, T data)
+        {
+            await RemoveItem(key);
+
+            await _localStorage.SetItemAsync<T>(key, data);
+        }
+
         public async Task SetItem(string key, string data)
         {
             await RemoveItem(key);
@@ -26,6 +33,11 @@ namespace HRM.Client.Services
         public async Task<string> GetItem(string key)
         {
             return await _localStorage.GetItemAsStringAsync(key);
+        }
+
+        public async Task<T> GetItem<T>(string key)
+        {
+            return await _localStorage.GetItemAsync<T>(key);
         }
 
         public async Task RemoveItem(string key)
