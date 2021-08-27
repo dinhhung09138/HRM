@@ -1,6 +1,10 @@
 ﻿<div class="dropdown">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="@id" data-bs-toggle="dropdown" aria-expanded="false">
         @Text
+        @if (@ActionItems != null)
+        {
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+        }
     </button>
     <ul class="dropdown-menu" aria-labelledby="@id">
         @ActionItems
