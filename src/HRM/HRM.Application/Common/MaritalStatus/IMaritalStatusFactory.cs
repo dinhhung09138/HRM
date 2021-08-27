@@ -10,5 +10,8 @@ namespace HRM.Application.Common
 {
     public interface IMaritalStatusFactory
     {
+        MaritalStatus Create(MaritalStatusModel model);
+
+        MaritalStatus Update(MaritalStatusModel model);
     }
 }
