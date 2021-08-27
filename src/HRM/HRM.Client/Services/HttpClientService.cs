@@ -57,11 +57,11 @@ namespace HRM.Client.Services
         {
             var request = new HttpRequestMessage(method, url);
 
-            var token = await _localStorage.GetItem(Constant.ConstantKey.TOKEN_STORAGE_KEY);
+            var token = await _localStorage.GetItem<TokenModel>(Constant.ConstantKey.TOKEN_STORAGE_KEY);
 
-            if (!string.IsNullOrEmpty(token))
+            if (token != null && !string.IsNullOrEmpty(token.Token))
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
             }
 
             return request;
