@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HRM.Model.Common;
@@ -6,8 +7,6 @@ using HRM.Domain.Common;
 using DotNetCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DotNetCore.Objects;
-using System.Linq;
-using HRM.Model;
 
 namespace HRM.Database.Common
 {
@@ -74,6 +73,5 @@ namespace HRM.Database.Common
 
             return true;
         }
-
     }
 }

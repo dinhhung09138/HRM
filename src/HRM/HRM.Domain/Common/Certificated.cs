@@ -6,10 +6,6 @@ using HRM.Domain.HR;
 
 namespace HRM.Domain.Common
 {
-    /// <summary>
-    /// TODO
-    /// Bằng cấp, chứng chỉ
-    /// </summary>
     public class Certificated : Entity<long>
     {
         public Certificated(

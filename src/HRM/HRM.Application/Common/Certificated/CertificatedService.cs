@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Collections.Generic;
 using System.Linq;
 using HRM.Database.Common;
 using HRM.Model;
@@ -15,8 +13,6 @@ namespace HRM.Application.Common
 {
     public sealed class CertificatedService : ICertificatedService
     {
-        private readonly string _cacheKey = "certificated";
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMemoryCaching _memoryCache;
         private readonly ICertificatedFactory _certificatedFactory;
@@ -78,11 +74,6 @@ namespace HRM.Application.Common
             catch (Exception ex)
             {
                 return Result.Fail(ex.Message);
-            }
-            finally
-            {
-                //TODO
-                _memoryCache.RemoveFromCache(_cacheKey);
             }
         }
 
@@ -154,6 +145,5 @@ namespace HRM.Application.Common
 
             return Result.Success();
         }
-
     }
 }
