@@ -6,24 +6,27 @@ using HRM.Domain.HR;
 
 namespace HRM.Domain.Common
 {
-    /// <summary>
-    /// TODO
-    /// Trường đào tạo
-    /// </summary>
     public class School : Entity<long>
     {
         public School(
+            long id,
             string name,
             int precedence,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             Name = name;
             Precedence = precedence;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            Deleted = false;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [Required]
