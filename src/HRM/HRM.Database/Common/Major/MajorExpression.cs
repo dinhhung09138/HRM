@@ -7,7 +7,23 @@ using System.Linq.Expressions;
 
 namespace HRM.Database.Common
 {
-    public class MajorExpression
+    public static class MajorExpression
     {
+        public static Expression<Func<Major, MajorModel>> FindByIdAsync => m => new MajorModel()
+        {
+            Id = m.Id,
+            Name = m.Name,
+            IsActive = m.IsActive,
+            Precedence = m.Precedence,
+            Deleted = m.Deleted
+        };
+
+        public static Expression<Func<Major, MajorGridModel>> GridAsync => m => new MajorGridModel()
+        {
+            Id = m.Id,
+            Name = m.Name,
+            Precedence = m.Precedence,
+            IsActive = m.IsActive
+        };
     }
 }
