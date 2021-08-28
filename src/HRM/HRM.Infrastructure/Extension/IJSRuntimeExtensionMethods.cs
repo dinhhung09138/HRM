@@ -15,9 +15,9 @@ namespace HRM.Infrastructure.Extension
             await js.InvokeVoidAsync("console.log", message);
         }
 
-        public static async ValueTask ExpandSidebar(this IJSRuntime js, string id, int level)
+        public static async ValueTask ExpandSidebar(this IJSRuntime js, string id)
         {
-            await js.InvokeVoidAsync("expandSidebar", id, level);
+            await js.InvokeVoidAsync("expandSidebar", id);
         }
 
         public static async ValueTask InitializeInactiveTimer<T>(this IJSRuntime js, DotNetObjectReference<T> dotNetObjectReference) where T : class

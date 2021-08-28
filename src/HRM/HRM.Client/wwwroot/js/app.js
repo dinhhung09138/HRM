@@ -41,9 +41,9 @@ function getWidth() {
     );
 }
 
-function expandSidebar(id, level) {
+function expandSidebar(id) {
 
-    
+    var level = parseInt($(`#${id}`).attr('data-level'));
 
     switch (level) {
         case 1:
@@ -51,11 +51,38 @@ function expandSidebar(id, level) {
             $(`#${id}`).addClass('active');
             break;
         case 2:
+            var ul = $(`#${id}`).closest('ul.treeview-menu');
+
+            $(ul).children().each(function (idx, item) {
+                $(item).removeClass('active');
+            });
+
             $(`#${id}`).addClass('active');
             break;
         case 3:
+            var ul = $(`#${id}`).closest('ul.treeview-menu');
+
+            $(ul).children().each(function (idx, item) {
+                $(item).removeClass('active');
+
+                var ulContent = $(item).find('ul.treeview-menu');
+                if (ulContent) {
+                    $(ulContent).find('li').each(function (i, li) {
+                        $(li).removeClass('active');
+                    });
+                }
+            });
+            $(`#${id}`).addClass('active');
+            $(`#${id}Content`).addClass('active');
             break;
         case 4:
+            var ul = $(`#${id}`).closest('ul.treeview-menu');
+
+            $(ul).children().each(function (idx, item) {
+                $(item).removeClass('active');
+            });
+
+            $(`#${id}`).addClass('active');
             break;
     }
 

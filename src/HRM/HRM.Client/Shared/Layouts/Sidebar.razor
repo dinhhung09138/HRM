@@ -73,7 +73,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="assessMainMenu" class="treeview" @onclick="@(() => MenuClick("assessMainMenu", 1))">
+                    <li id="assessMainMenu" data-level="1" class="treeview" @onclick="@(() => MenuClick("assessMainMenu"))">
                         <a href="javascript:void(0)">
                             <i class="fa fa-tags" aria-hidden="true"></i>
                             <span>Quản lý tài sản</span>
@@ -103,8 +103,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="hrMainMenu" class="treeview" @onclick="@(() => MenuClick("hrMainMenu", 1))">
-                        <a href="javascript:void(0)">
+                    <li id="hrMenu" data-level="1" class="treeview">
+                        <a href="javascript:void(0)" @onclick="@(() => MenuClick("hrMenu", 1))">
                             <i class="fa fa-id-card-o" aria-hidden="true"></i>
                             <span>Quản lý nhân sự</span>
                             <span class="pull-right-container">
@@ -112,28 +112,53 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="">
-                                <a href="#">Danh sách kỷ luật</a>
+                            <li id="hrLeaveMenu" data-level="3">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrLeaveMenu", 3))">
+                                    <span>Quản lý nghỉ phép</span>
+                                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                </a>
+                                <ul id="hrLeaveManagementMenuContent" class="treeview-menu">
+                                    <li data-level="4" class=""><a href="javascript:{}">Dashboard</a></li>
+                                    <li data-level="4" class=""><a href="javascript:{}">Danh sách nghỉ phép</a></li>
+                                    <li data-level="4" class=""><a href="javascript:{}">Đăng ký nghỉ phép</a></li>
+                                </ul>
                             </li>
-                            <li class="">
-                                <a href="#">Danh sách khen thưởng</a>
+                            <li data-level="3" class="active">
+                                <a href="javascript:{}" data-level="3">
+                                    <span>Nhân viên</span>
+                                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li data-level="4" class=""><a href="javascript:{}">Danh sách nhân viên</a></li>
+                                    <li data-level="4" class=""><a href="javascript:{}">Danh sách trả</a></li>
+                                </ul>
                             </li>
-                            <li class="">
-                                <a href="#">Quản lý sử dụng</a>
-                            </li>
-                            <li class="active">
-                                <a href="#">
-                                    <span>Hoàn trả trang thiết bị</span>
+                            <li id="hrContactMenu" data-level="3">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrContactMenu", 3))">
+                                    <span>Thông tin liên hệ</span>
                                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu ">
-                                    <li class=""><a href="#">Trả</a></li>
-                                    <li class=""><a href="#">Danh sách trả</a></li>
+                                    <li data-level="4" class=""><a href="#">Nhân sự thuê ngoài</a></li>
+                                    <li id="hrContactVendorMenu" data-level="4" class=""><a href="hr/contact/vendor" @onclick="@(() => MenuClick("hrContactVendorMenu"))">Nhà cung cấp</a></li>
+                                    <li id="hrContactClientMenu" data-level="4" class=""><a href="hr/contact/client" @onclick="@(() => MenuClick("hrContactClientMenu"))">Khách hàng</a></li>
+                                    <li id="hrContactProjectMenu" data-level="4" class=""><a href="hr/contact/project" @onclick="@(() => MenuClick("hrContactProjectMenu"))">Dự án</a></li>
+                                </ul>
+                            </li>
+                            <li id="hrSettingMenu" data-level="3">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrSettingMenu", 3))">
+                                    <span>Thiết lập</span>
+                                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                </a>
+                                <ul class="treeview-menu ">
+                                    <li data-level="4" class=""><a href="hr/setting/holiday">Kỷ luật</a></li>
+                                    <li data-level="4" class=""><a href="hr/setting/holiday">Khen thưởng</a></li>
+                                    <li data-level="4" class=""><a href="hr/setting/holiday">Thiết lập ngày nghỉ</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li id="recruitmentMainMenu" class="treeview" @onclick="@(() => MenuClick("recruitmentMainMenu", 1))">
+                    <li id="recruitmentMainMenu" data-level="1" class="treeview" @onclick="@(() => MenuClick("recruitmentMainMenu"))">
                         <a href="javascript:void(0)">
                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
                             <span>Tuyển dụng</span>
@@ -142,19 +167,19 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active">
+                            <li data-level="2" class="active">
                                 <a href="#">Danh sách tỉnh thành phố</a>
                             </li>
-                            <li class="">
+                            <li data-level="2" class="">
                                 <a href="#">Danh sách khen thưởng</a>
                             </li>
-                            <li class="">
+                            <li data-level="2" class="">
                                 <a href="#">Quản lý sử dụng</a>
                             </li>
                         </ul>
                     </li>
-                    <li id="settingMainMenu" class="treeview" @onclick="@(() => MenuClick("settingMainMenu", 1))">
-                        <a href="javascript:void(0)">
+                    <li id="settingMainMenu" data-level="1" class="treeview">
+                        <a href="javascript:void(0)" @onclick="@(() => MenuClick("settingMainMenu", 1))">
                             <i class="fa fa-cogs" aria-hidden="true"></i>
                             <span>Thiết lập</span>
                             <span class="pull-right-container">
@@ -162,19 +187,19 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li id="settingCertificatedMenu" class="" @onclick="@(() => MenuClick("settingCertificatedMenu", 2))">
+                            <li id="settingCertificatedMenu" data-level="2" @onclick="@(() => MenuClick("settingCertificatedMenu"))">
                                 <a href="setting/certificated">Loại chứng chỉ</a>
                             </li>
-                            <li id="settingProfessionQualificationMenu" class="" @onclick="@(() => MenuClick("settingProfessionQualificationMenu", 2))">
+                            <li id="settingProfessionQualificationMenu" data-level="2" @onclick="@(() => MenuClick("settingProfessionQualificationMenu"))">
                                 <a href="setting/professional-qualification">Trình độ chuyên môn</a>
                             </li>
-                            <li id="settingMaritalStatusMenu" class="" @onclick="@(() => MenuClick("settingMaritalStatusMenu", 2))">
+                            <li id="settingMaritalStatusMenu" data-level="2" @onclick="@(() => MenuClick("settingMaritalStatusMenu"))">
                                 <a href="setting/marital-status">Tình trạng hôn nhân</a>
                             </li>
-                            <li id="settingMajorMenu" class="" @onclick="@(() => MenuClick("settingMajorMenu", 2))">
+                            <li id="settingMajorMenu" data-level="2" @onclick="@(() => MenuClick("settingMajorMenu"))">
                                 <a href="setting/major">Chuyên ngành đào tạo</a>
                             </li>
-                            <li id="settingSchoolMenu" class="" @onclick="@(() => MenuClick("settingSchoolMenu", 2))">
+                            <li id="settingSchoolMenu" data-level="2" @onclick="@(() => MenuClick("settingSchoolMenu"))">
                                 <a href="setting/school">Trường đào tạo</a>
                             </li>
                         </ul>
@@ -191,7 +216,6 @@
     private List<SidebarModel> models = new List<SidebarModel>();
 
     private string menuIdSelected = string.Empty;
-    private int levelSelected = 1;
 
     protected override async Task OnInitializedAsync()
     {
@@ -236,7 +260,7 @@
                         Href = "/counter",
                         Icon = "",
                     }
-                                        },
+                                            },
             }
         );
         models.Add(
@@ -268,29 +292,25 @@
                         Href = "/counter",
                         Icon = "",
                     }
-                                        },
+                                            },
             }
         );
     }
 
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!string.IsNullOrEmpty(menuIdSelected))
+        if (!firstRender)
         {
-            await js.ExpandSidebar(menuIdSelected, levelSelected);
+            if (!string.IsNullOrEmpty(menuIdSelected))
+            {
+                await js.ExpandSidebar(menuIdSelected);
+            }
         }
     }
 
-    private async Task MenuClick(string id, int level)
+    private void MenuClick(string id, int level = 1)
     {
-        if (level == 1 || level == 3)
-        {
-            await js.ExpandSidebar(id, level);
-        }
-        else
-        {
-            menuIdSelected = id;
-            levelSelected = level;
-        }
+        menuIdSelected = id;
     }
+
 }
