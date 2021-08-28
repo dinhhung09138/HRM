@@ -89,6 +89,22 @@ namespace HRM.Api
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();
             services.AddScoped<ICertificatedService, CertificatedService>();
 
+            services.AddScoped<ISchoolRepository, SchoolRepository>();
+            services.AddScoped<ISchoolFactory, SchoolFactory>();
+            services.AddScoped<ISchoolService, SchoolService>();
+
+            services.AddScoped<IMajorRepository, MajorRepository>();
+            services.AddScoped<IMajorFactory, MajorFactory>();
+            services.AddScoped<IMajorService, MajorService>();
+
+            services.AddScoped<IMaritalStatusRepository, MaritalStatusRepository>();
+            services.AddScoped<IMaritalStatusFactory, MaritalStatusFactory>();
+            services.AddScoped<IMaritalStatusService, MaritalStatusService>();
+
+            services.AddScoped<IProfessionalQualificationRepository, ProfessionalQualificationRepository>();
+            services.AddScoped<IProfessionalQualificationFactory, ProfessionalQualificationFactory>();
+            services.AddScoped<IProfessionalQualificationService, ProfessionalQualificationService>();
+
             services.AddScoped<IDistrictRepository, DistrictRepository>();
             services.AddScoped<IDistrictFactory, DistrictFactory>();
             services.AddScoped<IDistrictService, DistrictService>();

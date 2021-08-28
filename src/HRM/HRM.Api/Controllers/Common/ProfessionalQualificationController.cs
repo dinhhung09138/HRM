@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HRM.Api.Controllers.Common
 {
-    [Route("api/[controller]")]
+    [Route("api/professional-qualification")]
     [ApiController]
     public class ProfessionalQualificationController : BaseController
     {

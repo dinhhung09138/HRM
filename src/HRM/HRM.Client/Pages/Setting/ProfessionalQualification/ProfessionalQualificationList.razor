@@ -1,0 +1,174 @@
+﻿@page "/setting/professional-qualification"
+
+@inject ToastMessageHelper toastMessageHelper
+@inject NavigationManager navigationManager
+@inject IHttpClientService httpClientService
+
+
+<AuthorizeView>
+    <Authorized>
+        <HRMPanel Title="Danh sách trình độ chuyên môn">
+            <ButtonGroup>
+                <HrmButton Color="@Constant.Enums.Color.Primary" Text="Thêm mới" OnClick="AddNewClick" />
+            </ButtonGroup>
+            <PanelContent>
+                <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
+                    <Header>
+                        <HrmTableTr>
+                            <HrmTableTh Id="Name" SortColumnId="@currentSortColumn" Text="Tên" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Name, arg, "Name"))"
+                                        style="min-width: 200px;" />
+                            <HrmTableTh Id="Precedence" SortColumnId="@currentSortColumn" Text="Thứ tự" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Precedence, arg, "Precedence"))"
+                                        style="width: 120px" TextAlign="@Constant.Enums.TextAlign.Right" />
+                            <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
+                            <HrmTableTh Text="" Sort="false" style="width: 100px;" />
+                        </HrmTableTr>
+                    </Header>
+                    <Body>
+                        @if (tableLoading == true)
+                        {
+                            <HrmTableTr>
+                                <HrmTableTd Col="4">
+                                    <HrmLinearLoading />
+                                </HrmTableTd>
+                            </HrmTableTr>
+                        }
+                        else
+                        {
+                            if (totalItems == 0)
+                            {
+                                <HrmTableNoData Column="4" />
+                            }
+                            else
+                            {
+                                int count = 0;
+                                foreach (var item in listData)
+                                {
+                                    count++;
+                                    <HrmTableTr class="@(count % 2 == 0 ? "odd" : "even")">
+                                        <HrmTableTd>
+                                            @item.Name
+                                        </HrmTableTd>
+                                        <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Right">
+                                            @item.Precedence
+                                        </HrmTableTd>
+                                        <HrmTableTd>
+                                            <HrmSwitch Checked="@item.IsActive" Disabled="true" />
+                                        </HrmTableTd>
+                                        <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
+                                            <HrmButtonGroup Text="Chọn">
+                                                <ActionItems>
+                                                    <HrmButtonGroupItem Text="Cập nhật" Data="item" T="ProfessionalQualificationGridModel" OnClick="@UpdateClick" />
+                                                    <HrmDivider />
+                                                    <HrmButtonGroupItem text="Xóa" T="ProfessionalQualificationGridModel" Data="item" OnClick="@DeleteClick" />
+                                                </ActionItems>
+                                            </HrmButtonGroup>
+                                        </HrmTableTd>
+                                    </HrmTableTr>
+                                }
+                            }
+                        }
+                    </Body>
+                </HrmTable>
+            </PanelContent>
+        </HRMPanel>
+        <HrmConfirmDialog Title="Xác nhận" @ref="deleteDialog" T="ProfessionalQualificationGridModel" Data="deletedItem" AgreeeClick="@AgreeDeleteClick">
+            <Body>
+                <p>Bạn có muốn xóa dữ liệu đang chọn?</p>
+            </Body>
+            <Buttons>
+                <p></p>
+            </Buttons>
+        </HrmConfirmDialog>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    private bool tableLoading = true;
+
+    private List<ProfessionalQualificationGridModel> listData = new List<ProfessionalQualificationGridModel>();
+    private long totalItems = 0;
+    private int tableCounter = 0;
+    private string currentSortColumn = string.Empty;
+
+    private ProfessionalQualificationGridParameterModel parameterModel = new ProfessionalQualificationGridParameterModel();
+
+    private HrmConfirmDialog<ProfessionalQualificationGridModel> deleteDialog = new HrmConfirmDialog<ProfessionalQualificationGridModel>();
+    private ProfessionalQualificationGridModel deletedItem = new ProfessionalQualificationGridModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadGridData();
+    }
+
+    private async Task PageChange(Page page)
+    {
+        parameterModel.Page = page;
+        await LoadGridData();
+    }
+
+    private void AddNewClick()
+    {
+        navigationManager.NavigateTo("setting/professional-qualification/create");
+    }
+
+    private void UpdateClick(ProfessionalQualificationGridModel item)
+    {
+        navigationManager.NavigateTo($"setting/professional-qualification/update/{item.Id}");
+    }
+
+    private void DeleteClick(ProfessionalQualificationGridModel item)
+    {
+        deletedItem = item;
+        deleteDialog.Open();
+    }
+
+    private async Task AgreeDeleteClick(ProfessionalQualificationGridModel item)
+    {
+        deleteDialog.Close();
+        ProfessionalQualificationModel model = new ProfessionalQualificationModel()
+        {
+            Id = item.Id,
+            UpdateBy = 1
+        };
+
+        var result = await httpClientService.Delete<ProfessionalQualificationModel, HttpActionResponseWrapper>($"professional-qualification/{item.Id}");
+        if (result.Succeeded)
+        {
+            await toastMessageHelper.DeleteSuccess();
+            await LoadGridData();
+        }
+        else
+        {
+            await toastMessageHelper.DeleteError();
+        }
+    }
+
+
+
+    private async Task LoadGridData()
+    {
+        tableLoading = true;
+        currentSortColumn = string.Empty;
+        var result = await httpClientService.Post<ProfessionalQualificationGridParameterModel, HttpDataResponseWrapper<Model.Grid<ProfessionalQualificationGridModel>>>("professional-qualification/grid", parameterModel);
+        if (result != null)
+        {
+            listData = result.Data.List?.ToList() ?? new List<ProfessionalQualificationGridModel>();
+            totalItems = result.Data.Count;
+            tableCounter = ((parameterModel.Page.Index - 1) * parameterModel.Page.Size);
+            tableLoading = false;
+        }
+        StateHasChanged();
+    }
+
+    private void OrderColumnClick(Expression<Func<ProfessionalQualificationGridModel, dynamic>> expression, TableSort sort, string sortColumnName)
+    {
+        listData = listData.ColumnSort(expression, sort);
+        currentSortColumn = sortColumnName;
+    }
+}

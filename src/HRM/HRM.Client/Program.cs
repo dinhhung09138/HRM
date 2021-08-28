@@ -49,7 +49,6 @@ namespace HRM.Client
 
             services.AddAuthorizationCore();
             services.AddScoped<TokenRenewer>();
-            //services.AddScoped<JwtAuthenticationStateProvider>();
             services.AddScoped<AuthenticationStateProvider, HrmAuthenticationStateProvider>();
 
             services.AddScoped<IClientStorageService, ClientStorageService>();

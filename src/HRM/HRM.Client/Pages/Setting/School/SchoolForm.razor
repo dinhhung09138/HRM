@@ -1,0 +1,145 @@
+﻿@page "/setting/school/create"
+@page "/setting/school/update/{Id:long}"
+
+@inject ToastMessageHelper toastMessageHelper
+@inject NavigationManager navigationManager
+@inject IHttpClientService httpClientService
+
+<HRMPanel Title="@pageTitle">
+    <PanelContent>
+        @if (pageLoading == true)
+        {
+            <HrmLoadingContainer />
+        }
+        <EditForm EditContext="@editContext">
+            <DataAnnotationsValidator />
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="mb-3">
+                        <label>Tên trường</label>
+                        <InputText @bind-Value="model.Name" class="form-control" maxlength="100" placeholder="Tên trường" tabindex="1" />
+                        <ValidationMessage For="@(() => model.Name)" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="mb-3">
+                        <label>Thứ tự hiển thị</label>
+                        <InputNumber @bind-Value="model.Precedence" class="form-control" maxlength="3" min="1" max="999" tabindex="2" />
+                        <ValidationMessage For="@(() => model.Precedence)" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="mb-3">
+                        <label>Sử dụng</label>
+                        <InputCheckbox @bind-Value="model.IsActive" class="form-check-input" tabindex="3" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@OnValidSubmit" tabindex="4" />
+                    <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" tabindex="5" />
+                </div>
+            </div>
+        </EditForm>
+    </PanelContent>
+</HRMPanel>
+
+@code {
+
+    [Parameter]
+    public long? Id { get; set; }
+
+    private SchoolModel model = new SchoolModel();
+
+    private EditContext editContext;
+
+    private string pageTitle = "Tạo mới";
+
+    private bool pageLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        editContext = new EditContext(model);
+        if (Id.HasValue)
+        {
+            pageTitle = "Cập nhật";
+
+            var result = await httpClientService.Get<SchoolModel, HttpDataResponseWrapper<SchoolModel>>($"school/{Id.Value}");
+
+            if (result != null)
+            {
+                if (result.Succeeded == true)
+                {
+                    model = result.Data;
+                    editContext = new EditContext(model);
+                }
+                else
+                {
+                    await toastMessageHelper.Error(result.Message);
+                }
+            }
+        }
+
+        pageLoading = false;
+        StateHasChanged();
+    }
+
+    protected override void OnParametersSet()
+    {
+        editContext = new EditContext(model);
+    }
+
+    private void BackToTheList()
+    {
+        navigationManager.NavigateTo("setting/school");
+    }
+
+    private async Task OnValidSubmit()
+    {
+        if (!editContext.Validate())
+        {
+            return;
+        }
+
+        pageLoading = true;
+
+        model.CreateBy = 1;
+        model.UpdateBy = 1;
+
+        if (Id.HasValue)
+        {
+            var response = await httpClientService.Put<SchoolModel, HttpActionResponseWrapper>($"school/{Id.Value}", model);
+            if (response.Succeeded)
+            {
+                await toastMessageHelper.UpdateSuccess();
+                BackToTheList();
+            }
+            else
+            {
+                await toastMessageHelper.UpdateError();
+                pageLoading = false;
+            }
+        }
+        else
+        {
+            var response = await httpClientService.Post<SchoolModel, HttpActionResponseWrapper>("school", model);
+            if (response.Succeeded)
+            {
+                await toastMessageHelper.CreateSuccess();
+                BackToTheList();
+            }
+            else
+            {
+                await toastMessageHelper.CreateError();
+                pageLoading = false;
+            }
+        }
+        StateHasChanged();
+    }
+
+}
