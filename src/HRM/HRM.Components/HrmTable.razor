@@ -1,5 +1,5 @@
 ﻿
-
+@Search
 <div class="row">
     <div class="col-md-12 table-overflow">
         <table class="table table-bordered table-hover">
@@ -28,6 +28,9 @@
 
     [Parameter]
     public int Column { get; set; }
+
+    [Parameter]
+    public RenderFragment Search { get; set; }
 
     [Parameter]
     public RenderFragment Header { get; set; }

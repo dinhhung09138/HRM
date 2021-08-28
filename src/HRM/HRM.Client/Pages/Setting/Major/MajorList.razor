@@ -12,6 +12,19 @@
             </ButtonGroup>
             <PanelContent>
                 <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
+                    <Search>
+                        <div class="row mb-3">
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" @bind-value="@textSearch" placeholder="Tìm kiếm" />
+                                    <HrmButton Color="@Color.Primary" Text="Tìm" OnClick="@SearchClick" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </Search>
                     <Header>
                         <HrmTableTr>
                             <HrmTableTh Id="Name" SortColumnId="@currentSortColumn" Text="Tên chuyên ngành" Sort="true"
@@ -90,6 +103,8 @@
 
     private bool tableLoading = true;
 
+    private string textSearch = string.Empty;
+
     private List<MajorGridModel> listData = new List<MajorGridModel>();
     private long totalItems = 0;
     private int tableCounter = 0;
@@ -102,6 +117,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadGridData();
+    }
+
+    private async Task SearchClick()
+    {
+        parameterModel.TextSearch = textSearch;
         await LoadGridData();
     }
 
