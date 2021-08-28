@@ -1,4 +1,6 @@
-﻿<aside class="main-sidebar">
+﻿@inject IJSRuntime js
+
+<aside class="main-sidebar">
     <div class="sidebar" style="height: auto;">
         <div class="user-panel text-center">
             <div class="image">
@@ -10,13 +12,13 @@
             </div>
         </div>
         <ul class="sidebar-menu">
-            <li class="treeview ">
-                <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home">
-                    <i class="ti-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
             <AuthorizeView>
                 <Authorized>
+                    <li class="treeview">
+                        <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/dashboard/home">
+                            <i class="ti-dashboard"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
                     <li class="treeview ">
                         <a href="javascript:void(0)">
                             <i class="ti-bag"></i> <span>Accounts</span>
@@ -71,9 +73,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="treeview active">
+                    <li id="assessMainMenu" class="treeview" @onclick="@(() => MenuClick("assessMainMenu", 1))">
                         <a href="javascript:void(0)">
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                            <i class="fa fa-tags" aria-hidden="true"></i>
                             <span>Quản lý tài sản</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -101,9 +103,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="treeview active">
+                    <li id="hrMainMenu" class="treeview" @onclick="@(() => MenuClick("hrMainMenu", 1))">
                         <a href="javascript:void(0)">
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                            <i class="fa fa-id-card-o" aria-hidden="true"></i>
                             <span>Quản lý nhân sự</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -131,9 +133,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="treeview active">
+                    <li id="recruitmentMainMenu" class="treeview" @onclick="@(() => MenuClick("recruitmentMainMenu", 1))">
                         <a href="javascript:void(0)">
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                            <i class="fa fa-address-card-o" aria-hidden="true"></i>
                             <span>Tuyển dụng</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -151,70 +153,35 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="treeview active">
+                    <li id="settingMainMenu" class="treeview" @onclick="@(() => MenuClick("settingMainMenu", 1))">
                         <a href="javascript:void(0)">
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
                             <span>Thiết lập</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active">
+                            <li id="settingCertificatedMenu" class="" @onclick="@(() => MenuClick("settingCertificatedMenu", 2))">
                                 <a href="setting/certificated">Loại chứng chỉ</a>
                             </li>
-                            <li class=""><a href="setting/professional-qualification">Trình độ chuyên môn</a></li>
-                            <li class=""><a href="setting/marital-status">Tình trạng hôn nhân</a></li>
-                            <li class=""><a href="setting/major">Chuyên ngành đào tạo</a></li>
-                            <li class=""><a href="setting/school">Trường đào tạo</a></li>
-                        </ul>
-                    </li>
-                    <li class="treeview active">
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-diamond" aria-hidden="true"></i>
-                            <span>Thông tin chung</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="active">
-                                <a href="#">Danh sách tỉnh thành phố</a>
+                            <li id="settingProfessionQualificationMenu" class="" @onclick="@(() => MenuClick("settingProfessionQualificationMenu", 2))">
+                                <a href="setting/professional-qualification">Trình độ chuyên môn</a>
                             </li>
-                            <li class="">
-                                <a href="#">Danh sách khen thưởng</a>
+                            <li id="settingMaritalStatusMenu" class="" @onclick="@(() => MenuClick("settingMaritalStatusMenu", 2))">
+                                <a href="setting/marital-status">Tình trạng hôn nhân</a>
                             </li>
-                            <li class="">
-                                <a href="#">Quản lý sử dụng</a>
+                            <li id="settingMajorMenu" class="" @onclick="@(() => MenuClick("settingMajorMenu", 2))">
+                                <a href="setting/major">Chuyên ngành đào tạo</a>
                             </li>
-                        </ul>
-                    </li>
-                    <li class="treeview ">
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-user"></i>
-                            <span>Attendance</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="">
-                                <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/attendance/Home/index">Attendance Form</a>
-                            </li>
-                            <li class="">
-                                <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/attendance/Home/monthly_manual_attendance">Monthly Attendance</a>
-                            </li>
-                            <li class="">
-                                <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/attendance/Home/missing_attendance">Missing Attendance</a>
-                            </li>
-                            <li class="">
-                                <a href="https://newhrm.bdtask.com/hrm_v4.3_demo/attendance/Home/att_log_report">Attendance Log</a>
+                            <li id="settingSchoolMenu" class="" @onclick="@(() => MenuClick("settingSchoolMenu", 2))">
+                                <a href="setting/school">Trường đào tạo</a>
                             </li>
                         </ul>
                     </li>
                 </Authorized>
             </AuthorizeView>
-            
+
         </ul>
     </div>
 </aside>
@@ -223,8 +190,13 @@
 
     private List<SidebarModel> models = new List<SidebarModel>();
 
-    protected override void OnInitialized()
+    private string menuIdSelected = string.Empty;
+    private int levelSelected = 1;
+
+    protected override async Task OnInitializedAsync()
     {
+        await js.Log("Initialize");
+
         models.Add(
             new SidebarModel()
             {
@@ -264,7 +236,7 @@
                         Href = "/counter",
                         Icon = "",
                     }
-                    },
+                                        },
             }
         );
         models.Add(
@@ -296,8 +268,29 @@
                         Href = "/counter",
                         Icon = "",
                     }
-                    },
+                                        },
             }
         );
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!string.IsNullOrEmpty(menuIdSelected))
+        {
+            await js.ExpandSidebar(menuIdSelected, levelSelected);
+        }
+    }
+
+    private async Task MenuClick(string id, int level)
+    {
+        if (level == 1 || level == 3)
+        {
+            await js.ExpandSidebar(id, level);
+        }
+        else
+        {
+            menuIdSelected = id;
+            levelSelected = level;
+        }
     }
 }

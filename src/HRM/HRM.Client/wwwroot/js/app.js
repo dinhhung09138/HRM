@@ -1,4 +1,5 @@
-﻿function showHideMenu() {
+﻿
+function showHideMenu() {
     if (getWidth() >= 768) {
         if ($('body').hasClass('sidebar-collapse')) {
             $('body').attr('class', 'sidebar-mini pace-done sidebar-open');
@@ -18,7 +19,6 @@ function initilizeInactivityTimer(dotNetHelper) {
     var timer;
     document.onmousemove = resetTimer;
     document.onkeypress = resetTimer;
-    console.log('set timmer');
 
     function resetTimer() {
         clearTimeout(timer);
@@ -39,5 +39,35 @@ function getWidth() {
         document.documentElement.offsetWidth,
         document.documentElement.clientWidth
     );
+}
+
+function expandSidebar(id, level) {
+
+    
+
+    switch (level) {
+        case 1:
+            resetExpandSidebar();
+            $(`#${id}`).addClass('active');
+            break;
+        case 2:
+            $(`#${id}`).addClass('active');
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+    }
+
+}
+
+function resetExpandSidebar() {
+    $('ul.sidebar-menu > li.active').each(function (idx, item) {
+        $(item).removeClass('active');
+    });
+
+    $('ul.sidebar-menu ul.treeview-menu > li.active').each(function (idx, item) {
+        $(item).removeClass('active');
+    });
 }
 
