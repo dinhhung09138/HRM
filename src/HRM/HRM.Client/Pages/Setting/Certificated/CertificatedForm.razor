@@ -17,7 +17,7 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="mb-3">
                         <label>Tên loại chứng chỉ</label>
-                        <InputText @bind-Value="model.Name" class="form-control" maxlength="50" placeholder="Tên loại chứng chỉ" tabindex="1" />
+                        <InputText @bind-Value="model.Name" class="form-control" maxlength="150" placeholder="Tên loại chứng chỉ" tabindex="1" />
                         <ValidationMessage For="@(() => model.Name)" />
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="mb-3">
                         <label>Thứ tự hiển thị</label>
-                        <InputNumber @bind-Value="model.Precedence" class="form-control" maxlength="3" min="1" max="999" />
+                        <InputNumber @bind-Value="model.Precedence" class="form-control" maxlength="3" min="1" max="999" tabindex="2" />
                         <ValidationMessage For="@(() => model.Precedence)" />
                     </div>
                 </div>
@@ -35,14 +35,14 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="mb-3">
                         <label>Sử dụng</label>
-                        <InputCheckbox @bind-Value="model.IsActive" class="form-check-input" />
+                        <InputCheckbox @bind-Value="model.IsActive" class="form-check-input" tabindex="3" />
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
-                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@OnValidSubmit" />
-                    <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" />
+                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@OnValidSubmit" tabindex="4" />
+                    <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" tabindex="5" />
                 </div>
             </div>
         </EditForm>
@@ -96,7 +96,7 @@
 
     private void BackToTheList()
     {
-        navigationManager.NavigateTo("hr/certificated");
+        navigationManager.NavigateTo("setting/certificated");
     }
 
     private async Task OnValidSubmit()

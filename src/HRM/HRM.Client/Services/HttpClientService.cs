@@ -14,6 +14,9 @@ using System.Net.Http.Headers;
 using Microsoft.JSInterop;
 using HRM.Infrastructure.Extension;
 using HRM.Model.System;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Net;
+using Microsoft.AspNetCore.Components;
 
 namespace HRM.Client.Services
 {
@@ -29,18 +32,26 @@ namespace HRM.Client.Services
         private readonly JsonSerializerSettings _defaultJsonOption;
         private readonly ToastMessageHelper _toastMessageHelper;
 
+        private readonly NavigationManager _navigationManager;
+        private readonly AuthenticationStateProvider _authProvider;
+
         public HttpClientService(
             IConfiguration config,
             IJSRuntime jsRuntime,
             HttpClient httpClient,
             IClientStorageService localStorage,
-            ToastMessageHelper toastMessageHelper)
+            ToastMessageHelper toastMessageHelper,
+            NavigationManager navigationManager,
+            AuthenticationStateProvider authProvider)
         {
             _config = config;
             _jsRuntime = jsRuntime;
             _httpClient = httpClient;
             _localStorage = localStorage;
             _toastMessageHelper = toastMessageHelper;
+            _authProvider = authProvider;
+            _navigationManager = navigationManager;
+
             _defaultJsonOption = new JsonSerializerSettings()
             {
                 NullValueHandling = NullValueHandling.Ignore,
@@ -80,6 +91,7 @@ namespace HRM.Client.Services
             else
             {
                 await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
+                await CheckUnAuthorize(httpResponse.StatusCode);
             }
             return default;
         }
@@ -97,6 +109,7 @@ namespace HRM.Client.Services
             else
             {
                 await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
+                await CheckUnAuthorize(httpResponse.StatusCode);
             }
             return default;
         }
@@ -119,6 +132,7 @@ namespace HRM.Client.Services
             else
             {
                 await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
+                await CheckUnAuthorize(httpResponse.StatusCode);
             }
             return default;
         }
@@ -141,6 +155,7 @@ namespace HRM.Client.Services
             else
             {
                 await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
+                await CheckUnAuthorize(httpResponse.StatusCode);
             }
             return default;
         }
@@ -158,6 +173,7 @@ namespace HRM.Client.Services
             else
             {
                 await _toastMessageHelper.ApplicationError(httpResponse.StatusCode);
+                await CheckUnAuthorize(httpResponse.StatusCode);
             }
             return default;
         }
@@ -169,5 +185,13 @@ namespace HRM.Client.Services
             return response;
         }
 
+        private async Task CheckUnAuthorize(HttpStatusCode statusCode)
+        {
+            if (statusCode == HttpStatusCode.Unauthorized)
+            {
+                await ((HRM.Client.Auth.HrmAuthenticationStateProvider)_authProvider).DoLogout();
+                _navigationManager.NavigateTo("/login");
+            }
+        }
     }
 }

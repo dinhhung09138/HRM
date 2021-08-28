@@ -5,7 +5,8 @@
     <button type="@Type"
             class="hrm-button hrm-button-root @cssClass hrm-ripple"
             disabled="@Disable"
-            @onclick="@(() => OnClick.InvokeAsync())">
+            @onclick="@(() => OnClick.InvokeAsync())"
+            @attributes="@AdditionalAttrs">
         <span class="hrm-button-label">@Text</span>
     </button>
 }
@@ -38,6 +39,9 @@
 
     [Parameter]
     public EventCallback OnClick { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttrs { get; set; }
 
     private string cssClass = string.Empty;
 
