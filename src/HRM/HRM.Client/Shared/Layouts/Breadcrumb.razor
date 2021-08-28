@@ -1,0 +1,23 @@
+﻿<ol class="breadcrumb breadcrumb-new">
+    @if (Breadcumbs != null && Breadcumbs.Count > 0)
+    {
+        <li><a href="/"><i class="pe-7s-home"></i> Trang chủ</a></li>
+        foreach (var item in Breadcumbs)
+        {
+            if (item.IsActive)
+            {
+                <li class="active">@item.Title</li>
+            }
+            else
+            {
+                <li><a href="@item.Href">@item.Title</a></li>
+            }
+        }
+    }
+</ol>
+
+@code {
+
+    [Parameter]
+    public List<BreadcurmbModel> Breadcumbs { get; set; }
+}

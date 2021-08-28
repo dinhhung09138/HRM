@@ -102,6 +102,9 @@
 
 @code {
 
+    [CascadingParameter(Name = "Bredcrumb")]
+    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
+
     private bool tableLoading = true;
 
     private string textSearch = string.Empty;
@@ -118,6 +121,18 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Thiết lập",
+            IsActive = true,
+        });
+
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Danh sách trình độ chuyên môn",
+            IsActive = true,
+        });
+
         await LoadGridData();
     }
 

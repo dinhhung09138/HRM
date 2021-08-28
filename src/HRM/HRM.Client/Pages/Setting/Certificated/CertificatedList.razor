@@ -21,7 +21,7 @@
                                     <input type="text" class="form-control" @bind-value="@textSearch" placeholder="Tìm kiếm" />
                                     <HrmButton Color="@Color.Primary" Text="Tìm" OnClick="@SearchClick" />
                                 </div>
-                                
+
                             </div>
                         </div>
                     </Search>
@@ -103,6 +103,9 @@
 
 @code {
 
+    [CascadingParameter(Name = "Bredcrumb")]
+    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
+
     private bool tableLoading = true;
 
     private string textSearch = string.Empty;
@@ -119,6 +122,18 @@
 
     protected async override Task OnInitializedAsync()
     {
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Thiết lập",
+            IsActive = true,
+        });
+
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Danh sách chứng chỉ",
+            IsActive = true,
+        });
+
         await LoadGridData();
     }
 
