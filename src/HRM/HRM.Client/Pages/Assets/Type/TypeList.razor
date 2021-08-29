@@ -1,0 +1,206 @@
+﻿@page "/asset/type"
+
+@inject ToastMessageHelper toastMessageHelper
+@inject NavigationManager navigationManager
+@inject IHttpClientService httpClientService
+
+<AuthorizeView>
+    <Authorized>
+        <HRMPanel Title="Danh sách loại tài sản">
+            <ButtonGroup>
+                <HrmButton Color="@Constant.Enums.Color.Primary" Text="Thêm mới" OnClick="AddNewClick" />
+            </ButtonGroup>
+            <PanelContent>
+                <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
+                    <Search>
+                        <div class="row mb-3">
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" @bind-value="@textSearch" placeholder="Tìm kiếm" />
+                                    <HrmButton Color="@Color.Primary" Text="Tìm" OnClick="@SearchClick" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </Search>
+                    <Header>
+                        <HrmTableTr>
+                            <HrmTableTh Id="Name" SortColumnId="@currentSortColumn" Text="Tên loại" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Name, arg, "Name"))"
+                                        style="min-width: 200px;" />
+                            <HrmTableTh Id="Precedence" SortColumnId="@currentSortColumn" Text="Thứ tự" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Precedence, arg, "Precedence"))"
+                                        style="width: 120px" TextAlign="@Constant.Enums.TextAlign.Right" />
+                            <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
+                            <HrmTableTh Text="" Sort="false" style="width: 100px;" />
+                        </HrmTableTr>
+                    </Header>
+                    <Body>
+                        @if (tableLoading == true)
+                        {
+                            <HrmTableTr>
+                                <HrmTableTd Col="4">
+                                    <HrmLinearLoading />
+                                </HrmTableTd>
+                            </HrmTableTr>
+                        }
+                        else
+                        {
+                            if (totalItems == 0)
+                            {
+                                <HrmTableNoData Column="4" />
+                            }
+                            else
+                            {
+                                int count = 0;
+                                foreach (var item in listData)
+                                {
+                                    count++;
+                                    <HrmTableTr class="@(count % 2 == 0 ? "odd" : "even")">
+                                        <HrmTableTd>
+                                            @item.Name
+                                        </HrmTableTd>
+                                        <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Right">
+                                            @item.Precedence
+                                        </HrmTableTd>
+                                        <HrmTableTd>
+                                            <HrmSwitch Checked="@item.IsActive" Disabled="true" />
+                                        </HrmTableTd>
+                                        <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
+                                            <HrmButtonGroup Text="Chọn">
+                                                <ActionItems>
+                                                    <HrmButtonGroupItem Text="Cập nhật" Data="item" T="AssetTypeGridModel" OnClick="@UpdateClick" />
+                                                    <HrmDivider />
+                                                    <HrmButtonGroupItem text="Xóa" T="AssetTypeGridModel" Data="item" OnClick="@DeleteClick" />
+                                                </ActionItems>
+                                            </HrmButtonGroup>
+                                        </HrmTableTd>
+                                    </HrmTableTr>
+                                }
+                            }
+                        }
+                    </Body>
+                </HrmTable>
+            </PanelContent>
+        </HRMPanel>
+        <HrmConfirmDialog Title="Xác nhận" @ref="deleteDialog" T="AssetTypeGridModel" Data="deletedItem" AgreeeClick="@AgreeDeleteClick">
+            <Body>
+                <p>Bạn có muốn xóa dữ liệu đang chọn?</p>
+            </Body>
+            <Buttons>
+                <p></p>
+            </Buttons>
+        </HrmConfirmDialog>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>
+
+
+
+@code {
+
+    [CascadingParameter(Name = "Bredcrumb")]
+    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
+
+    private bool tableLoading = true;
+
+    private string textSearch = string.Empty;
+
+    private List<AssetTypeGridModel> listData = new List<AssetTypeGridModel>();
+    private long totalItems = 0;
+    private int tableCounter = 0;
+    private string currentSortColumn = string.Empty;
+
+    private AssetTypeGridParameterModel parameterModel = new AssetTypeGridParameterModel();
+
+    private HrmConfirmDialog<AssetTypeGridModel> deleteDialog = new HrmConfirmDialog<AssetTypeGridModel>();
+    private AssetTypeGridModel deletedItem = new AssetTypeGridModel();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Tài sản",
+            Href = "asset",
+            IsActive = false,
+        });
+
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Loại tài sản",
+            IsActive = true,
+        });
+
+        //await LoadGridData();
+    }
+
+    private async Task SearchClick()
+    {
+        parameterModel.TextSearch = textSearch;
+        await LoadGridData();
+    }
+
+    private async Task PageChange(Page page)
+    {
+        parameterModel.Page = page;
+        await LoadGridData();
+    }
+
+    private void AddNewClick()
+    {
+        navigationManager.NavigateTo("asset/type/create");
+    }
+
+    private void UpdateClick(AssetTypeGridModel item)
+    {
+        navigationManager.NavigateTo($"asset/type/update/{item.Id}");
+    }
+
+    private void DeleteClick(AssetTypeGridModel item)
+    {
+        deletedItem = item;
+        deleteDialog.Open();
+    }
+
+    private async Task AgreeDeleteClick(AssetTypeGridModel item)
+    {
+        deleteDialog.Close();
+        var result = await httpClientService.Delete<AssetTypeModel, HttpActionResponseWrapper>($"asset-type/{item.Id}");
+        if (result.Succeeded)
+        {
+            await toastMessageHelper.DeleteSuccess();
+            await LoadGridData();
+        }
+        else
+        {
+            await toastMessageHelper.DeleteError();
+        }
+    }
+
+    private async Task LoadGridData()
+    {
+        tableLoading = true;
+        currentSortColumn = string.Empty;
+
+        var result = await httpClientService.Post<AssetTypeGridParameterModel, HttpDataResponseWrapper<Model.Grid<AssetTypeGridModel>>>("asset-type/grid", parameterModel);
+        if (result != null)
+        {
+            listData = result.Data.List?.ToList() ?? new List<AssetTypeGridModel>();
+            totalItems = result.Data.Count;
+            tableCounter = ((parameterModel.Page.Index - 1) * parameterModel.Page.Size);
+            tableLoading = false;
+        }
+        StateHasChanged();
+    }
+
+    private void OrderColumnClick(Expression<Func<AssetTypeGridModel, dynamic>> expression, TableSort sort, string sortColumnName)
+    {
+        listData = listData.ColumnSort(expression, sort);
+        currentSortColumn = sortColumnName;
+    }
+
+}
