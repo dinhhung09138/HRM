@@ -1,0 +1,214 @@
+﻿@page "/asset/fixing"
+
+@inject ToastMessageHelper toastMessageHelper
+@inject NavigationManager navigationManager
+@inject IHttpClientService httpClientService
+
+<AuthorizeView>
+    <Authorized>
+        <HRMPanel Title="Danh sách tài sản sửa chữa">
+            <ButtonGroup>
+                <HrmButton Color="@Constant.Enums.Color.Primary" Text="Thêm mới" OnClick="AddNewClick" />
+            </ButtonGroup>
+            <PanelContent>
+                <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
+                    <Search>
+                        <div class="row mb-3">
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" @bind-value="@textSearch" placeholder="Tìm kiếm" />
+                                    <HrmButton Color="@Color.Primary" Text="Tìm" OnClick="@SearchClick" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </Search>
+                    <Header>
+                        <HrmTableTr>
+                            <HrmTableTh Id="AssetName" SortColumnId="@currentSortColumn" Text="Tên tài sản" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.AssetName, arg, "AssetName"))"
+                                        style="min-width: 200px;" />
+                            <HrmTableTh Id="VendorName" SortColumnId="@currentSortColumn" Text="D/v cung cấp" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.VendorName, arg, "VendorName"))" />
+                            <HrmTableTh Id="FixingDate" SortColumnId="@currentSortColumn" Text="Ngày sửa chữa" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.FixingDate, arg, "FixingDate"))"
+                                        style="min-width: 150px;" />
+                            <HrmTableTh Id="Cost" SortColumnId="@currentSortColumn" Text="Chi phí" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Cost, arg, "Cost"))"
+                                        style="min-width: 150px;" />
+                            <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
+                            <HrmTableTh Text="" Sort="false" style="width: 100px;" />
+                        </HrmTableTr>
+                    </Header>
+                    <Body>
+                        @if (tableLoading == true)
+                        {
+                            <HrmTableTr>
+                                <HrmTableTd Col="4">
+                                    <HrmLinearLoading />
+                                </HrmTableTd>
+                            </HrmTableTr>
+                        }
+                        else
+                        {
+                            if (totalItems == 0)
+                            {
+                                <HrmTableNoData Column="4" />
+                            }
+                            else
+                            {
+                                int count = 0;
+                                foreach (var item in listData)
+                                {
+                                    count++;
+                                    <HrmTableTr class="@(count % 2 == 0 ? "odd" : "even")">
+                                        <HrmTableTd>
+                                            @item.AssetName
+                                        </HrmTableTd>
+                                        <HrmTableTd>
+                                            @item.VendorName
+                                        </HrmTableTd>
+                                        <HrmTableTd>
+                                            @item.FixingDate
+                                        </HrmTableTd>
+                                        <HrmTableTd>
+                                            @item.Cost
+                                        </HrmTableTd>
+                                        <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
+                                            <HrmButtonGroup Text="Chọn">
+                                                <ActionItems>
+                                                    <HrmButtonGroupItem Text="Cập nhật" Data="item" T="AssetFixingGridModel" OnClick="@UpdateClick" />
+                                                    <HrmDivider />
+                                                    <HrmButtonGroupItem text="Xóa" T="AssetFixingGridModel" Data="item" OnClick="@DeleteClick" />
+                                                </ActionItems>
+                                            </HrmButtonGroup>
+                                        </HrmTableTd>
+                                    </HrmTableTr>
+                                }
+                            }
+                        }
+                    </Body>
+                </HrmTable>
+            </PanelContent>
+        </HRMPanel>
+        <HrmConfirmDialog Title="Xác nhận" @ref="deleteDialog" T="AssetFixingGridModel" Data="deletedItem" AgreeeClick="@AgreeDeleteClick">
+            <Body>
+                <p>Bạn có muốn xóa dữ liệu đang chọn?</p>
+            </Body>
+            <Buttons>
+                <p></p>
+            </Buttons>
+        </HrmConfirmDialog>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>
+
+
+
+@code {
+
+    [CascadingParameter(Name = "Bredcrumb")]
+    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
+
+    private bool tableLoading = true;
+
+    private string textSearch = string.Empty;
+
+    private List<AssetFixingGridModel> listData = new List<AssetFixingGridModel>();
+    private long totalItems = 0;
+    private int tableCounter = 0;
+    private string currentSortColumn = string.Empty;
+
+    private AssetFixingGridParameterModel parameterModel = new AssetFixingGridParameterModel();
+
+    private HrmConfirmDialog<AssetFixingGridModel> deleteDialog = new HrmConfirmDialog<AssetFixingGridModel>();
+    private AssetFixingGridModel deletedItem = new AssetFixingGridModel();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Tài sản",
+            Href = "asset",
+            IsActive = false,
+        });
+
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Sửa chữa",
+            IsActive = true,
+        });
+
+        //await LoadGridData();
+    }
+
+    private async Task SearchClick()
+    {
+        parameterModel.TextSearch = textSearch;
+        await LoadGridData();
+    }
+
+    private async Task PageChange(Page page)
+    {
+        parameterModel.Page = page;
+        await LoadGridData();
+    }
+
+    private void AddNewClick()
+    {
+        navigationManager.NavigateTo("asset/fixing/create");
+    }
+
+    private void UpdateClick(AssetFixingGridModel item)
+    {
+        navigationManager.NavigateTo($"asset/fixing/update/{item.Id}");
+    }
+
+    private void DeleteClick(AssetFixingGridModel item)
+    {
+        deletedItem = item;
+        deleteDialog.Open();
+    }
+
+    private async Task AgreeDeleteClick(AssetFixingGridModel item)
+    {
+        deleteDialog.Close();
+        var result = await httpClientService.Delete<AssetFixingModel, HttpActionResponseWrapper>($"asset-fixing/{item.Id}");
+        if (result.Succeeded)
+        {
+            await toastMessageHelper.DeleteSuccess();
+            await LoadGridData();
+        }
+        else
+        {
+            await toastMessageHelper.DeleteError();
+        }
+    }
+
+    private async Task LoadGridData()
+    {
+        tableLoading = true;
+        currentSortColumn = string.Empty;
+
+        var result = await httpClientService.Post<AssetFixingGridParameterModel, HttpDataResponseWrapper<Model.Grid<AssetFixingGridModel>>>("asset-fixing/grid", parameterModel);
+        if (result != null)
+        {
+            listData = result.Data.List?.ToList() ?? new List<AssetFixingGridModel>();
+            totalItems = result.Data.Count;
+            tableCounter = ((parameterModel.Page.Index - 1) * parameterModel.Page.Size);
+            tableLoading = false;
+        }
+        StateHasChanged();
+    }
+
+    private void OrderColumnClick(Expression<Func<AssetFixingGridModel, dynamic>> expression, TableSort sort, string sortColumnName)
+    {
+        listData = listData.ColumnSort(expression, sort);
+        currentSortColumn = sortColumnName;
+    }
+
+}
