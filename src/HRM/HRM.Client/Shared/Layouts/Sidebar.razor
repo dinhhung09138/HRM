@@ -73,8 +73,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="assessMainMenu" data-level="1" class="treeview" @onclick="@(() => MenuClick("assessMainMenu"))">
-                        <a href="javascript:void(0)">
+                    <li id="assetMainMenu" data-level="1" class="treeview">
+                        <a href="javascript:void(0)" @onclick="@(() => MenuClick("assetMainMenu"))">
                             <i class="fa fa-tags" aria-hidden="true"></i>
                             <span>Quản lý tài sản</span>
                             <span class="pull-right-container">
@@ -82,29 +82,59 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li class="active">
-                                <a href="#">Loại tài sản</a>
+                            <li id="assetTypeMenu" data-level="2" class="active">
+                                <a href="asset/type" @onclick="@(() => MenuClick("assetTypeMenu"))">Loại tài sản</a>
                             </li>
-                            <li class="">
-                                <a href="#">Danh sách</a>
+                            <li id="assetItemMenu" data-level="2" class="">
+                                <a href="asset/list" @onclick="@(() => MenuClick("assetItemMenu"))">Danh sách tài sản</a>
                             </li>
-                            <li class="">
-                                <a href="#">Quản lý sử dụng</a>
+                            <li id="assetFixingMenu" data-level="2" class="">
+                                <a href="asset/fixing" @onclick="@(() => MenuClick("assetFixingMenu"))">Sửa chữa</a>
                             </li>
-                            <li class="active">
-                                <a href="#">
-                                    <span>Hoàn trả trang thiết bị</span>
+                            <li id="assetHandoverInvoiceMenu" data-level="2" class="">
+                                <a href="asset/handover-invoice" @onclick="@(() => MenuClick("assetHandoverInvoiceMenu"))">Phiếu bàn giao</a>
+                            </li>
+                            <li id="assetUseManagementMenu" data-level="3" class="">
+                                <a href="asset/use-management" @onclick="@(() => MenuClick("assetUseManagementMenu"))">Quản lý sử dụng</a>
+                            </li>
+                            <li id="assetContractMenu" data-level="2" class="">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("assetContractMenu"))">
+                                    <span>Quản lý Hợp đồng</span>
                                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu ">
-                                    <li class=""><a href="#">Trả</a></li>
-                                    <li class=""><a href="#">Danh sách trả</a></li>
+                                    <li id="assetContractListMenu" data-level="4" class="">
+                                        <a href="asset/contract" @onclick="@(() => MenuClick("assetContractListMenu"))">Danh sách hợp đồng</a>
+                                    </li>
+                                    <li id="assetContractPaymentMenu" data-level="4" class="">
+                                        <a href="asset/contract/payment" @onclick="@(() => MenuClick("assetContractPaymentMenu"))">Thanh toán</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="assetLiquidationMenu" data-level="2" class="">
+                                <a href="asset/liquidation" @onclick="@(() => MenuClick("assetLiquidationMenu"))">Thanh lý</a>
+                            </li>
+                            <li id="assetBorrowReturnInfoMenu" data-level="3">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("assetBorrowReturnInfoMenu"))">
+                                    <span>Đăng ký mượn trả</span>
+                                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                                </a>
+                                <ul class="treeview-menu ">
+                                    <li id="assetBorrowListMenu" data-level="4" class="">
+                                        <a href="asset/borrow-info/list" @onclick="@(() => MenuClick("assetBorrowListMenu"))">Danh sách</a>
+                                    </li>
+                                    <li id="assetBorrowRegisterMenu" data-level="4" class="">
+                                        <a href="asset/borrow-info/register" @onclick="@(() => MenuClick("assetBorrowRegisterMenu"))">Đăng ký mượn</a>
+                                    </li>
+                                    <li id="assetReturnRegistorMenu" data-level="4" class="">
+                                        <a href="asset/borrow-info/return" @onclick="@(() => MenuClick("assetReturnRegistorMenu"))">Đăng ký trả</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                     <li id="hrMenu" data-level="1" class="treeview">
-                        <a href="javascript:void(0)" @onclick="@(() => MenuClick("hrMenu", 1))">
+                        <a href="javascript:void(0)" @onclick="@(() => MenuClick("hrMenu"))">
                             <i class="fa fa-id-card-o" aria-hidden="true"></i>
                             <span>Quản lý nhân sự</span>
                             <span class="pull-right-container">
@@ -113,7 +143,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li id="hrLeaveMenu" data-level="3">
-                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrLeaveMenu", 3))">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrLeaveMenu"))">
                                     <span>Quản lý nghỉ phép</span>
                                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
@@ -134,7 +164,7 @@
                                 </ul>
                             </li>
                             <li id="hrContactMenu" data-level="3">
-                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrContactMenu", 3))">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrContactMenu"))">
                                     <span>Thông tin liên hệ</span>
                                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
@@ -146,7 +176,7 @@
                                 </ul>
                             </li>
                             <li id="hrSettingMenu" data-level="3">
-                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrSettingMenu", 3))">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrSettingMenu"))">
                                     <span>Thiết lập</span>
                                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
@@ -179,7 +209,7 @@
                         </ul>
                     </li>
                     <li id="settingMainMenu" data-level="1" class="treeview">
-                        <a href="javascript:void(0)" @onclick="@(() => MenuClick("settingMainMenu", 1))">
+                        <a href="javascript:void(0)" @onclick="@(() => MenuClick("settingMainMenu"))">
                             <i class="fa fa-cogs" aria-hidden="true"></i>
                             <span>Thiết lập</span>
                             <span class="pull-right-container">
@@ -260,7 +290,7 @@
                         Href = "/counter",
                         Icon = "",
                     }
-                                            },
+                                                },
             }
         );
         models.Add(
@@ -292,7 +322,7 @@
                         Href = "/counter",
                         Icon = "",
                     }
-                                            },
+                                                },
             }
         );
     }
@@ -308,7 +338,7 @@
         }
     }
 
-    private void MenuClick(string id, int level = 1)
+    private void MenuClick(string id)
     {
         menuIdSelected = id;
     }

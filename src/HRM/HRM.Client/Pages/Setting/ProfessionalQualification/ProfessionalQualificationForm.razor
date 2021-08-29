@@ -61,7 +61,7 @@
 
     private EditContext editContext;
 
-    private string pageTitle = "Tạo mới";
+    private string pageTitle = "Thêm mới";
 
     private bool pageLoading = true;
 
@@ -138,9 +138,6 @@
         }
 
         pageLoading = true;
-
-        model.CreateBy = 1;
-        model.UpdateBy = 1;
 
         if (Id.HasValue)
         {
