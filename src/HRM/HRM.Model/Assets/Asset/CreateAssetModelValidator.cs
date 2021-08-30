@@ -10,7 +10,7 @@ namespace HRM.Model.Assets
             SerialNumber();
             AssetTypeId();
             VendorId();
-            Note();
+            Notes();
             IsActive();
         }
     }

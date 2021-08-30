@@ -8,7 +8,7 @@ namespace HRM.Model.Assets
             Code();
             VendorId();
             SignDate();
-            Note();
+            Notes();
         }
     }
 }

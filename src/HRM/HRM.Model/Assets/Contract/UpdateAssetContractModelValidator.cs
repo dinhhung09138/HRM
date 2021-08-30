@@ -8,7 +8,7 @@
             Code();
             VendorId();
             SignDate();
-            Note();
+            Notes();
         }
     }
 }

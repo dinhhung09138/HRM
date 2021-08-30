@@ -40,7 +40,7 @@ namespace HRM.Model.Assets
         public DateTime? LiquidationDate { get; set; }
 
         [MaxLength(500)]
-        public string Note { get; set; }
+        public string Notes { get; set; }
 
         public AssetStatus AssetStatus { get; set; }
 

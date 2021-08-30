@@ -22,7 +22,7 @@ namespace HRM.Model.Assets
         public decimal Cost { get; set; }
 
         [MaxLength(500)]
-        public string Note { get; set; }
+        public string Notes { get; set; }
 
     }
 }

@@ -11,6 +11,6 @@ namespace HRM.Model.Assets
         public long AssetId { get; set; }
 
         [MaxLength(500)]
-        public string Note { get; set; }
+        public string Notes { get; set; }
     }
 }

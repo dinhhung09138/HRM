@@ -8,7 +8,7 @@
             Code();
             VendorId();
             LiquidationDate();
-            Note();
+            Notes();
         }
     }
 }

@@ -18,7 +18,6 @@ namespace HRM.Model.Assets
         public DateTime? PaymentDate { get; set; }
 
         [MaxLength(500)]
-        public string Note { get; set; }
-
+        public string Notes { get; set; }
     }
 }

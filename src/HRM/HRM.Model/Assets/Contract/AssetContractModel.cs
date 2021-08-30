@@ -28,7 +28,7 @@ namespace HRM.Model.Assets
         public decimal ResidualValue { get; set; }
 
         [MaxLength(500)]
-        public string Note { get; set; }
+        public string Notes { get; set; }
 
 
         public List<AssetContractDetailModel> Details { get; set; } = new List<AssetContractDetailModel>();

@@ -8,7 +8,7 @@
             AssetContractId();
             Payment();
             PaymentDate();
-            Note();
+            Notes();
         }
     }
 }

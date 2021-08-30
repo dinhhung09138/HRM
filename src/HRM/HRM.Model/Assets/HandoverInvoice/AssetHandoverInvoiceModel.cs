@@ -26,8 +26,7 @@ namespace HRM.Model.Assets
         public DateTime? ReceiveDate { get; set; }
 
         [MaxLength(500)]
-        public string Note { get; set; }
-
+        public string Notes { get; set; }
 
         public List<AssetHandoverInvoiceDetailModel> Details { get; set; } = new List<AssetHandoverInvoiceDetailModel>();
     }

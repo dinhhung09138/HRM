@@ -20,10 +20,10 @@ namespace HRM.Model.Assets
 
         public decimal TotalCost { get; set; }
 
-        public decimal TotalDivices { get; set; }
+        public int TotalDivices { get; set; }
 
         [MaxLength(500)]
-        public string Note { get; set; }
+        public string Notes { get; set; }
 
         public List<AssetLiquidationDetailModel> Details { get; set; } = new List<AssetLiquidationDetailModel>();
     }

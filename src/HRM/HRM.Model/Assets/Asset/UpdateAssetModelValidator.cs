@@ -10,7 +10,7 @@
             SerialNumber();
             AssetTypeId();
             VendorId();
-            Note();
+            Notes();
             IsActive();
         }
     }

@@ -8,7 +8,7 @@ namespace HRM.Model.Assets
             AssetContractId();
             Payment();
             PaymentDate();
-            Note();
+            Notes();
         }
     }
 }

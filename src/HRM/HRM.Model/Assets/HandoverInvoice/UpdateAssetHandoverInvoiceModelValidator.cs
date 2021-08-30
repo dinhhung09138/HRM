@@ -9,7 +9,7 @@
             HandoverBy();
             HandoverDate();
             ReceiveBy();
-            Note();
+            Notes();
         }
     }
 }

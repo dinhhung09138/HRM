@@ -36,9 +36,9 @@ namespace HRM.Model.Assets
             RuleFor(m => m.VendorId).NotEmpty().NotNull();
         }
 
-        public void Note()
+        public void Notes()
         {
-            RuleFor(m => m.Note).MaximumLength(500);
+            RuleFor(m => m.Notes).MaximumLength(500);
         }
 
         public void IsActive()

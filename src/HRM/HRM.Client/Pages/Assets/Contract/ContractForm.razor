@@ -65,7 +65,7 @@
                 <div class="col-12">
                     <div class="mb-3">
                         <label>Ghi chú</label>
-                        <InputTextArea @bind-Value="@model.Note" class="form-control" row="5" tabindex="6"></InputTextArea>
+                        <InputTextArea @bind-Value="@model.Notes" class="form-control" row="5" tabindex="6"></InputTextArea>
                     </div>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                                                 <ValidationMessage For="@(() => item.AssetId)" />
                                             </HrmTableTd>
                                             <HrmTableTd>
-                                                <InputText @bind-Value="@item.Note" class="form-control" maxlength="500" placeholder="Ghi chú" tabindex="2" />
+                                                <InputText @bind-Value="@item.Notes" class="form-control" maxlength="500" placeholder="Ghi chú" tabindex="2" />
                                                 <ValidationMessage For="@(() => model.Code)" />
                                             </HrmTableTd>
                                             <HrmTableTd>

@@ -31,7 +31,7 @@ namespace HRM.Model.Assets
 
         public void Note()
         {
-            RuleFor(m => m.Note).MaximumLength(500);
+            RuleFor(m => m.Notes).MaximumLength(500);
         }
 
     }

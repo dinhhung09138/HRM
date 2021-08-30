@@ -9,7 +9,7 @@ namespace HRM.Model.Assets
             HandoverBy();
             HandoverDate();
             ReceiveBy();
-            Note();
+            Notes();
         }
     }
 }
