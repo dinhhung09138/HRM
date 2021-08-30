@@ -11,7 +11,7 @@
                 <HrmButton Color="@Constant.Enums.Color.Primary" Text="Thêm mới" OnClick="AddNewClick" />
             </ButtonGroup>
             <PanelContent>
-                <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
+                <HrmTable Column="3" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
                     <Search>
                         <div class="row mb-3">
                             <div class="col-md-8 col-sm-6 col-xs-12">
@@ -30,9 +30,6 @@
                             <HrmTableTh Id="Name" SortColumnId="@currentSortColumn" Text="Tên loại" Sort="true"
                                         OnSortClick="@((arg) => OrderColumnClick(m => m.Name, arg, "Name"))"
                                         style="min-width: 200px;" />
-                            <HrmTableTh Id="Precedence" SortColumnId="@currentSortColumn" Text="Thứ tự" Sort="true"
-                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Precedence, arg, "Precedence"))"
-                                        style="width: 120px" TextAlign="@Constant.Enums.TextAlign.Right" />
                             <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
                             <HrmTableTh Text="" Sort="false" style="width: 100px;" />
                         </HrmTableTr>
@@ -41,7 +38,7 @@
                         @if (tableLoading == true)
                         {
                             <HrmTableTr>
-                                <HrmTableTd Col="4">
+                                <HrmTableTd Col="3">
                                     <HrmLinearLoading />
                                 </HrmTableTd>
                             </HrmTableTr>
@@ -50,7 +47,7 @@
                         {
                             if (totalItems == 0)
                             {
-                                <HrmTableNoData Column="4" />
+                                <HrmTableNoData Column="3" />
                             }
                             else
                             {
@@ -61,9 +58,6 @@
                                     <HrmTableTr class="@(count % 2 == 0 ? "odd" : "even")">
                                         <HrmTableTd>
                                             @item.Name
-                                        </HrmTableTd>
-                                        <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Right">
-                                            @item.Precedence
                                         </HrmTableTd>
                                         <HrmTableTd>
                                             <HrmSwitch Checked="@item.IsActive" Disabled="true" />
@@ -135,7 +129,7 @@
             IsActive = true,
         });
 
-        //await LoadGridData();
+        await LoadGridData();
     }
 
     private async Task SearchClick()
