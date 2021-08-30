@@ -1,0 +1,187 @@
+﻿@page "/asset/contract/payment/create"
+@page "/asset/contract/payment/update/{Id:long}"
+
+@inject ToastMessageHelper toastMessageHelper
+@inject NavigationManager navigationManager
+@inject IHttpClientService httpClientService
+
+<HRMPanel Title="@pageTitle">
+    <PanelContent>
+        @if (pageLoading == true)
+        {
+            <HrmLoadingContainer />
+        }
+        <EditForm EditContext="@editContext">
+            <DataAnnotationsValidator />
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="mb-3">
+                        <label>Số hợp đồng</label>
+                        <InputSelect @bind-Value="@model.AssetContractId" class="form-control" tabindex="1">
+                            <option>Chọn</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => model.AssetContractId)" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="mb-3">
+                        <label>Số tiền</label>
+                        <InputNumber @bind-Value="@model.Payment" maxlength="15" class="form-control" tabindex="2" />
+                        <ValidationMessage For="@(() => model.Payment)" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="mb-3">
+                        <label>Ngày thanh toán</label>
+                        <InputDate @bind-Value="@model.PaymentDate" maxlength="10" class="form-control" tabindex="3" />
+                        <ValidationMessage For="@(() => model.PaymentDate)" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label>Ghi chú</label>
+                        <InputTextArea @bind-Value="@model.Note" class="form-control" row="5" tabindex="4"></InputTextArea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@OnValidSubmit" tabindex="5" />
+                    <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" tabindex="6" />
+                </div>
+            </div>
+        </EditForm>
+    </PanelContent>
+</HRMPanel>
+
+@code {
+
+    [CascadingParameter(Name = "Bredcrumb")]
+    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
+
+    [Parameter]
+    public long? Id { get; set; }
+
+    private AssetContractPaymentModel model = new AssetContractPaymentModel();
+
+    private EditContext editContext;
+
+    private string pageTitle = "Thêm mới";
+
+    private bool pageLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Quản lý tài sản",
+            Href = "asset",
+            IsActive = false,
+        });
+
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Hợp đồng",
+            Href = "asset/contract",
+            IsActive = false,
+        });
+
+        Breadcrumb.Add(new BreadcurmbModel()
+        {
+            Title = "Thanh toán",
+            Href = "asset/contract/payment",
+            IsActive = false,
+        });
+
+        editContext = new EditContext(model);
+        if (Id.HasValue)
+        {
+            pageTitle = "Cập nhật";
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Cập nhật",
+                IsActive = true,
+            });
+
+            var result = await httpClientService.Get<AssetContractPaymentModel, HttpDataResponseWrapper<AssetContractPaymentModel>>($"asset-contract-payment/{Id.Value}");
+
+            if (result != null)
+            {
+                if (result.Succeeded == true)
+                {
+                    model = result.Data;
+                    editContext = new EditContext(model);
+                }
+                else
+                {
+                    await toastMessageHelper.Error(result.Message);
+                }
+            }
+        }
+        else
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Thêm mới",
+                IsActive = true,
+            });
+        }
+
+        pageLoading = false;
+        StateHasChanged();
+    }
+
+    protected override void OnParametersSet()
+    {
+        editContext = new EditContext(model);
+    }
+
+    private void BackToTheList()
+    {
+        navigationManager.NavigateTo("asset/contract/payment");
+    }
+
+    private async Task OnValidSubmit()
+    {
+        if (!editContext.Validate())
+        {
+            return;
+        }
+
+        pageLoading = true;
+
+        if (Id.HasValue)
+        {
+            var response = await httpClientService.Put<AssetContractPaymentModel, HttpActionResponseWrapper>($"asset-contract-payment/{Id.Value}", model);
+            if (response.Succeeded)
+            {
+                await toastMessageHelper.UpdateSuccess();
+                BackToTheList();
+            }
+            else
+            {
+                await toastMessageHelper.UpdateError();
+                pageLoading = false;
+            }
+        }
+        else
+        {
+            var response = await httpClientService.Post<AssetContractPaymentModel, HttpActionResponseWrapper>("asset-contract-payment", model);
+            if (response.Succeeded)
+            {
+                await toastMessageHelper.CreateSuccess();
+                BackToTheList();
+            }
+            else
+            {
+                await toastMessageHelper.CreateError();
+                pageLoading = false;
+            }
+        }
+        StateHasChanged();
+    }
+
+}
