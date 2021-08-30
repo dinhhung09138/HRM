@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DotNetCore.Domain;
+using HRM.Domain.Assets;
 using HRM.Domain.System;
 
 namespace HRM.Domain.HR
@@ -146,5 +147,9 @@ namespace HRM.Domain.HR
         public virtual List<EmployeeLeaveSetting> EmployeeLeaveSettings { get; set; }
 
         public virtual List<EmployeeRelationship> EmployeeRelationships { get; set; }
+
+        public virtual List<AssetHandoverInvoice> AssetHandoverInvoiceHandovers { get; set; }
+
+        public virtual List<AssetHandoverInvoice> AssetHandoverInvoiceReceivers { get; set; }
     }
 }

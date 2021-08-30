@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HRM.Constant.Enums;
+using System;
 
 namespace HRM.Model.Assets
 {
@@ -10,9 +11,9 @@ namespace HRM.Model.Assets
 
         public string Name { get; set; }
 
-        public long AssetTypeName { get; set; }
+        public string AssetTypeName { get; set; }
 
-        public string Status { get; set; }
+        public AssetStatus Status { get; set; }
 
         public DateTime? BuyingDate { get; set; }
 

@@ -30,7 +30,6 @@ namespace HRM.Model.Assets
         [MaxLength(500)]
         public string Notes { get; set; }
 
-
         public List<AssetContractDetailModel> Details { get; set; } = new List<AssetContractDetailModel>();
     }
 }

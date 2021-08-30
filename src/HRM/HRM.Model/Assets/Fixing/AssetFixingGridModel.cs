@@ -10,8 +10,6 @@ namespace HRM.Model.Assets
 
         public string VendorName { get; set; }
 
-        public long AssetFixingTypeName { get; set; }
-
         public DateTime FixingDate { get; set; }
 
         public decimal Cost { get; set; }

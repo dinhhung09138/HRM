@@ -10,10 +10,13 @@ namespace HRM.Model.Assets
 
         public long AssetId { get; set; }
 
+        [Required]
         public decimal Price { get; set; }
 
+        [Required]
         public float Quantity { get; set; }
 
+        [Required]
         public float Vat { get; set; }
 
         public decimal Total { get; set; }

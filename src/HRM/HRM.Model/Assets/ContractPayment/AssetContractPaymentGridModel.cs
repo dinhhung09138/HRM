@@ -12,6 +12,6 @@ namespace HRM.Model.Assets
 
         public DateTime? PaymentDate { get; set; }
 
-        public string Note { get; set; }
+        public string Notes { get; set; }
     }
 }
