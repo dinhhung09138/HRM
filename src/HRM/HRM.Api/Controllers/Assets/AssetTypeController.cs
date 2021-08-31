@@ -26,6 +26,12 @@ namespace HRM.Api.Controllers.Assets
             return Ok(await _assetTypeService.GridAsync(model));
         }
 
+        [HttpGet("dropdown")]
+        public async Task<IActionResult> Dropdown()
+        {
+            return Ok(await _assetTypeService.DropdownAsync());
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Item(long id)
         {

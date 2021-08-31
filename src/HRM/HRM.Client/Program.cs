@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using HRM.Client.Models;
 using HRM.Infrastructure.Extension;
 using System.Text.Json;
+using HRM.Client.Helpers;
 
 namespace HRM.Client
 {
@@ -54,6 +55,8 @@ namespace HRM.Client
             services.AddScoped<IClientStorageService, ClientStorageService>();
 
             services.AddScoped<IHttpClientService, HttpClientService>();
+
+            services.AddScoped<SelectboxDataHelper>();
         }
     }
 }

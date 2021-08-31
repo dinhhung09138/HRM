@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DotNetCore.Results;
 using HRM.Infrastructure.Extension;
 using HRM.Infrastructure.Services;
+using System.Collections.Generic;
 
 namespace HRM.Application.Assets
 {
@@ -39,6 +40,12 @@ namespace HRM.Application.Assets
             {
                 return Result<AssetTypeModel>.Fail(ex.Message);
             }
+        }
+
+        public async Task<IResult<List<BaseSelectboxModel>>> DropdownAsync()
+        {
+            var data = await _assetTypeRepository.DropdownAsync();
+            return Result<List<BaseSelectboxModel>>.Success(data);
         }
 
         public async Task<IResult<Grid<AssetTypeGridModel>>> GridAsync(AssetTypeGridParameterModel paramters)
