@@ -22,7 +22,7 @@ function initilizeInactivityTimer(dotNetHelper) {
 
     function resetTimer() {
         clearTimeout(timer);
-        timer = setTimeout(logout, 30*60*1000);
+        timer = setTimeout(logout, 30 * 60 * 1000);
     }
 
     function logout() {
@@ -98,21 +98,37 @@ function resetExpandSidebar() {
     });
 }
 
-function initialSelectBox() {
-    $('.select-single').select2({
-        language: {
-            noResults: function () {
-                return 'Không có dữ liệu';
+function initialSelectBox(id, multiple, dotNetHelper, callBackFunc) {
+
+    if (multiple == true) {
+        $(`#${id}`).select2({
+            closeOnSelect: false,
+            language: {
+                noResults: function () {
+                    return 'Không có dữ liệu';
+                }
             }
-        }
-    });
-    $('.select-multiple').select2({
-        closeOnSelect: false,
-        language: {
-            noResults: function () {
-                return 'Không có dữ liệu';
+        }).on('select2:select', function (e) {
+        }).on('change', function (e) {
+            console.log(e);
+            console.log($(this).val().toString());
+            dotNetHelper.invokeMethodAsync(callBackFunc, $(this).val().toString());
+        });
+    } else {
+        $(`#${id}`).select2({
+            language: {
+                noResults: function () {
+                    return 'Không có dữ liệu';
+                }
             }
-        }
-    });
+        }).on('select2:select', function (e) {
+        }).on('change', function (e) {
+            console.log(e);
+            console.log($(this).val());
+            dotNetHelper.invokeMethodAsync(callBackFunc, $(this).val());
+        });
+    }
+    
+    
 }
 
