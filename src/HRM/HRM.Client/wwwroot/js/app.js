@@ -98,3 +98,21 @@ function resetExpandSidebar() {
     });
 }
 
+function initialSelectBox() {
+    $('.select-single').select2({
+        language: {
+            noResults: function () {
+                return 'Không có dữ liệu';
+            }
+        }
+    });
+    $('.select-multiple').select2({
+        closeOnSelect: false,
+        language: {
+            noResults: function () {
+                return 'Không có dữ liệu';
+            }
+        }
+    });
+}
+

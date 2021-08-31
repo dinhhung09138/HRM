@@ -10,6 +10,17 @@ namespace HRM.Infrastructure.Extension
 {
     public static class IJSRuntimeExtensionMethods
     {
+        /// <summary>
+        /// Initize all selectboxs.
+        /// Please add class select-single or select-multiple into the select element
+        /// </summary>
+        /// <param name="js"></param>
+        /// <returns></returns>
+        public static async ValueTask initialSelectBox(this IJSRuntime js)
+        {
+            await js.InvokeVoidAsync("initialSelectBox");
+        }
+
         public static async ValueTask Log(this IJSRuntime js, string message)
         {
             await js.InvokeVoidAsync("console.log", message);
