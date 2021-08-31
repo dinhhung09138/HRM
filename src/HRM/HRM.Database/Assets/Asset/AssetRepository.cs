@@ -25,7 +25,22 @@ namespace HRM.Database.Assets
 
             if (!string.IsNullOrEmpty(paramters.TextSearch))
             {
-                query = query.Where(m => m.Name.ToLower().Contains(paramters.TextSearch));
+                query = query.Where(m => m.Name.ToLower().Contains(paramters.TextSearch)
+                                        || m.Code.ToLower().Contains(paramters.TextSearch)
+                                        || m.AssetType.Name.ToLower().Contains(paramters.TextSearch));
+            }
+
+            if (!string.IsNullOrEmpty(paramters.AssetTypeId))
+            {
+                var listData = paramters.AssetTypeId.Split(',');
+
+                List<long> typeIds = new List<long>();
+                foreach (var item in listData)
+                {
+                    typeIds.Add(long.Parse(item));
+                }
+
+                query = query.Where(m => typeIds.Contains(m.AssetTypeId));
             }
 
             var grid = await query.Select(AssetExpression.GridAsync).GridAsync(paramters);

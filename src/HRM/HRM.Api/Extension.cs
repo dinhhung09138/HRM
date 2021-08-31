@@ -23,6 +23,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using HRM.Database.Assets;
+using HRM.Application.Assets;
 
 namespace HRM.Api
 {
@@ -84,6 +86,10 @@ namespace HRM.Api
             services.AddHashService();
             services.AddJsonWebTokenService(appSettings.SecretKey, TimeSpan.FromHours(0));
             //services.AddAuthenticationJwtBearer();
+
+            services.AddScoped<IAssetRepository, AssetRepository>();
+            services.AddScoped<IAssetFactory, AssetFactory>();
+            services.AddScoped<IAssetService, AssetService>();
 
             services.AddScoped<ICertificatedRepository, CertificatedRepository>();
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();

@@ -8,6 +8,6 @@ namespace HRM.Model.Assets
 {
     public sealed class AssetGridParameterModel : BaseGridParameterModel
     {
-        
+        public string AssetTypeId { get; set; }
     }
 }
