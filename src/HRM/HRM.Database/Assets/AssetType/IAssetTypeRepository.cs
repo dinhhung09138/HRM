@@ -4,12 +4,15 @@ using HRM.Model.Assets;
 using HRM.Domain.Assets;
 using DotNetCore.Repositories;
 using HRM.Model;
+using System.Collections.Generic;
 
 namespace HRM.Database.Assets
 {
     public interface IAssetTypeRepository : IRepository<AssetType>
     {
         Task<AssetTypeModel> FindByIdAsync(long id);
+
+        Task<List<BaseSelectboxModel>> DropdownAsync();
 
         Task<Grid<AssetTypeGridModel>> GridAsync(AssetTypeGridParameterModel paramters);
 

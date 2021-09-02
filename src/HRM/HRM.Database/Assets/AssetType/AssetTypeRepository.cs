@@ -7,6 +7,7 @@ using HRM.Domain.Assets;
 using DotNetCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DotNetCore.Objects;
+using HRM.Model;
 
 namespace HRM.Database.Assets
 {
@@ -17,6 +18,18 @@ namespace HRM.Database.Assets
         public async Task<AssetTypeModel> FindByIdAsync(long id)
         {
             return await Queryable.Where(m => m.Id == id && m.Deleted == false).Select(AssetTypeExpression.FindByIdAsync).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<BaseSelectboxModel>> DropdownAsync()
+        {
+            return await Queryable.Where(m => m.IsActive && !m.Deleted)
+                                   .OrderBy(m => m.Name)
+                                   .Select(m => new BaseSelectboxModel()
+                                   {
+                                       Id = m.Id,
+                                       Name = m.Name
+                                   })
+                                   .ToListAsync();
         }
 
         public async Task<Model.Grid<AssetTypeGridModel>> GridAsync(AssetTypeGridParameterModel paramters)

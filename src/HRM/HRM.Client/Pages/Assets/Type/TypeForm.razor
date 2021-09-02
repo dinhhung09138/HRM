@@ -1,164 +1,37 @@
 ﻿@page "/asset/type/create"
 @page "/asset/type/update/{Id:long}"
 
-@inject ToastMessageHelper toastMessageHelper
-@inject NavigationManager navigationManager
-@inject IHttpClientService httpClientService
-
 <HRMPanel Title="@pageTitle">
     <PanelContent>
-        @if (pageLoading == true)
-        {
-            <HrmLoadingContainer />
-        }
-        <EditForm EditContext="@editContext">
-            <DataAnnotationsValidator />
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="mb-3">
-                        <label>Tên loại</label>
-                        <InputText @bind-Value="model.Name" class="form-control" maxlength="100" placeholder="Tên loại" tabindex="1" />
-                        <ValidationMessage For="@(() => model.Name)" />
+        <Spin Spinning="@pageLoading">
+            <Form Model="@model" OnFinish="@OnFinish">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="mb-3">
+                            <label>Tên loại</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.Name" class="form-control" MaxLength="100" placeholder="Tên loại" tabindex="1" />
+                            </FormItem>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="mb-3">
-                        <label>Sử dụng</label>
-                        <InputCheckbox @bind-Value="model.IsActive" class="form-check-input" tabindex="2" />
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="mb-3">
+                            <FormItem>
+                                <label>Sử dụng</label>
+                                <Checkbox @bind-Value="@model.IsActive" class="form-check-input" tabindex="2" />
+                            </FormItem>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
-                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@OnValidSubmit" tabindex="3" />
-                    <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" tabindex="4" />
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
+                        <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
+                        <Button Type="@ButtonType.Default" OnClick="BackToTheList">Danh sách</Button>
+                    </div>
                 </div>
-            </div>
-        </EditForm>
+            </Form>
+        </Spin>
     </PanelContent>
 </HRMPanel>
-
-@code {
-
-    [CascadingParameter(Name = "Bredcrumb")]
-    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
-
-    [Parameter]
-    public long? Id { get; set; }
-
-    private AssetTypeModel model = new AssetTypeModel();
-
-    private EditContext editContext;
-
-    private string pageTitle = "Thêm mới";
-
-    private bool pageLoading = true;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Breadcrumb.Add(new BreadcurmbModel()
-        {
-            Title = "Quản lý tài sản",
-            Href = "asset",
-            IsActive = false,
-        });
-
-        Breadcrumb.Add(new BreadcurmbModel()
-        {
-            Title = "Loại tài sản",
-            Href = "asset/type",
-            IsActive = false,
-        });
-
-        editContext = new EditContext(model);
-        if (Id.HasValue)
-        {
-            pageTitle = "Cập nhật";
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Cập nhật",
-                IsActive = true,
-            });
-
-            var result = await httpClientService.Get<AssetTypeModel, HttpDataResponseWrapper<AssetTypeModel>>($"asset-type/{Id.Value}");
-
-            if (result != null)
-            {
-                if (result.Succeeded == true)
-                {
-                    model = result.Data;
-                    editContext = new EditContext(model);
-                }
-                else
-                {
-                    await toastMessageHelper.Error(result.Message);
-                }
-            }
-        }
-        else
-        {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thêm mới",
-                IsActive = true,
-            });
-        }
-
-        pageLoading = false;
-        StateHasChanged();
-    }
-
-    protected override void OnParametersSet()
-    {
-        editContext = new EditContext(model);
-    }
-
-    private void BackToTheList()
-    {
-        navigationManager.NavigateTo("asset/type");
-    }
-
-    private async Task OnValidSubmit()
-    {
-        if (!editContext.Validate())
-        {
-            return;
-        }
-
-        pageLoading = true;
-
-        if (Id.HasValue)
-        {
-            var response = await httpClientService.Put<AssetTypeModel, HttpActionResponseWrapper>($"asset-type/{Id.Value}", model);
-            if (response.Succeeded)
-            {
-                await toastMessageHelper.UpdateSuccess();
-                BackToTheList();
-            }
-            else
-            {
-                await toastMessageHelper.UpdateError();
-                pageLoading = false;
-            }
-        }
-        else
-        {
-            var response = await httpClientService.Post<AssetTypeModel, HttpActionResponseWrapper>("asset-type", model);
-            if (response.Succeeded)
-            {
-                await toastMessageHelper.CreateSuccess();
-                BackToTheList();
-            }
-            else
-            {
-                await toastMessageHelper.CreateError();
-                pageLoading = false;
-            }
-        }
-        StateHasChanged();
-    }
-
-}

@@ -87,9 +87,31 @@ namespace HRM.Api
             services.AddJsonWebTokenService(appSettings.SecretKey, TimeSpan.FromHours(0));
             //services.AddAuthenticationJwtBearer();
 
+
+            // ------- Asset ------- //
+
+            services.AddScoped<IAssetTypeRepository, AssetTypeRepository>();
+            services.AddScoped<IAssetTypeFactory, AssetTypeFactory>();
+            services.AddScoped<IAssetTypeService, AssetTypeService>();
+
             services.AddScoped<IAssetRepository, AssetRepository>();
             services.AddScoped<IAssetFactory, AssetFactory>();
             services.AddScoped<IAssetService, AssetService>();
+
+            services.AddScoped<IAssetContractDetailRepository, AssetContractDetailRepository>();
+            services.AddScoped<IAssetContractDetailFactory, AssetContractDetailFactory>();
+            services.AddScoped<IAssetContractDetailService, AssetContractDetailService>();
+
+            services.AddScoped<IAssetContractRepository, AssetContractRepository>();
+            services.AddScoped<IAssetContractFactory, AssetContractFactory>();
+            services.AddScoped<IAssetContractService, AssetContractService>();
+
+            services.AddScoped<IAssetContractPaymentRepository, AssetContractPaymentRepository>();
+            services.AddScoped<IAssetContractPaymentFactory, AssetContractPaymentFactory>();
+            services.AddScoped<IAssetContractPaymentService, AssetContractPaymentService>();
+
+
+            // ------- Common - Setting ------- //
 
             services.AddScoped<ICertificatedRepository, CertificatedRepository>();
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();
