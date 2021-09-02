@@ -16,6 +16,10 @@ using HRM.Client.Models;
 using HRM.Infrastructure.Extension;
 using System.Text.Json;
 using HRM.Client.Helpers;
+using AntDesign;
+using System.Globalization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
 
 namespace HRM.Client
 {
@@ -29,6 +33,19 @@ namespace HRM.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             ConfigureServices(builder.Services);
+
+            // Changing it anywhere can switch the language of the current thread.
+            builder.Services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.RequestCultureProviders.Insert(0, new CustomRequestCultureProvider(context =>
+                {
+                    var firstLang = "vi";
+                    var defaultLang = string.IsNullOrEmpty(firstLang) ? "en" : firstLang;
+                    return Task.FromResult(new ProviderCultureResult(defaultLang, defaultLang));
+                }));
+            });
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("vi-VN");
+
 
             await builder.Build().RunAsync();
         }
@@ -56,7 +73,11 @@ namespace HRM.Client
 
             services.AddScoped<IHttpClientService, HttpClientService>();
 
+            services.AddScoped<ModalService>();
             services.AddScoped<SelectboxDataHelper>();
+
+            services.AddAntDesign();
+
         }
     }
 }
