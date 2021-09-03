@@ -26,7 +26,7 @@ namespace HRM.Database.Assets
                                    .OrderBy(m => m.Name)
                                    .Select(m => new BaseSelectboxModel()
                                    {
-                                       Id = m.Id,
+                                       Id = m.Id.ToString(),
                                        Name = m.Name
                                    })
                                    .ToListAsync();

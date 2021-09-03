@@ -98,5 +98,19 @@ namespace HRM.Database.Assets
 
             return true;
         }
+
+        public async Task<bool> IsCurrentVersion(long id, byte[] rowVersion)
+        {
+            return await Queryable.AnyAsync(m => !m.Deleted && m.Id == id && m.RowVersion == rowVersion);
+        }
+
+        public async Task<bool> IsExistingCode(long? id, string code)
+        {
+            if (id.HasValue)
+            {
+                return await Queryable.AnyAsync(m => !m.Deleted && m.Id != id && m.Code == code);
+            }
+            return await Queryable.AllAsync(m => m.Code == code && !m.Deleted);
+        }
     }
 }

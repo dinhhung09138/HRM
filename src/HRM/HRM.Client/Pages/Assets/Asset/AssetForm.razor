@@ -1,267 +1,175 @@
 ﻿@page "/asset/create"
 @page "/asset/update/{Id:long}"
 
-@inject ToastMessageHelper toastMessageHelper
-@inject NavigationManager navigationManager
-@inject IHttpClientService httpClientService
-
-<HRMPanel Title="@pageTitle">
-    <PanelContent>
-        @if (pageLoading == true)
-        {
-            <HrmLoadingContainer />
-        }
-    <EditForm EditContext="@editContext">
-        <DataAnnotationsValidator />
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Mã tài sản</label>
-                    <InputText @bind-Value="model.Code" class="form-control" maxlength="50" placeholder="Mã tài sản" tabindex="1" />
-                    <ValidationMessage For="@(() => model.Code)" />
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Tên tài sản</label>
-                    <InputText @bind-Value="model.Name" class="form-control" maxlength="150" placeholder="Tên tài sản" tabindex="2" />
-                    <ValidationMessage For="@(() => model.Name)" />
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Serial Number</label>
-                    <InputText @bind-Value="model.SerialNumber" class="form-control" maxlength="50" placeholder="Serial Number" tabindex="3" />
-                    <ValidationMessage For="@(() => model.SerialNumber)" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Phân loại</label>
-                    <InputSelect @bind-Value="@model.AssetTypeId" class="form-control" tabindex="4">
-                        <option>Chọn</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => model.AssetTypeId)" />
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Đơn vị cung cấp</label>
-                    <InputSelect @bind-Value="@model.VendorId" class="form-control" tabindex="5">
-                        <option>Chọn</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => model.VendorId)" />
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Tình trạng</label>
-                    <InputSelect @bind-Value="@model.AssetStatus" class="form-control" tabindex="6">
-                        <option>Chọn</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => model.AssetStatus)" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Giá mua</label>
-                    <InputNumber @bind-Value="@model.Cost" maxlength="15" class="form-control" tabindex="7" />
-                    <ValidationMessage For="@(() => model.Cost)" />
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Chi phí sửa chữa</label>
-                    <InputNumber @bind-Value="@model.FixingCost" disableb="true" class="form-control" tabindex="8" />
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Chi phí bảo hành</label>
-                    <InputNumber @bind-Value="@model.MantenanceCost" disableb="true" class="form-control" tabindex="9" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Ngày mua</label>
-                    <InputDate @bind-Value="@model.BuyingDate" maxlength="10" class="form-control" tabindex="10" />
-                    <ValidationMessage For="@(() => model.BuyingDate)" />
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Ngày hết hạn bảo hành</label>
-                    <InputDate @bind-Value="@model.WarrantyExpiryDate" maxlength="10" class="form-control" tabindex="11" />
-                    <ValidationMessage For="@(() => model.WarrantyExpiryDate)" />
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="mb-3">
-                    <label>Ngày thanh lý</label>
-                    <InputDate @bind-Value="@model.LiquidationDate" maxlength="10" class="form-control" tabindex="12" />
-                    <ValidationMessage For="@(() => model.LiquidationDate)" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-12 col-xs-12">
-                <div class="mb-3">
-                    <label>Đăng ký sử dụng</label>
-                    <InputCheckbox @bind-Value="model.IsAllowBorrow" class="form-check-input" tabindex="13" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="mb-3">
-                    <label>Ghi chú</label>
-                    <InputTextArea @bind-Value="@model.Notes" class="form-control" row="5" tabindex="14"></InputTextArea>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-12 col-xs-12">
-                <div class="mb-3">
-                    <label>Sử dụng</label>
-                    <InputCheckbox @bind-Value="model.IsActive" class="form-check-input" tabindex="15" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
-                <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@OnValidSubmit" tabindex="16" />
-                <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" tabindex="17" />
-            </div>
-        </div>
-    </EditForm>
-    </PanelContent>
-</HRMPanel>
-
-@code {
-
-    [CascadingParameter(Name = "Bredcrumb")]
-    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
-
-    [Parameter]
-    public long? Id { get; set; }
-
-    private AssetModel model = new AssetModel();
-
-    private EditContext editContext;
-
-    private string pageTitle = "Thêm mới";
-
-    private bool pageLoading = true;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Breadcrumb.Add(new BreadcurmbModel()
-        {
-            Title = "Quản lý tài sản",
-            Href = "asset",
-            IsActive = false,
-        });
-
-        Breadcrumb.Add(new BreadcurmbModel()
-        {
-            Title = "Danh sách tài sản",
-            Href = "asset/list",
-            IsActive = false,
-        });
-
-        editContext = new EditContext(model);
-        if (Id.HasValue)
-        {
-            pageTitle = "Cập nhật";
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Cập nhật",
-                IsActive = true,
-            });
-
-            var result = await httpClientService.Get<AssetModel, HttpDataResponseWrapper<AssetModel>>($"asset/{Id.Value}");
-
-            if (result != null)
-            {
-                if (result.Succeeded == true)
-                {
-                    model = result.Data;
-                    editContext = new EditContext(model);
-                }
-                else
-                {
-                    await toastMessageHelper.Error(result.Message);
-                }
-            }
-        }
-        else
-        {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thêm mới",
-                IsActive = true,
-            });
-        }
-
-        pageLoading = false;
-        StateHasChanged();
-    }
-
-    protected override void OnParametersSet()
-    {
-        editContext = new EditContext(model);
-    }
-
-    private void BackToTheList()
-    {
-        navigationManager.NavigateTo("asset/list");
-    }
-
-    private async Task OnValidSubmit()
-    {
-        if (!editContext.Validate())
-        {
-            return;
-        }
-
-        pageLoading = true;
-
-        if (Id.HasValue)
-        {
-            var response = await httpClientService.Put<AssetModel, HttpActionResponseWrapper>($"asset/{Id.Value}", model);
-            if (response.Succeeded)
-            {
-                await toastMessageHelper.UpdateSuccess();
-                BackToTheList();
-            }
-            else
-            {
-                await toastMessageHelper.UpdateError();
-                pageLoading = false;
-            }
-        }
-        else
-        {
-            var response = await httpClientService.Post<AssetModel, HttpActionResponseWrapper>("asset", model);
-            if (response.Succeeded)
-            {
-                await toastMessageHelper.CreateSuccess();
-                BackToTheList();
-            }
-            else
-            {
-                await toastMessageHelper.CreateError();
-                pageLoading = false;
-            }
-        }
-        StateHasChanged();
-    }
-
-}
+<AuthorizeView Context="Auth">
+    <Authorized>
+        <HRMPanel Title="@pageTitle">
+            <PanelContent>
+                <Spin Spinning="@pageLoading">
+                    <Form Model="@model" OnFinish="@OnFinish">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Mã tài sản</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Code" class="form-control" MaxLength="50" tabindex="1" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Tên tài sản</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Name" class="form-control" MaxLength="150" tabindex="2" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Serial Number</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.SerialNumber" class="form-control" MaxLength="50" tabindex="3" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Phân loại</label>
+                                    <FormItem>
+                                        <Select DataSource="@assetTypeList" @bind-Value="@model.AssetTypeIdValue" DefaultValue="@("")"
+                                                ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                                AllowClear="true" class="form-group" tabindex="4"
+                                                OnSelectedItemChanged="@(item => { model.AssetTypeId = item != null ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                        </Select>
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Đơn vị cung cấp</label>
+                                    <FormItem>
+                                        <Select DataSource="@vendorList" @bind-Value="@model.VendorIdValue" DefaultValue="@("")"
+                                                ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                                AllowClear="true" class="form-group" tabindex="5"
+                                                OnSelectedItemChanged="@(item => { model.VendorId = item != null ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                        </Select>
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Tình trạng</label>
+                                    <FormItem>
+                                        <Select DataSource="@assetStatusList" @bind-Value="@model.AssetStatusValue" DefaultValue="@("")"
+                                                ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                                AllowClear="true" class="form-group" tabindex="6">
+                                        </Select>
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Giá mua</label>
+                                    <FormItem>
+                                        <AntDesign.InputNumber @bind-Value="@model.Cost" class="form-control" Size="@InputSize.Small"
+                                                               DefaultValue="0" MaxLength="15" tabindex="7"
+                                                               Formatter="@FormatMoney" Parser="@ParseMoney" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Chi phí sửa chữa</label>
+                                    <FormItem>
+                                        <AntDesign.InputNumber @bind-Value="@model.FixingCost" Disabled="true" Size="@InputSize.Small"
+                                                               DefaultValue="0" MaxLength="15" tabindex="8" class="form-control"
+                                                               Formatter="@FormatMoney" Parser="@ParseMoney" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Chi phí bảo hành</label>
+                                    <FormItem>
+                                        <AntDesign.InputNumber @bind-Value="@model.MantenanceCost" Disabled="true" Size="@InputSize.Small"
+                                                               DefaultValue="0" MaxLength="15" tabindex="9" class="form-control"
+                                                               Formatter="@FormatMoney" Parser="@ParseMoney" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Ngày mua</label>
+                                    <FormItem>
+                                        <DatePicker @bind-Value="@model.BuyingDate" Format="MM/dd/yyyy" class="form-control" MaxLength="50" tabindex="10" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Ngày hết hạn bảo hành</label>
+                                    <FormItem>
+                                        <DatePicker @bind-Value="@model.WarrantyExpiryDate" Format="MM/dd/yyyy" class="form-control" MaxLength="50" tabindex="11" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Ngày thanh lý</label>
+                                    <FormItem>
+                                        <DatePicker @bind-Value="@model.LiquidationDate" Format="MM/dd/yyyy" class="form-control" MaxLength="50" tabindex="12" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Đăng ký mượn thiết bị</label>
+                                    <FormItem>
+                                        <Checkbox @bind-Value="@model.IsAllowBorrow" class="form-check-input" tabindex="13" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Sử dụng</label>
+                                    <FormItem>
+                                        <Checkbox @bind-Value="@model.IsActive" class="form-check-input" tabindex="14" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-1">
+                                    <label>Ghi chú</label>
+                                    <FormItem>
+                                        <TextArea @bind-Value="@model.Notes" ShowCount="true" class="form-control" row="5" tabindex="15" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-1">
+                                <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
+                                <Button Type="@ButtonType.Default" OnClick="BackToTheList">Danh sách</Button>
+                            </div>
+                        </div>
+                    </Form>
+                </Spin>
+            </PanelContent>
+        </HRMPanel>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>

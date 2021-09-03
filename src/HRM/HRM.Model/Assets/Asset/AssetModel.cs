@@ -18,11 +18,17 @@ namespace HRM.Model.Assets
         public string SerialNumber { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
-        public long AssetTypeId { get; set; }
+        public long? AssetTypeId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
-        
-        public long VendorId { get; set; }
+        public string AssetTypeIdValue { get; set; } = string.Empty;
+
+        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
+
+        public long? VendorId { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
+        public string VendorIdValue { get; set; } = string.Empty;
 
         public decimal Cost { get; set; }
 
@@ -30,7 +36,7 @@ namespace HRM.Model.Assets
 
         public decimal MantenanceCost { get; set; }
 
-        [DataType(DataType.Date, ErrorMessageResourceType =typeof(ValidationResources), ErrorMessageResourceName = "Date")]
+        [DataType(DataType.Date, ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Date")]
         public DateTime? BuyingDate { get; set; }
 
         [DataType(DataType.Date, ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Date")]
@@ -42,7 +48,11 @@ namespace HRM.Model.Assets
         [MaxLength(500)]
         public string Notes { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
         public AssetStatus AssetStatus { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
+        public string AssetStatusValue { get; set; } = string.Empty;
 
         public bool IsAllowBorrow { get; set; } = false;
     }

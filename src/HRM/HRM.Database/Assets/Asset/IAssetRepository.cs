@@ -9,6 +9,8 @@ namespace HRM.Database.Assets
 {
     public interface IAssetRepository : IRepository<Asset>
     {
+        Task<bool> IsExistingCode(long? id, string code);
+
         Task<AssetModel> FindByIdAsync(long id);
 
         Task<Grid<AssetGridModel>> GridAsync(AssetGridParameterModel paramters);
@@ -16,5 +18,7 @@ namespace HRM.Database.Assets
         Task<bool> SaveAsync(Asset model, bool isCreate);
 
         Task<bool> DeleteAsync(Asset model);
+
+        Task<bool> IsCurrentVersion(long id, byte[] rowVersion);
     }
 }

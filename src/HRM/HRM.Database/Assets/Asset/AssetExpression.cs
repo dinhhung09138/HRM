@@ -27,7 +27,8 @@ namespace HRM.Database.Assets
             AssetStatus = m.AssetStatus,
             IsAllowBorrow = m.IsAllowBorrow,
             IsActive = m.IsActive,
-            Deleted = m.Deleted
+            Deleted = m.Deleted,
+            RowVersion = m.RowVersion,
         };
 
         public static Expression<Func<Asset, AssetGridModel>> GridAsync => m => new AssetGridModel()

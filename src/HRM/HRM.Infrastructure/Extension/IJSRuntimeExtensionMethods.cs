@@ -20,12 +20,17 @@ namespace HRM.Infrastructure.Extension
         /// <param name="dotNetObjectReference">DotNet Object References</param>
         /// <param name="selectedFuncCallback">The function after select2 change</param>
         /// <returns></returns>
-        public static async ValueTask initialSelectBox<T>(this IJSRuntime js, string id, bool isMultiple, DotNetObjectReference<T> dotNetObjectReference, string selectedFuncCallback) where T : class
+        public static async ValueTask InitialSelectBox<T>(this IJSRuntime js, string id, bool isMultiple, DotNetObjectReference<T> dotNetObjectReference, string selectedFuncCallback) where T : class
         {
             await js.InvokeVoidAsync("initialSelectBox", id, isMultiple, dotNetObjectReference, selectedFuncCallback);
         }
 
-        public static async ValueTask Log(this IJSRuntime js, string message)
+        public static void Log(this IJSRuntime js, string message)
+        {
+            js.InvokeVoidAsync("console.log", message);
+        }
+
+        public static async ValueTask LogAsync(this IJSRuntime js, string message)
         {
             await js.InvokeVoidAsync("console.log", message);
         }

@@ -970,3 +970,9 @@ body .loading {
         padding: 10px;
     }
 }
+/* Pagination*/
+.hrm-table-navigation {
+    display: flex;
+    align-items: center;
+    float: right;
+}
