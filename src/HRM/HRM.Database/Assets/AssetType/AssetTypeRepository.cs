@@ -85,5 +85,11 @@ namespace HRM.Database.Assets
 
             return true;
         }
+
+        public async Task<bool> IsCurrentVersion(long id, byte[] rowVersion)
+        {
+            return await Queryable.AnyAsync(m => !m.Deleted && m.Id == id && m.RowVersion == rowVersion);
+        }
+
     }
 }

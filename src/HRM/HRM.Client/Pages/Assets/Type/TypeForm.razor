@@ -1,37 +1,45 @@
 ﻿@page "/asset/type/create"
 @page "/asset/type/update/{Id:long}"
 
-<HRMPanel Title="@pageTitle">
-    <PanelContent>
-        <Spin Spinning="@pageLoading">
-            <Form Model="@model" OnFinish="@OnFinish">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12 col-xs-12">
-                        <div class="mb-3">
-                            <label>Tên loại</label>
-                            <FormItem>
-                                <Input @bind-Value="@model.Name" class="form-control" MaxLength="100" placeholder="Tên loại" tabindex="1" />
-                            </FormItem>
+<AuthorizeView Context="Auth">
+    <Authorized>
+        <HRMPanel Title="@pageTitle">
+            <PanelContent>
+                <Spin Spinning="@pageLoading">
+                    <Form Model="@model" OnFinish="@OnFinish">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Tên loại</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Name" class="form-control" MaxLength="100" placeholder="Tên loại" tabindex="1" />
+                                    </FormItem>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-sm-12 col-xs-12">
-                        <div class="mb-3">
-                            <FormItem>
-                                <label>Sử dụng</label>
-                                <Checkbox @bind-Value="@model.IsActive" class="form-check-input" tabindex="2" />
-                            </FormItem>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Sử dụng</label>
+                                    <FormItem>
+                                        <Checkbox @bind-Value="@model.IsActive" class="form-check-input" tabindex="2" />
+                                    </FormItem>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
-                        <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
-                        <Button Type="@ButtonType.Default" OnClick="BackToTheList">Danh sách</Button>
-                    </div>
-                </div>
-            </Form>
-        </Spin>
-    </PanelContent>
-</HRMPanel>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12 mb-1">
+                                <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
+                                <Button Type="@ButtonType.Default" OnClick="BackToTheList">Danh sách</Button>
+                            </div>
+                        </div>
+                    </Form>
+                </Spin>
+            </PanelContent>
+        </HRMPanel>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>
+

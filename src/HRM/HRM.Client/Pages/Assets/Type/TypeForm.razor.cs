@@ -116,7 +116,7 @@ namespace HRM.Client.Pages.Assets.Type
                 }
                 else
                 {
-                    await toastMessageHelper.UpdateError();
+                    await toastMessageHelper.Error(response.Message);
                     pageLoading = false;
                 }
             }
@@ -130,7 +130,7 @@ namespace HRM.Client.Pages.Assets.Type
                 }
                 else
                 {
-                    await toastMessageHelper.CreateError();
+                    await toastMessageHelper.Error(response.Message);
                     pageLoading = false;
                 }
             }

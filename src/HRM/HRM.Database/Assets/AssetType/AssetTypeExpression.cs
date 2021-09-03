@@ -14,7 +14,8 @@ namespace HRM.Database.Assets
             Id = m.Id,
             Name = m.Name,
             IsActive = m.IsActive,
-            Deleted = m.Deleted
+            Deleted = m.Deleted,
+            RowVersion = m.RowVersion,
         };
 
         public static Expression<Func<AssetType, AssetTypeGridModel>> GridAsync => m => new AssetTypeGridModel()

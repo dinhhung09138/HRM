@@ -11,8 +11,9 @@
                     <div class="col-md-8 col-sm-6 col-xs-12">
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <Search Placeholder="Tìm kiếm" EnterButton="@("Tìm kiếm")" @bind-Value="@parameterModel.TextSearch" OnSearch="SearchClick" Disabled="@tableLoading" />
-
+                        <Search Placeholder="Tìm kiếm" EnterButton="@("Tìm kiếm")" 
+                                @bind-Value="@parameterModel.TextSearch" 
+                                OnSearch="SearchClick" Disabled="@tableLoading" />
                     </div>
                 </div>
                 <Table DataSource="@listData" Bordered="true" Loading="@tableLoading" PageSize="@parameterModel.Page.Size">
@@ -40,7 +41,7 @@
                         </ActionColumn>
                     </ChildContent>
                     <PaginationTemplate>
-                        <div class="mt-3 mb-3" style="display: flex; align-items:center; float: right">
+                        <div class="mt-3 mb-3 hrm-table-navigation">
                             <Pagination ShowSizeChanger="true" Responsive="true"
                                         DefaultCurrent="5" Total="@totalItems" ShowTotal="@showTotal"
                                         PageSize="@parameterModel.Page.Size" DefaultPageSize="@parameterModel.Page.Index"
@@ -50,7 +51,6 @@
                 </Table>
             </PanelContent>
         </HRMPanel>
-
         <Modal Visible="@isVisibleDeleteModel" Draggable="false" Closable="false" Centered="true" Keyboard="false" MaskClosable="false"
                OnOk="@AgreeDeleteClick" OkText="@("Đồng ý")" OkType="danger"
                OnCancel="@((e) => { isVisibleDeleteModel = false; deletedItem = null; })" CancelText="@("Hủy")">

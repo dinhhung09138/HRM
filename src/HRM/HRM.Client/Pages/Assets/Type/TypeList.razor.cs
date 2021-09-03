@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Linq;
-using HRM.Components;
 using HRM.Model.Assets;
 using HRM.Client.Models;
-using HRM.Constant.Enums;
 using HRM.Infrastructure;
 using DotNetCore.Objects;
 using HRM.Client.Services;
 using System.Threading.Tasks;
-using System.Linq.Expressions;
 using System.Collections.Generic;
-using HRM.Infrastructure.Extension;
 using Microsoft.AspNetCore.Components;
 using AntDesign;
-using HRM.Client.Helpers;
 
 namespace HRM.Client.Pages.Assets.Type
 {
@@ -27,22 +22,6 @@ namespace HRM.Client.Pages.Assets.Type
 
         [Inject]
         public IHttpClientService httpClientService { get; set; }
-
-        public TypeList()
-        {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Tài sản",
-                Href = "asset",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Loại tài sản",
-                IsActive = true,
-            });
-        }
 
         [CascadingParameter(Name = "Bredcrumb")]
         public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
@@ -59,7 +38,6 @@ namespace HRM.Client.Pages.Assets.Type
 
         protected async override Task OnInitializedAsync()
         {
-
             Breadcrumb.Add(new BreadcurmbModel()
             {
                 Title = "Quản lý tài sản",
@@ -82,27 +60,31 @@ namespace HRM.Client.Pages.Assets.Type
 
         protected async Task PageChange(PaginationEventArgs args)
         {
+            if (totalItems == 0)
+            {
+                return;
+            }
             parameterModel.Page = new Page() { Index = args.Page, Size = args.PageSize };
             await LoadGridData();
         }
 
-        private void AddNewClick()
+        protected void AddNewClick()
         {
             navigationManager.NavigateTo("asset/type/create");
         }
 
-        private void UpdateClick(AssetTypeGridModel item)
+        protected void UpdateClick(AssetTypeGridModel item)
         {
             navigationManager.NavigateTo($"asset/type/update/{item.Id}");
         }
 
-        private void DeleteClick(AssetTypeGridModel item)
+        protected void DeleteClick(AssetTypeGridModel item)
         {
             deletedItem = item;
             isVisibleDeleteModel = true;
         }
 
-        private async Task AgreeDeleteClick()
+        protected async Task AgreeDeleteClick()
         {
             var result = await httpClientService.Delete<AssetTypeModel, HttpActionResponseWrapper>($"asset-type/{deletedItem.Id}");
             if (result.Succeeded)

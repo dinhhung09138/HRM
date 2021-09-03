@@ -19,5 +19,7 @@ namespace HRM.Database.Assets
         Task<bool> SaveAsync(AssetType model, bool isCreate);
 
         Task<bool> DeleteAsync(AssetType model);
+
+        Task<bool> IsCurrentVersion(long id, byte[] rowVersion);
     }
 }

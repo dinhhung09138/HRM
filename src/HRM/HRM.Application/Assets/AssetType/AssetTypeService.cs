@@ -135,6 +135,12 @@ namespace HRM.Application.Assets
                 return Result.Fail(Constant.Message.WARNING_ITEM_NOT_FOUND);
             }
 
+            var checkCurrentVersionResponse = await CheckCurrentVersion(model);
+            if (checkCurrentVersionResponse.Succeeded == false)
+            {
+                return checkCurrentVersionResponse;
+            }
+
             var validation = await new UpdateAssetTypeModelValidator().ValidateAsync(model);
             if (validation.IsValid == false)
             {
@@ -147,6 +153,15 @@ namespace HRM.Application.Assets
 
             await _unitOfWork.SaveChangesAsync();
 
+            return Result.Success();
+        }
+
+        private async Task<IResult> CheckCurrentVersion(AssetTypeModel model)
+        {
+            if (await _assetTypeRepository.IsCurrentVersion(model.Id, model.RowVersion) == false)
+            {
+                return Result.Fail(Constant.Message.DATA_IS_NOT_CURRENT_VERSION);
+            }
             return Result.Success();
         }
     }

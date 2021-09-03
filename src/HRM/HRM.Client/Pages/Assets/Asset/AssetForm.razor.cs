@@ -109,8 +109,6 @@ namespace HRM.Client.Pages.Assets.Asset
                 });
             }
 
-
-
             pageLoading = false;
             StateHasChanged();
         }
@@ -197,6 +195,7 @@ namespace HRM.Client.Pages.Assets.Asset
         {
             return value.ToString("n0");
         }
+
         private string ParseMoney(string value)
         {
             return Regex.Replace(value, @"\$\s?|(,*)", "");
