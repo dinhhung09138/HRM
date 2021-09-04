@@ -1,16 +1,20 @@
 ﻿using System;
-using HRM.Model.Assets;
+using HRM.Model;
+using HRM.Model.Common;
+using HRM.Client.Helpers;
 using HRM.Client.Models;
-using HRM.Infrastructure;
 using HRM.Client.Services;
+using HRM.Constant.Enums;
+using HRM.Infrastructure;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace HRM.Client.Pages.Assets.Type
+namespace HRM.Client.Pages.Setting.MaritalStatus
 {
-    partial class TypeForm : ComponentBase
+    partial class MaritalStatusForm : ComponentBase
     {
         [Inject]
         public ToastMessageHelper toastMessageHelper { get; set; }
@@ -21,37 +25,33 @@ namespace HRM.Client.Pages.Assets.Type
         [Inject]
         public IHttpClientService httpClientService { get; set; }
 
+        [Inject]
+        public SelectboxDataHelper selectboxDataHelper { get; set; }
+
         [CascadingParameter(Name = "Bredcrumb")]
         public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
 
         [Parameter]
         public long? Id { get; set; }
 
-        private AssetTypeModel model = new AssetTypeModel();
+        private MaritalStatusModel model = new MaritalStatusModel();
 
         private string pageTitle = "Thêm mới";
-
         private bool pageLoading = true;
-
-        public TypeForm()
-        {
-
-        }
 
         protected override async Task OnInitializedAsync()
         {
-
             Breadcrumb.Add(new BreadcurmbModel()
             {
-                Title = "Quản lý tài sản",
-                Href = "asset",
+                Title = "Thiết lập",
+                Href = "setting",
                 IsActive = false,
             });
 
             Breadcrumb.Add(new BreadcurmbModel()
             {
-                Title = "Loại tài sản",
-                Href = "asset/type",
+                Title = "Danh sách tình trạng hôn nhân",
+                Href = "setting/marital-status",
                 IsActive = false,
             });
 
@@ -65,7 +65,7 @@ namespace HRM.Client.Pages.Assets.Type
                     IsActive = true,
                 });
 
-                var result = await httpClientService.Get<AssetTypeModel, HttpDataResponseWrapper<AssetTypeModel>>($"asset-type/{Id.Value}");
+                var result = await httpClientService.Get<MaritalStatusModel, HttpDataResponseWrapper<MaritalStatusModel>>($"marital-status/{Id.Value}");
 
                 if (result != null)
                 {
@@ -94,7 +94,7 @@ namespace HRM.Client.Pages.Assets.Type
 
         protected void BackToTheListClick()
         {
-            navigationManager.NavigateTo("asset/type");
+            navigationManager.NavigateTo("setting/marital-status");
         }
 
         protected async Task OnFinish(EditContext editContext)
@@ -108,7 +108,7 @@ namespace HRM.Client.Pages.Assets.Type
 
             if (Id.HasValue)
             {
-                var response = await httpClientService.Put<AssetTypeModel, HttpActionResponseWrapper>($"asset-type/{Id.Value}", model);
+                var response = await httpClientService.Put<MaritalStatusModel, HttpActionResponseWrapper>($"marital-status/{Id.Value}", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.UpdateSuccess();
@@ -122,7 +122,7 @@ namespace HRM.Client.Pages.Assets.Type
             }
             else
             {
-                var response = await httpClientService.Post<AssetTypeModel, HttpActionResponseWrapper>("asset-type", model);
+                var response = await httpClientService.Post<MaritalStatusModel, HttpActionResponseWrapper>("marital-status", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.CreateSuccess();

@@ -1,16 +1,20 @@
 ﻿using System;
-using HRM.Model.Assets;
+using HRM.Model;
+using HRM.Model.Common;
+using HRM.Client.Helpers;
 using HRM.Client.Models;
-using HRM.Infrastructure;
 using HRM.Client.Services;
+using HRM.Constant.Enums;
+using HRM.Infrastructure;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace HRM.Client.Pages.Assets.Type
+namespace HRM.Client.Pages.Setting.ProfessionalQualification
 {
-    partial class TypeForm : ComponentBase
+    partial class ProfessionalQualificationForm : ComponentBase
     {
         [Inject]
         public ToastMessageHelper toastMessageHelper { get; set; }
@@ -21,37 +25,33 @@ namespace HRM.Client.Pages.Assets.Type
         [Inject]
         public IHttpClientService httpClientService { get; set; }
 
+        [Inject]
+        public SelectboxDataHelper selectboxDataHelper { get; set; }
+
         [CascadingParameter(Name = "Bredcrumb")]
         public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
 
         [Parameter]
         public long? Id { get; set; }
 
-        private AssetTypeModel model = new AssetTypeModel();
+        private ProfessionalQualificationModel model = new ProfessionalQualificationModel();
 
         private string pageTitle = "Thêm mới";
-
         private bool pageLoading = true;
-
-        public TypeForm()
-        {
-
-        }
 
         protected override async Task OnInitializedAsync()
         {
-
             Breadcrumb.Add(new BreadcurmbModel()
             {
-                Title = "Quản lý tài sản",
-                Href = "asset",
+                Title = "Thiết lập",
+                Href = "setting",
                 IsActive = false,
             });
 
             Breadcrumb.Add(new BreadcurmbModel()
             {
-                Title = "Loại tài sản",
-                Href = "asset/type",
+                Title = "Danh sách trình độ chuyên môn",
+                Href = "setting/professional-qualification",
                 IsActive = false,
             });
 
@@ -65,7 +65,7 @@ namespace HRM.Client.Pages.Assets.Type
                     IsActive = true,
                 });
 
-                var result = await httpClientService.Get<AssetTypeModel, HttpDataResponseWrapper<AssetTypeModel>>($"asset-type/{Id.Value}");
+                var result = await httpClientService.Get<ProfessionalQualificationModel, HttpDataResponseWrapper<ProfessionalQualificationModel>>($"professional-qualification/{Id.Value}");
 
                 if (result != null)
                 {
@@ -94,7 +94,7 @@ namespace HRM.Client.Pages.Assets.Type
 
         protected void BackToTheListClick()
         {
-            navigationManager.NavigateTo("asset/type");
+            navigationManager.NavigateTo("setting/professional-qualification");
         }
 
         protected async Task OnFinish(EditContext editContext)
@@ -108,7 +108,7 @@ namespace HRM.Client.Pages.Assets.Type
 
             if (Id.HasValue)
             {
-                var response = await httpClientService.Put<AssetTypeModel, HttpActionResponseWrapper>($"asset-type/{Id.Value}", model);
+                var response = await httpClientService.Put<ProfessionalQualificationModel, HttpActionResponseWrapper>($"professional-qualification/{Id.Value}", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.UpdateSuccess();
@@ -122,7 +122,7 @@ namespace HRM.Client.Pages.Assets.Type
             }
             else
             {
-                var response = await httpClientService.Post<AssetTypeModel, HttpActionResponseWrapper>("asset-type", model);
+                var response = await httpClientService.Post<ProfessionalQualificationModel, HttpActionResponseWrapper>("professional-qualification", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.CreateSuccess();

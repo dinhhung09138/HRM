@@ -100,7 +100,7 @@ namespace HRM.Client.Pages.Assets.Type
             }
             else
             {
-                await toastMessageHelper.DeleteError();
+                await toastMessageHelper.Error(result.Message);
             }
             isVisibleDeleteModel = false;
             deletedItem = null;

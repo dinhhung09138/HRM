@@ -1,210 +1,67 @@
 ﻿@page "/setting/school"
 
-@inject ToastMessageHelper toastMessageHelper
-@inject NavigationManager navigationManager
-@inject IHttpClientService httpClientService
-
-<AuthorizeView>
+<AuthorizeView Context="Auth">
     <Authorized>
         <HRMPanel Title="Danh sách trường đào tạo">
             <ButtonGroup>
-                <HrmButton Color="@Constant.Enums.Color.Primary" Text="Thêm mới" OnClick="AddNewClick" />
+                <Button Type="@ButtonType.Primary" OnClick="@AddNewClick">Thêm mới</Button>
             </ButtonGroup>
             <PanelContent>
-                <HrmTable Column="4" Page="@parameterModel.Page" TotalItems="@totalItems" OnPageChange="@PageChange">
-                    <Search>
-                        <div class="row mb-3">
-                            <div class="col-md-8 col-sm-6 col-xs-12">
-                            </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" @bind-value="@textSearch" placeholder="Tìm kiếm" />
-                                    <HrmButton Color="@Color.Primary" Text="Tìm" OnClick="@SearchClick" />
-                                </div>
+                <div class="row mb-2">
+                    <div class="col-md-8 col-sm-6 col-xs-12">
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <Search Placeholder="Tìm kiếm" EnterButton="@("Tìm kiếm")" DefaultValue="@("")"
+                                @bind-Value="@parameterModel.TextSearch"
+                                OnSearch="SearchClick" Disabled="@tableLoading" />
+                    </div>
+                </div>
+                <Table DataSource="@listData" Bordered="true" Loading="@tableLoading" PageSize="@parameterModel.Page.Size">
+                    <ChildContent>
+                        <Column @bind-Field="@context.Name" Title="Tên trường"
+                                Sortable="true" ShowSorterTooltip="false" />
 
-                            </div>
+                        <Column @bind-Field="@context.Precedence" Title="Thứ tự"
+                                Sortable="true" Width="100px" ShowSorterTooltip="false" />
+                        <Column Field="@context.IsActive" Title="Sử dụng" Width="100px" Sortable="false">
+                            <Switch @bind-Value="@context.IsActive" Disabled="true" />
+                        </Column>
+                        <ActionColumn Width="90" Fixed="right">
+                            <Dropdown Placement="@PlacementType.BottomRight">
+                                <ChildContent>Chọn <i class="fa fa-angle-down" aria-hidden="true" style="margin-left: 10px;"></i></ChildContent>
+                                <Overlay>
+                                    <Menu>
+                                        <MenuItem>
+                                            <Button Type="@ButtonType.Text" OnClick="@(() => UpdateClick(context))">Cập nhật</Button>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <Button Type="@ButtonType.Text" OnClick="@(() => DeleteClick(context))" Danger="true">Xóa</Button>
+                                        </MenuItem>
+                                    </Menu>
+                                </Overlay>
+                            </Dropdown>
+                        </ActionColumn>
+                    </ChildContent>
+                    <PaginationTemplate>
+                        <div class="mt-3 mb-3 hrm-table-navigation">
+                            <Pagination ShowSizeChanger="true" Responsive="true"
+                                        DefaultCurrent="5" Total="@totalItems" ShowTotal="@showTotal"
+                                        PageSize="@parameterModel.Page.Size" DefaultPageSize="@parameterModel.Page.Index"
+                                        OnChange="@PageChange" />
                         </div>
-                    </Search>
-                    <Header>
-                        <HrmTableTr>
-                            <HrmTableTh Id="Name" SortColumnId="@currentSortColumn" Text="Tên trường" Sort="true"
-                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Name, arg, "Name"))"
-                                        style="min-width: 200px;" />
-                            <HrmTableTh Id="Precedence" SortColumnId="@currentSortColumn" Text="Thứ tự" Sort="true"
-                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Precedence, arg, "Precedence"))"
-                                        style="width: 120px" TextAlign="@Constant.Enums.TextAlign.Right" />
-                            <HrmTableTh Text="Sử dụng" Sort="false" style="width: 100px" />
-                            <HrmTableTh Text="" Sort="false" style="width: 100px;" />
-                        </HrmTableTr>
-                    </Header>
-                    <Body>
-                        @if (tableLoading == true)
-                        {
-                            <HrmTableTr>
-                                <HrmTableTd Col="4">
-                                    <HrmLinearLoading />
-                                </HrmTableTd>
-                            </HrmTableTr>
-                        }
-                        else
-                        {
-                            if (totalItems == 0)
-                            {
-                                <HrmTableNoData Column="4" />
-                            }
-                            else
-                            {
-                                int count = 0;
-                                foreach (var item in listData)
-                                {
-                                    count++;
-                                    <HrmTableTr class="@(count % 2 == 0 ? "odd" : "even")">
-                                        <HrmTableTd>
-                                            @item.Name
-                                        </HrmTableTd>
-                                        <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Right">
-                                            @item.Precedence
-                                        </HrmTableTd>
-                                        <HrmTableTd>
-                                            <HrmSwitch Checked="@item.IsActive" Disabled="true" />
-                                        </HrmTableTd>
-                                        <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
-                                            <HrmButtonGroup Text="Chọn">
-                                                <ActionItems>
-                                                    <HrmButtonGroupItem Text="Cập nhật" Data="item" T="SchoolGridModel" OnClick="@UpdateClick" />
-                                                    <HrmDivider />
-                                                    <HrmButtonGroupItem text="Xóa" T="SchoolGridModel" Data="item" OnClick="@DeleteClick" />
-                                                </ActionItems>
-                                            </HrmButtonGroup>
-                                        </HrmTableTd>
-                                    </HrmTableTr>
-                                }
-                            }
-                        }
-                    </Body>
-                </HrmTable>
+                    </PaginationTemplate>
+                </Table>
             </PanelContent>
         </HRMPanel>
-        <HrmConfirmDialog Title="Xác nhận" @ref="deleteDialog" T="SchoolGridModel" Data="deletedItem" AgreeeClick="@AgreeDeleteClick">
-            <Body>
-                <p>Bạn có muốn xóa dữ liệu đang chọn?</p>
-            </Body>
-            <Buttons>
-                <p></p>
-            </Buttons>
-        </HrmConfirmDialog>
+        <Modal Visible="@isVisibleDeleteModel" Draggable="false" Closable="false" Centered="true" Keyboard="false" MaskClosable="false"
+               OnOk="@AgreeDeleteClick" OkText="@("Đồng ý")" OkType="danger"
+               OnCancel="@((e) => { isVisibleDeleteModel = false; deletedItem = null; })" CancelText="@("Hủy")">
+            <ChildContent>
+                Bạn có muốn xóa dòng dữ liệu đang chọn?
+            </ChildContent>
+        </Modal>
     </Authorized>
     <NotAuthorized>
         <HrmNotAuthorize />
     </NotAuthorized>
 </AuthorizeView>
-
-@code {
-
-    [CascadingParameter(Name = "Bredcrumb")]
-    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
-
-    private bool tableLoading = true;
-
-    private string textSearch = string.Empty;
-
-    private List<SchoolGridModel> listData = new List<SchoolGridModel>();
-    private long totalItems = 0;
-    private int tableCounter = 0;
-    private string currentSortColumn = string.Empty;
-
-    private SchoolGridParameterModel parameterModel = new SchoolGridParameterModel();
-
-    private HrmConfirmDialog<SchoolGridModel> deleteDialog = new HrmConfirmDialog<SchoolGridModel>();
-    private SchoolGridModel deletedItem = new SchoolGridModel();
-
-    protected override async Task OnInitializedAsync()
-    {
-        Breadcrumb.Add(new BreadcurmbModel()
-        {
-            Title = "Thiết lập",
-            Href = "setting",
-            IsActive = false,
-        });
-
-        Breadcrumb.Add(new BreadcurmbModel()
-        {
-            Title = "Danh sách trường đào tạo",
-            IsActive = true,
-        });
-
-        await LoadGridData();
-    }
-
-    private async Task SearchClick()
-    {
-        parameterModel.TextSearch = textSearch;
-        await LoadGridData();
-    }
-
-    private async Task PageChange(Page page)
-    {
-        parameterModel.Page = page;
-        await LoadGridData();
-    }
-
-    private void AddNewClick()
-    {
-        navigationManager.NavigateTo("setting/school/create");
-    }
-
-    private void UpdateClick(SchoolGridModel item)
-    {
-        navigationManager.NavigateTo($"setting/school/update/{item.Id}");
-    }
-
-    private void DeleteClick(SchoolGridModel item)
-    {
-        deletedItem = item;
-        deleteDialog.Open();
-    }
-
-    private async Task AgreeDeleteClick(SchoolGridModel item)
-    {
-        deleteDialog.Close();
-        SchoolModel model = new SchoolModel()
-        {
-            Id = item.Id,
-            UpdateBy = 1
-        };
-
-        var result = await httpClientService.Delete<SchoolModel, HttpActionResponseWrapper>($"school/{item.Id}");
-        if (result.Succeeded)
-        {
-            await toastMessageHelper.DeleteSuccess();
-            await LoadGridData();
-        }
-        else
-        {
-            await toastMessageHelper.DeleteError();
-        }
-    }
-
-
-
-    private async Task LoadGridData()
-    {
-        tableLoading = true;
-        currentSortColumn = string.Empty;
-        var result = await httpClientService.Post<SchoolGridParameterModel, HttpDataResponseWrapper<Model.Grid<SchoolGridModel>>>("school/grid", parameterModel);
-        if (result != null)
-        {
-            listData = result.Data.List?.ToList() ?? new List<SchoolGridModel>();
-            totalItems = result.Data.Count;
-            tableCounter = ((parameterModel.Page.Index - 1) * parameterModel.Page.Size);
-            tableLoading = false;
-        }
-        StateHasChanged();
-    }
-
-    private void OrderColumnClick(Expression<Func<SchoolGridModel, dynamic>> expression, TableSort sort, string sortColumnName)
-    {
-        listData = listData.ColumnSort(expression, sort);
-        currentSortColumn = sortColumnName;
-    }
-}

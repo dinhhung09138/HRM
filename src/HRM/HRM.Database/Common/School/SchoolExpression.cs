@@ -15,7 +15,8 @@ namespace HRM.Database
             Name = m.Name,
             IsActive = m.IsActive,
             Precedence = m.Precedence,
-            Deleted = m.Deleted
+            Deleted = m.Deleted,
+            RowVersion = m.RowVersion,
         };
 
         public static Expression<Func<School, SchoolGridModel>> GridAsync => m => new SchoolGridModel()

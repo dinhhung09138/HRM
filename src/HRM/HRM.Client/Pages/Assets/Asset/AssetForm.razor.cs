@@ -1,19 +1,17 @@
-﻿using HRM.Client.Helpers;
+﻿using System;
+using HRM.Model;
+using HRM.Model.Assets;
+using HRM.Client.Helpers;
 using HRM.Client.Models;
 using HRM.Client.Services;
 using HRM.Constant.Enums;
 using HRM.Infrastructure;
-using HRM.Infrastructure.Extension;
-using HRM.Model;
-using HRM.Model.Assets;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 
 namespace HRM.Client.Pages.Assets.Asset
 {
@@ -21,9 +19,6 @@ namespace HRM.Client.Pages.Assets.Asset
     {
         [Inject]
         public ToastMessageHelper toastMessageHelper { get; set; }
-
-        [Inject]
-        public IJSRuntime js { get; set; }
 
         [Inject]
         public NavigationManager navigationManager { get; set; }
@@ -47,12 +42,7 @@ namespace HRM.Client.Pages.Assets.Asset
         private AssetModel model = new AssetModel();
 
         private string pageTitle = "Thêm mới";
-
         private bool pageLoading = true;
-
-        public AssetForm()
-        {
-        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -113,7 +103,7 @@ namespace HRM.Client.Pages.Assets.Asset
             StateHasChanged();
         }
 
-        protected void BackToTheList()
+        protected void BackToTheListClick()
         {
             navigationManager.NavigateTo("asset/list");
         }
@@ -148,7 +138,7 @@ namespace HRM.Client.Pages.Assets.Asset
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.UpdateSuccess();
-                    BackToTheList();
+                    BackToTheListClick();
                 }
                 else
                 {
@@ -162,7 +152,7 @@ namespace HRM.Client.Pages.Assets.Asset
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.CreateSuccess();
-                    BackToTheList();
+                    BackToTheListClick();
                 }
                 else
                 {
@@ -171,6 +161,16 @@ namespace HRM.Client.Pages.Assets.Asset
                 }
             }
             StateHasChanged();
+        }
+
+        protected string FormatMoney(decimal value)
+        {
+            return value.ToString("n0");
+        }
+
+        protected string ParseMoney(string value)
+        {
+            return Regex.Replace(value, @"\$\s?|(,*)", "");
         }
 
         private async Task LoadAssetTypeDropdown()
@@ -191,14 +191,5 @@ namespace HRM.Client.Pages.Assets.Asset
             StateHasChanged();
         }
 
-        private string FormatMoney(decimal value)
-        {
-            return value.ToString("n0");
-        }
-
-        private string ParseMoney(string value)
-        {
-            return Regex.Replace(value, @"\$\s?|(,*)", "");
-        }
     }
 }

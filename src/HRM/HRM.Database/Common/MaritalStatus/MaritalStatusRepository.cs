@@ -28,6 +28,8 @@ namespace HRM.Database.Common
                 query = query.Where(m => m.Name.ToLower().Contains(paramters.TextSearch));
             }
 
+            query = query.OrderBy(m => m.Precedence);
+
             var grid = await query.Select(MaritalStatusExpression.GridAsync).GridAsync(paramters);
 
             var result = new Model.Grid<MaritalStatusGridModel>();
@@ -73,5 +75,11 @@ namespace HRM.Database.Common
 
             return true;
         }
+
+        public async Task<bool> IsCurrentVersion(long id, byte[] rowVersion)
+        {
+            return await Queryable.AnyAsync(m => !m.Deleted && m.Id == id && m.RowVersion == rowVersion);
+        }
+
     }
 }

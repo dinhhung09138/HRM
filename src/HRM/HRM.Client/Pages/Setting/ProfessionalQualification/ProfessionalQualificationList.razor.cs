@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using HRM.Model.Assets;
+using HRM.Model.Common;
 using HRM.Client.Models;
 using HRM.Infrastructure;
 using DotNetCore.Objects;
@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using AntDesign;
-using HRM.Model;
 using HRM.Client.Helpers;
 
-namespace HRM.Client.Pages.Assets.Asset
+namespace HRM.Client.Pages.Setting.ProfessionalQualification
 {
-    partial class AssetList :ComponentBase
+    partial class ProfessionalQualificationList : ComponentBase
     {
         [Inject]
         public ToastMessageHelper toastMessageHelper { get; set; }
@@ -32,33 +31,30 @@ namespace HRM.Client.Pages.Assets.Asset
         public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
 
         private bool tableLoading = true;
-        private List<AssetGridModel> listData = new List<AssetGridModel>();
+        private List<ProfessionalQualificationGridModel> listData = new List<ProfessionalQualificationGridModel>();
         private int totalItems = 0;
         Func<PaginationTotalContext, string> showTotal = ctr => $"Tổng: {ctr.Total} dòng";
 
-        private AssetGridParameterModel parameterModel = new AssetGridParameterModel();
+        private ProfessionalQualificationGridParameterModel parameterModel = new ProfessionalQualificationGridParameterModel();
 
-        private AssetGridModel deletedItem = new AssetGridModel();
+        private ProfessionalQualificationGridModel deletedItem = new ProfessionalQualificationGridModel();
         private bool isVisibleDeleteModel = false;
 
-        private List<BaseSelectboxModel> assetTypeList = new List<BaseSelectboxModel>();
-
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             Breadcrumb.Add(new BreadcurmbModel()
             {
-                Title = "Quản lý tài sản",
-                Href = "asset",
+                Title = "Thiết lập",
+                Href = "setting",
                 IsActive = false,
             });
 
             Breadcrumb.Add(new BreadcurmbModel()
             {
-                Title = "Danh sách tài sản",
+                Title = "Danh sách trình độ chuyên môn",
                 IsActive = true,
             });
 
-            await LoadAssetTypeDropdown();
             await LoadGridData();
         }
 
@@ -79,15 +75,15 @@ namespace HRM.Client.Pages.Assets.Asset
 
         protected void AddNewClick()
         {
-            navigationManager.NavigateTo("asset/create");
+            navigationManager.NavigateTo("setting/professional-qualification/create");
         }
 
-        protected void UpdateClick(AssetGridModel item)
+        protected void UpdateClick(ProfessionalQualificationGridModel item)
         {
-            navigationManager.NavigateTo($"asset/update/{item.Id}");
+            navigationManager.NavigateTo($"setting/professional-qualification/update/{item.Id}");
         }
 
-        protected void DeleteClick(AssetGridModel item)
+        protected void DeleteClick(ProfessionalQualificationGridModel item)
         {
             deletedItem = item;
             isVisibleDeleteModel = true;
@@ -95,7 +91,7 @@ namespace HRM.Client.Pages.Assets.Asset
 
         protected async Task AgreeDeleteClick()
         {
-            var result = await httpClientService.Delete<AssetModel, HttpActionResponseWrapper>($"asset/{deletedItem.Id}");
+            var result = await httpClientService.Delete<ProfessionalQualificationModel, HttpActionResponseWrapper>($"professional-qualification/{deletedItem.Id}");
             if (result.Succeeded)
             {
                 await toastMessageHelper.DeleteSuccess();
@@ -118,20 +114,15 @@ namespace HRM.Client.Pages.Assets.Asset
         private async Task LoadGridData()
         {
             tableLoading = true;
-
-            var result = await httpClientService.Post<AssetGridParameterModel, HttpDataResponseWrapper<Model.Grid<AssetGridModel>>>("asset/grid", parameterModel);
+            var result = await httpClientService.Post<ProfessionalQualificationGridParameterModel, HttpDataResponseWrapper<Model.Grid<ProfessionalQualificationGridModel>>>("professional-qualification/grid", parameterModel);
             if (result != null)
             {
-                listData = result.Data.List?.ToList() ?? new List<AssetGridModel>();
+                listData = result.Data.List?.ToList() ?? new List<ProfessionalQualificationGridModel>();
                 totalItems = (int)result.Data.Count;
                 tableLoading = false;
             }
             StateHasChanged();
         }
 
-        private async Task LoadAssetTypeDropdown()
-        {
-            assetTypeList = await selectboxDataHelper.GetAssetType();
-        }
     }
 }

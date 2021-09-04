@@ -16,5 +16,7 @@ namespace HRM.Database.Common
         Task<bool> SaveAsync(Certificated model, bool isCreate);
 
         Task<bool> DeleteAsync(Certificated model);
+
+        Task<bool> IsCurrentVersion(long id, byte[] rowVersion);
     }
 }

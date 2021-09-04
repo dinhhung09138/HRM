@@ -1,173 +1,55 @@
 ﻿@page "/setting/marital-status/create"
 @page "/setting/marital-status/update/{Id:long}"
 
-@inject ToastMessageHelper toastMessageHelper
-@inject NavigationManager navigationManager
-@inject IHttpClientService httpClientService
-
-<HRMPanel Title="@pageTitle">
-    <PanelContent>
-        @if (pageLoading == true)
-        {
-            <HrmLoadingContainer />
-        }
-        <EditForm EditContext="@editContext">
-            <DataAnnotationsValidator />
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="mb-3">
-                        <label>Tên</label>
-                        <InputText @bind-Value="model.Name" class="form-control" maxlength="50" placeholder="Tên" tabindex="1" />
-                        <ValidationMessage For="@(() => model.Name)" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="mb-3">
-                        <label>Thứ tự hiển thị</label>
-                        <InputNumber @bind-Value="model.Precedence" class="form-control" maxlength="3" min="1" max="999" tabindex="2" />
-                        <ValidationMessage For="@(() => model.Precedence)" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="mb-3">
-                        <label>Sử dụng</label>
-                        <InputCheckbox @bind-Value="model.IsActive" class="form-check-input" tabindex="3" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12 mb-3">
-                    <HrmButton Type="Submit" Text="Lưu" Color="@Constant.Enums.Color.Primary" OnClick="@OnValidSubmit" tabindex="4" />
-                    <HrmButton Text="Danh sách" Color="@Constant.Enums.Color.Default" OnClick="BackToTheList" tabindex="5" />
-                </div>
-            </div>
-        </EditForm>
-    </PanelContent>
-</HRMPanel>
-
-@code {
-
-    [CascadingParameter(Name = "Bredcrumb")]
-    public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
-
-    [Parameter]
-    public long? Id { get; set; }
-
-    private MaritalStatusModel model = new MaritalStatusModel();
-
-    private EditContext editContext;
-
-    private string pageTitle = "Thêm mới";
-
-    private bool pageLoading = true;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Breadcrumb.Add(new BreadcurmbModel()
-        {
-            Title = "Thiết lập",
-            Href = "setting",
-            IsActive = false,
-        });
-
-        Breadcrumb.Add(new BreadcurmbModel()
-        {
-            Title = "Danh sách tình trạng hôn nhân",
-            Href = "setting/marital-status",
-            IsActive = false,
-        });
-
-        editContext = new EditContext(model);
-        if (Id.HasValue)
-        {
-            pageTitle = "Cập nhật";
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Cập nhật",
-                IsActive = true,
-            });
-
-            var result = await httpClientService.Get<MaritalStatusModel, HttpDataResponseWrapper<MaritalStatusModel>>($"marital-status/{Id.Value}");
-
-            if (result != null)
-            {
-                if (result.Succeeded == true)
-                {
-                    model = result.Data;
-                    editContext = new EditContext(model);
-                }
-                else
-                {
-                    await toastMessageHelper.Error(result.Message);
-                }
-            }
-        }
-        else
-        {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thêm mới",
-                IsActive = true,
-            });
-        }
-
-        pageLoading = false;
-        StateHasChanged();
-    }
-
-    protected override void OnParametersSet()
-    {
-        editContext = new EditContext(model);
-    }
-
-    private void BackToTheList()
-    {
-        navigationManager.NavigateTo("setting/marital-status");
-    }
-
-    private async Task OnValidSubmit()
-    {
-        if (!editContext.Validate())
-        {
-            return;
-        }
-
-        pageLoading = true;
-
-        if (Id.HasValue)
-        {
-            var response = await httpClientService.Put<MaritalStatusModel, HttpActionResponseWrapper>($"marital-status/{Id.Value}", model);
-            if (response.Succeeded)
-            {
-                await toastMessageHelper.UpdateSuccess();
-                BackToTheList();
-            }
-            else
-            {
-                await toastMessageHelper.UpdateError();
-                pageLoading = false;
-            }
-        }
-        else
-        {
-            var response = await httpClientService.Post<MaritalStatusModel, HttpActionResponseWrapper>("marital-status", model);
-            if (response.Succeeded)
-            {
-                await toastMessageHelper.CreateSuccess();
-                BackToTheList();
-            }
-            else
-            {
-                await toastMessageHelper.CreateError();
-                pageLoading = false;
-            }
-        }
-        StateHasChanged();
-    }
-
-}
+<AuthorizeView Context="Auth">
+    <Authorized>
+        <HRMPanel Title="@pageTitle">
+            <PanelContent>
+                <Spin Spinning="@pageLoading">
+                    <Form Model="@model" OnFinish="@OnFinish">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="mb-3">
+                                    <label>Tên</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Name" class="form-control" MaxLength="50" tabindex="1" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="mb-3">
+                                    <label>Thứ tự hiển thị</label>
+                                    <FormItem>
+                                        <AntDesign.InputNumber @bind-Value="@model.Precedence" Size="@InputSize.Small"
+                                                               DefaultValue="0" MaxLength="3" tabindex="2" class="form-control" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Sử dụng</label>
+                                    <FormItem>
+                                        <Checkbox @bind-Value="@model.IsActive" class="form-check-input" tabindex="3" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-1">
+                                <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
+                                <Button Type="@ButtonType.Default" OnClick="BackToTheListClick">Danh sách</Button>
+                            </div>
+                        </div>
+                    </Form>
+                </Spin>
+            </PanelContent>
+        </HRMPanel>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>

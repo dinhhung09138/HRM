@@ -15,7 +15,8 @@ namespace HRM.Database.Common
             Name = m.Name,
             IsActive = m.IsActive,
             Precedence = m.Precedence,
-            Deleted = m.Deleted
+            Deleted = m.Deleted,
+            RowVersion = m.RowVersion,
         };
 
         public static Expression<Func<Certificated, CertificatedGridModel>> GridAsync => m => new CertificatedGridModel()
