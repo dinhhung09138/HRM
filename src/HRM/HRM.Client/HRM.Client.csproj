@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Setting\**" />
-    <Content Remove="Pages\Setting\**" />
-    <EmbeddedResource Remove="Pages\Setting\**" />
-    <None Remove="Pages\Setting\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AntDesign" Version="0.9.3" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.9" />
@@ -30,9 +23,5 @@
   <PropertyGroup>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Assets\BorrowDeviceInfo\BorrowRegister\" />
-    <Folder Include="Pages\Assets\BorrowDeviceInfo\ReturnDivice\" />
-  </ItemGroup>
 
 </Project>

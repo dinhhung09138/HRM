@@ -8,58 +8,55 @@
 @inject AuthenticationStateProvider authenticationStateProvider
 @inject IHttpClientService httpClientService
 
-
-<div class="row">
-    <div class="col-md-4 col-sm-3"></div>
-    <div class="col-md-4 col-sm-6">
-        <div class="login-wrapper">
-            <div class="container-center">
-                <div class="panel panel-bd">
-                    <div class="panel-heading">
-                        <div class="view-header">
-                            <div class="header-icon">
-                                <i class="pe-7s-unlock"></i>
-                            </div>
-                            <div class="header-title">
-                                <h3 style="padding-top: 10px;">HRM Login</h3>
+<Spin Spinning="@pageLoading">
+    <div class="row">
+        <div class="col-md-4 col-sm-3"></div>
+        <div class="col-md-4 col-sm-6">
+            <div class="login-wrapper">
+                <div class="container-center">
+                    <div class="panel panel-bd">
+                        <div class="panel-heading">
+                            <div class="view-header">
+                                <div class="header-icon">
+                                    <i class="pe-7s-unlock"></i>
+                                </div>
+                                <div class="header-title">
+                                    <h3 style="padding-top: 10px;">HRM Login</h3>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-
+                        <div class="panel-body">
+                            <Form Model="@model" OnFinish="@LoginClick">
+                                <div class="row">
+                                    <div class="col-12 mb-1">
+                                        <label class="control-label" for="userName">Tên đăng nhập</label>
+                                        <FormItem>
+                                            <Input @bind-Value="@model.UserName" class="form-control" MaxLength="50" placeholder="Tên đăng nhập" tabindex="1" />
+                                        </FormItem>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-1">
+                                        <label class="control-label" for="userName">Tên đăng nhập</label>
+                                        <FormItem>
+                                            <InputPassword @bind-Value="@model.Password" class="form-control" MaxLength="100" placeholder="Mật khẩu" tabindex="2" />
+                                        </FormItem>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-1">
+                                        <Button Type="@ButtonType.Primary" HtmlType="submit">Đăng nhập</Button>
+                                    </div>
+                                </div>
+                            </Form>
                         </div>
-                    </div>
-                    <div class="panel-body">
-                        <Form Model="@model" OnFinish="@LoginClick">
-                            <div class="row">
-                                <div class="col-12 mb-1">
-                                    <label class="control-label" for="userName">Tên đăng nhập</label>
-                                    <FormItem>
-                                        <Input @bind-Value="@model.UserName" class="form-control" MaxLength="50" placeholder="Tên đăng nhập" tabindex="1" />
-                                    </FormItem>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 mb-1">
-                                    <label class="control-label" for="userName">Tên đăng nhập</label>
-                                    <FormItem>
-                                        <InputPassword @bind-Value="@model.Password" class="form-control" MaxLength="100" placeholder="Mật khẩu" tabindex="2" />
-                                    </FormItem>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 mb-1">
-                                    <Button Type="@ButtonType.Primary" HtmlType="submit">Đăng nhập</Button>
-                                </div>
-                            </div>
-                        </Form>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-4 col-sm-3"></div>
     </div>
-    <div class="col-md-4 col-sm-3"></div>
-</div>
-
+</Spin>
 
 @code {
 
@@ -70,6 +67,7 @@
     public string ReturnUrl { get; set; }
 
     private LoginModel model = new LoginModel();
+    private bool pageLoading = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -85,6 +83,7 @@
 
     private async Task LoginClick()
     {
+        pageLoading = true;
         var response = await httpClientService.Post<LoginModel, HttpDataResponseWrapper<TokenModel>>("auth/login", model);
 
         if (response.Succeeded)
@@ -92,7 +91,7 @@
             await ((HrmAuthenticationStateProvider)authenticationStateProvider).DoLogin(response.Data);
 
             navigationManager.NavigateTo("/");
-
+            pageLoading = false;
         }
     }
 }
