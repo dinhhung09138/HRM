@@ -21,10 +21,12 @@ namespace HRM.Database.Assets
             ResidualValue = m.ResidualValue,
             IsActive = m.IsActive,
             Deleted = m.Deleted,
+            RowVersion = m.RowVersion,
             Details = m.AssetContractDetails.Select(dt => new AssetContractDetailModel()
             {
+                RowId = Guid.NewGuid().ToString(),
                 AssetContractId = dt.AssetContractId,
-                AssetId = dt.AssetId,
+                AssetTypeId = dt.AssetTypeId,
                 Price = dt.Price,
                 Quantity = dt.Quantity,
                 Vat = dt.Vat,
@@ -43,6 +45,7 @@ namespace HRM.Database.Assets
             TotalCost = m.TotalCost,
             Payment = m.Payment,
             ResidualValue = m.ResidualValue,
+            Notes = m.Notes,
         };
     }
 }

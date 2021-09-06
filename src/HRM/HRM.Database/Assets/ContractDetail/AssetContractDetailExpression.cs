@@ -13,7 +13,7 @@ namespace HRM.Database.Assets
         {
             Id = m.Id,
             AssetContractId = m.AssetContractId,
-            AssetId = m.AssetId,
+            AssetTypeId = m.AssetTypeId,
             Price = m.Price,
             Quantity = m.Quantity,
             Vat = m.Vat,

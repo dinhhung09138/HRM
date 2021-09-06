@@ -50,5 +50,8 @@ namespace HRM.Domain.Assets
         public byte[] RowVersion { get; set; }
 
         public virtual List<Asset> Assets { get; set; }
+
+        public virtual List<AssetContractDetail> AssetContractDetails { get; set; }
+
     }
 }

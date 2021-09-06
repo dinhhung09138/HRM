@@ -114,8 +114,6 @@ namespace HRM.Domain.Assets
         [Required]
         public byte[] RowVersion { get; set; }
 
-        public virtual List<AssetContractDetail> AssetContractDetails { get; set; }
-
         public virtual List<AssetFixing> AssetFixings { get; set; }
 
         public virtual List<AssetHandoverInvoiceDetail> AssetHandoverInvoiceDetails { get; set; }

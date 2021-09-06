@@ -31,7 +31,7 @@ namespace HRM.Database.Assets
                 {
                     model.Id,
                     model.AssetContractId,
-                    model.AssetId,
+                    model.AssetTypeId,
                     model.Price,
                     model.Quantity,
                     model.Vat,

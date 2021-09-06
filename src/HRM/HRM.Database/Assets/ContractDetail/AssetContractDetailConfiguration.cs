@@ -19,11 +19,11 @@ namespace HRM.Database.Assets
                    .HasConstraintName("FK_AssetContractDetail_AssetContractId")
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(m => m.AssetId).IsRequired();
-            builder.HasOne(m => m.Asset)
+            builder.Property(m => m.AssetTypeId).IsRequired();
+            builder.HasOne(m => m.AssetType)
                    .WithMany(e => e.AssetContractDetails)
-                   .HasForeignKey(m => m.AssetId)
-                   .HasConstraintName("FK_AssetContractDetail_AssetId")
+                   .HasForeignKey(m => m.AssetTypeId)
+                   .HasConstraintName("FK_AssetContractDetail_AssetTypeId")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.Price).IsRequired();
