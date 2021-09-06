@@ -10,21 +10,6 @@ namespace HRM.Infrastructure.Extension
 {
     public static class IJSRuntimeExtensionMethods
     {
-        /// <summary>
-        /// Initize all selectboxs.
-        /// Please add class select-single or select-multiple into the select element
-        /// </summary>
-        /// <param name="js"></param>
-        /// <param name="id">control id</param>
-        /// <param name="isMultiple">Multiple selection true/false</param>
-        /// <param name="dotNetObjectReference">DotNet Object References</param>
-        /// <param name="selectedFuncCallback">The function after select2 change</param>
-        /// <returns></returns>
-        public static async ValueTask InitialSelectBox<T>(this IJSRuntime js, string id, bool isMultiple, DotNetObjectReference<T> dotNetObjectReference, string selectedFuncCallback) where T : class
-        {
-            await js.InvokeVoidAsync("initialSelectBox", id, isMultiple, dotNetObjectReference, selectedFuncCallback);
-        }
-
         public static void Log(this IJSRuntime js, string message)
         {
             js.InvokeVoidAsync("console.log", message);

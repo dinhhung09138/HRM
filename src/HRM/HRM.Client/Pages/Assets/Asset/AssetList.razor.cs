@@ -14,7 +14,7 @@ using HRM.Client.Helpers;
 
 namespace HRM.Client.Pages.Assets.Asset
 {
-    partial class AssetList :ComponentBase
+    partial class AssetList : ComponentBase
     {
         [Inject]
         public ToastMessageHelper toastMessageHelper { get; set; }
