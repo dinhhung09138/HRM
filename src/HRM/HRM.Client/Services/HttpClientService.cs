@@ -119,6 +119,7 @@ namespace HRM.Client.Services
             var dataJson = JsonConvert.SerializeObject(model);
 
             var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
+            stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             var request = await CreateHeaderRequest($"{_baseApiUrl}{url}", HttpMethod.Post);
             request.Content = stringContent;
@@ -142,6 +143,7 @@ namespace HRM.Client.Services
             var dataJson = JsonConvert.SerializeObject(model);
 
             var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
+            stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             var request = await CreateHeaderRequest($"{_baseApiUrl}{url}", HttpMethod.Put);
             request.Content = stringContent;

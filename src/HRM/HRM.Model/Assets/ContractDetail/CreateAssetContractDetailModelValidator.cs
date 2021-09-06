@@ -6,7 +6,6 @@ namespace HRM.Model.Assets
     {
         public CreateAssetContractDetailModelValidator()
         {
-            AssetContractId();
             Quantity();
             Price();
             Vat();

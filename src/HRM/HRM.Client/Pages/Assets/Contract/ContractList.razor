@@ -24,20 +24,20 @@
                 </div>
                 <Table DataSource="@listData" Bordered="true" Loading="@tableLoading" PageSize="@parameterModel.Page.Size">
                     <ChildContent>
-                        <Column @bind-Field="@context.Code" Title="Số hợp dồng"
+                        <Column @bind-Field="@context.Code" Title="Số HD"
                                 Sortable="true" Width="80px" ShowSorterTooltip="false" />
                         <Column @bind-Field="@context.Vendor" Title="D/v cung cấp"
                                 Sortable="true" ShowSorterTooltip="false" Width="200px" />
                         <Column @bind-Field="@context.SignDate" Format="MM/dd/yyyy" Title="Ngày ký"
-                                Sortable="true" Width="120px" ShowSorterTooltip="false" />
+                                Sortable="true" Width="150px" ShowSorterTooltip="false" />
                         <Column @bind-Field="@context.LiquidationDate" Format="MM/dd/yyyy" Title="Ngày thanh lý"
-                                Sortable="true" Width="120px" ShowSorterTooltip="false" />
+                                Sortable="true" Width="150px" ShowSorterTooltip="false" />
                         <Column @bind-Field="@context.TotalCost" Format="#,###" Title="Giá trị HD"
-                                Sortable="true" Width="100px" ShowSorterTooltip="false" />
+                                Sortable="true" Width="120px" ShowSorterTooltip="false" />
                         <Column @bind-Field="@context.Payment" Format="#,###" Title="Đã thanh toán"
-                                Sortable="true" Width="100px" ShowSorterTooltip="false" />
+                                Sortable="true" Width="120px" ShowSorterTooltip="false" />
                         <Column @bind-Field="@context.ResidualValue" Format="#,###" Title="Còn lại"
-                                Sortable="true" Width="100px" ShowSorterTooltip="false" />
+                                Sortable="true" Width="120px" ShowSorterTooltip="false" />
                         <Column @bind-Field="@context.Notes" Format="#,###" Title="Ghi chú"
                                 Sortable="false" ShowSorterTooltip="false" />
                         <ActionColumn Width="90" Fixed="right">

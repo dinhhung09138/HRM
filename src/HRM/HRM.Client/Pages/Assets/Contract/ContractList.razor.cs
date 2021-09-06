@@ -59,7 +59,7 @@ namespace HRM.Client.Pages.Assets.Contract
             });
 
             await LoadVendorDropdown();
-            //await LoadGridData();
+            await LoadGridData();
         }
 
         protected async Task SearchClick()

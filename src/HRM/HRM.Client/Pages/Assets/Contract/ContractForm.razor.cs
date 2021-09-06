@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq;
+using AntDesign;
 
 namespace HRM.Client.Pages.Assets.Contract
 {
@@ -28,6 +29,9 @@ namespace HRM.Client.Pages.Assets.Contract
 
         [Inject]
         public SelectboxDataHelper selectboxDataHelper { get; set; }
+
+        [Inject]
+        public ConfirmService confirmService { get; set; }
 
         [CascadingParameter(Name = "Bredcrumb")]
         public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
@@ -121,6 +125,11 @@ namespace HRM.Client.Pages.Assets.Contract
                 return;
             }
 
+            if (!await modelValidation())
+            {
+                return;
+            }
+
             pageLoading = true;
 
             if (Id.HasValue)
@@ -171,6 +180,10 @@ namespace HRM.Client.Pages.Assets.Contract
 
         protected void DetailValueChange(object value)
         {
+            foreach (var item in model.Details)
+            {
+                model.TotalCost += item.Price * (decimal)item.Quantity + (item.Price * ((decimal)item.Vat / 100));
+            }
             StateHasChanged();
         }
 
@@ -196,5 +209,52 @@ namespace HRM.Client.Pages.Assets.Contract
             StateHasChanged();
         }
 
+        private async Task<bool> modelValidation()
+        {
+            if (model.Details == null || model.Details.Count == 0)
+            {
+                await ShowConfirmIcon("Vui lòng nhập thông tin chi tiết hợp đồng");
+                return false;
+            }
+
+            var duplicateData = model.Details.GroupBy(m => m.AssetTypeId)
+                                             .Where(g => g.Count() > 1)
+                                             .Select(y => new { Element = y.Key, Counter = y.Count() })
+                                             .ToList();
+            if (duplicateData.Count > 0)
+            {
+                await ShowConfirmIcon("Sản phẩm trong danh sách sản phẩm không được lặp lại");
+                return false;
+            }
+
+            foreach (var item in model.Details)
+            {
+                if (string.IsNullOrEmpty(item.AssetTypeIdValue))
+                {
+                    await ShowConfirmIcon("Vui lòng chọn tài sản trong danh sách");
+                    return false;
+                }
+                if (item.Price <= 0 || item.Quantity <= 0)
+                {
+                    await ShowConfirmIcon("Đơn giá và số lượng trong danh sách sản phẩm phải lớn hơn 0");
+                    return false;
+                }
+                if (item.Vat < 0)
+                {
+                    await ShowConfirmIcon("Thuế giá trị gia tăng (VAT) trong danh sách sản phẩm phải lớn hơn hoặc bằng 0");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private async Task ShowConfirmIcon(string message)
+        {
+            var content = message;
+            var title = "Lỗi";
+            var confirmResult = await confirmService.Show(content, title, ConfirmButtons.OK, ConfirmIcon.Warning);
+
+        }
     }
 }

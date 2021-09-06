@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace HRM.Api
 {
@@ -60,6 +61,7 @@ namespace HRM.Api
             app.UseAuthorization();
 
             app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -28,6 +28,11 @@ namespace HRM.Database.Assets
                 query = query.Where(m => m.Code.ToLower().Contains(paramters.TextSearch));
             }
 
+            if (!string.IsNullOrEmpty(paramters.VendorId))
+            {
+                query = query.Where(m => m.VendorId == long.Parse(paramters.VendorId));
+            }
+
             var grid = await query.Select(AssetContractExpression.GridAsync).GridAsync(paramters);
 
             var result = new Model.Grid<AssetContractGridModel>();

@@ -51,7 +51,7 @@
                                 <div class="mb-1">
                                     <label>Trị giá HĐ</label>
                                     <FormItem>
-                                        <AntDesign.InputNumber @bind-Value="@model.TotalCost" Size="@InputSize.Small"
+                                        <AntDesign.InputNumber @bind-Value="@model.TotalCost" Size="@InputSize.Small" Disabled="true"
                                                                DefaultValue="0" MaxLength="15" tabindex="5" class="form-control"
                                                                Formatter="@FormatMoney" Parser="@ParseMoney" />
                                     </FormItem>
@@ -61,7 +61,7 @@
                                 <div class="mb-1">
                                     <label>Đã thanh toán</label>
                                     <FormItem>
-                                        <AntDesign.InputNumber @bind-Value="@model.TotalCost" Disabled="true" Size="@InputSize.Small"
+                                        <AntDesign.InputNumber @bind-Value="@model.Payment" Disabled="true" Size="@InputSize.Small"
                                                                DefaultValue="0" MaxLength="15" tabindex="6" class="form-control"
                                                                Formatter="@FormatMoney" Parser="@ParseMoney" />
                                     </FormItem>
@@ -116,7 +116,8 @@
                                             <FormItem>
                                                 <AntDesign.InputNumber @bind-Value="@model.Details.FirstOrDefault(m => m.RowId == detailContext.RowId).Price" Size="@InputSize.Small"
                                                                        DefaultValue="0" MaxLength="15" tabindex="1" class="form-control"
-                                                                       Formatter="@FormatMoney" Parser="@ParseMoney" />
+                                                                       Formatter="@FormatMoney" Parser="@ParseMoney" TValue="decimal"
+                                                                       OnChange="@(value => DetailValueChange(value))" />
                                             </FormItem>
                                             <ValidationMessage For="() => model.Details.FirstOrDefault(m => m.RowId == detailContext.RowId).Price" />
                                         </Column>
