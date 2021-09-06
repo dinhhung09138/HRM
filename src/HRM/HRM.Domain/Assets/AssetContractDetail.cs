@@ -10,7 +10,7 @@ namespace HRM.Domain.Assets
         public AssetContractDetail(
             long id,
             long assetContractId,
-            long assetId,
+            long assetTypeId,
             decimal price,
             float quantity,
             float vat,
@@ -20,7 +20,7 @@ namespace HRM.Domain.Assets
         {
             Id = id;
             AssetContractId = assetContractId;
-            AssetId = assetId;
+            AssetTypeId = assetTypeId;
             Price = price;
             Quantity = quantity;
             Vat = vat;
@@ -34,9 +34,9 @@ namespace HRM.Domain.Assets
         public AssetContract AssetContract { get; set; }
 
         [Required]
-        public long AssetId { get; set; }
+        public long AssetTypeId { get; set; }
 
-        public Asset Asset { get; set; }
+        public AssetType AssetType { get; set; }
 
         [Required]
         public decimal Price { get; set; }

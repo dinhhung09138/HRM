@@ -12,8 +12,10 @@ namespace HRM.Model.Assets
         public string Code { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
+        public long? VendorId { get; set; }
 
-        public long VendorId { get; set; }
+        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
+        public string VendorIdValue { get; set; }
 
         [DataType(DataType.Date, ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Date")]
         public DateTime? SignDate { get; set; }

@@ -37,7 +37,7 @@ namespace HRM.Client.Helpers
         {
             //var response = await _httpClientService.Get<HttpDataResponseWrapper<List<BaseSelectboxModel>>>($"asset-type/dropdown");
             List<BaseSelectboxModel> listData = new List<BaseSelectboxModel>();
-            listData.Add(new BaseSelectboxModel() { Id = "", Name = "Đơn vị phân phối" });
+            listData.Add(new BaseSelectboxModel() { Id = "", Name = "Đơn vị cung cấp" });
             listData.Add(new BaseSelectboxModel() { Id = "1", Name = "Hung" });
             //if (response.Succeeded)
             //{

@@ -15,6 +15,8 @@ namespace HRM.Domain.Assets
             DateTime? signDate,
             DateTime? liquidationDate,
             decimal totalCost,
+            decimal payment,
+            decimal residualValue,
             string notes,
             bool isActive,
             long createBy,
@@ -28,6 +30,8 @@ namespace HRM.Domain.Assets
             SignDate = signDate;
             LiquidationDate = liquidationDate;
             TotalCost = totalCost;
+            Payment = payment;
+            ResidualValue = residualValue;
             Notes = notes;
             IsActive = isActive;
             CreateBy = createBy;

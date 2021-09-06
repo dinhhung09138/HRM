@@ -19,5 +19,7 @@ namespace HRM.Model.Assets
         public decimal Payment { get; set; }
 
         public decimal ResidualValue { get; set; }
+
+        public string Notes { get; set; }
     }
 }
