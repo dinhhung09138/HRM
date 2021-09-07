@@ -17,16 +17,16 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label>Tên tài sản</label>
-                    <InputSelect @bind-Value="@model.AssetId" class="form-control" tabindex="1">
+                    @*<InputSelect @bind-value="@model.AssetId" class="form-control" tabindex="1">
                         <option>Chọn</option>
-                    </InputSelect>
+                    </InputSelect>*@
                     <ValidationMessage For="@(() => model.AssetId)" />
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label>Ngày sửa chữa</label>
-                    <InputDate @bind-Value="@model.FixingDate" maxlength="10" class="form-control" tabindex="2" />
+                    <input type="date" @bind-value="@model.FixingDate" maxlength="10" class="form-control" tabindex="2" />
                     <ValidationMessage For="@(() => model.FixingDate)" />
                 </div>
             </div>
@@ -35,16 +35,16 @@
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label>Đơn vị cung cấp</label>
-                    <InputSelect @bind-Value="@model.VendorId" class="form-control" tabindex="3">
+                    @*<InputSelect @bind-value="@model.VendorId" class="form-control" tabindex="3">
                         <option>Chọn</option>
-                    </InputSelect>
+                    </InputSelect>*@
                     <ValidationMessage For="@(() => model.VendorId)" />
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label>Chi phí</label>
-                    <InputNumber @bind-Value="@model.Cost" maxlength="15" class="form-control" tabindex="4" />
+                    <input type="number" @bind-value="@model.Cost" maxlength="15" class="form-control" tabindex="4" />
                     <ValidationMessage For="@(() => model.Cost)" />
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label>Chi tiết</label>
-                    <InputTextArea @bind-Value="@model.Notes" class="form-control" row="5" tabindex="5"></InputTextArea>
+                    <TextArea @bind-value="@model.Notes" class="form-control" row="5" tabindex="5" />
                 </div>
             </div>
         </div>

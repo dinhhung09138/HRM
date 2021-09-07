@@ -17,7 +17,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="mb-3">
                         <label>Số phiếu</label>
-                        <InputText @bind-Value="model.Code" class="form-control" maxlength="20" placeholder="Số phiếu" tabindex="1" />
+                        <input @bind-value="model.Code" class="form-control" maxlength="20" placeholder="Số phiếu" tabindex="1" />
                         <ValidationMessage For="@(() => model.Code)" />
                     </div>
                 </div>
@@ -26,32 +26,32 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="mb-3">
                         <label>Người giao</label>
-                        <InputSelect @bind-Value="@model.HandoverBy" class="form-control" tabindex="2">
+                        @*<InputSelect @bind-value="@model.HandoverBy" class="form-control" tabindex="2">
                             <option>Chọn</option>
-                        </InputSelect>
+                        </InputSelect>*@
                         <ValidationMessage For="@(() => model.HandoverBy)" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="mb-3">
                         <label>Ngày bàn giao</label>
-                        <InputDate @bind-Value="@model.HandoverDate" maxlength="10" class="form-control" tabindex="3" />
+                        <input type="date" @bind-value="@model.HandoverDate" maxlength="10" class="form-control" tabindex="3" />
                         <ValidationMessage For="@(() => model.HandoverDate)" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="mb-3">
                         <label>Người nhận</label>
-                        <InputSelect @bind-Value="@model.ReceiveBy" class="form-control" tabindex="4">
+                        @*<InputSelect @bind-value="@model.ReceiveBy" class="form-control" tabindex="4">
                             <option>Chọn</option>
-                        </InputSelect>
+                        </InputSelect>*@
                         <ValidationMessage For="@(() => model.ReceiveBy)" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="mb-3">
                         <label>Ngày nhận</label>
-                        <InputDate @bind-Value="@model.ReceiveDate" maxlength="10" class="form-control" tabindex="5" />
+                        <input type="date" @bind-value="@model.ReceiveDate" maxlength="10" class="form-control" tabindex="5" />
                         <ValidationMessage For="@(() => model.ReceiveDate)" />
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                 <div class="col-12">
                     <div class="mb-3">
                         <label>Ghi chú</label>
-                        <InputTextArea @bind-Value="@model.Notes" class="form-control" row="5" tabindex="6"></InputTextArea>
+                        <TextArea @bind-value="@model.Notes" class="form-control" row="5" tabindex="6" />
                     </div>
                 </div>
             </div>
@@ -94,17 +94,17 @@
                                     {
                                         <HrmTableTr>
                                             <HrmTableTd>
-                                                <InputSelect @bind-Value="@item.AssetId" class="form-control" tabindex="1">
+                                                @*<InputSelect @bind-value="@item.AssetId" class="form-control" tabindex="1">
                                                     <option>Chọn</option>
-                                                </InputSelect>
+                                                </InputSelect>*@
                                                 <ValidationMessage For="@(() => item.AssetId)" />
                                             </HrmTableTd>
                                             <HrmTableTd>
-                                                <InputText @bind-Value="@item.Notes" class="form-control" maxlength="500" placeholder="Ghi chú" tabindex="2" />
+                                                <input @bind-value="@item.Notes" class="form-control" maxlength="500" placeholder="Ghi chú" tabindex="2" />
                                                 <ValidationMessage For="@(() => model.Code)" />
                                             </HrmTableTd>
                                             <HrmTableTd>
-                                                <HrmButton Text="X" Color="@Color.Error" />
+                                                <HrmButton Text="X" Color="@Constant.Enums.Color.Error" />
                                             </HrmTableTd>
                                         </HrmTableTr>
                                     }

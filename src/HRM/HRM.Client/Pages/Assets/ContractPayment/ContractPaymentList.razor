@@ -19,7 +19,7 @@
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="input-group">
                                     <input type="text" class="form-control" @bind-value="@textSearch" placeholder="Tìm kiếm" />
-                                    <HrmButton Color="@Color.Primary" Text="Tìm" OnClick="@SearchClick" />
+                                    <HrmButton Color="@Constant.Enums.Color.Primary" Text="Tìm" OnClick="@SearchClick" />
                                 </div>
                             </div>
                         </div>
@@ -35,8 +35,8 @@
                             <HrmTableTh Id="PaymentDate" SortColumnId="@currentSortColumn" Text="Ngày thanh toán" Sort="true"
                                         OnSortClick="@((arg) => OrderColumnClick(m => m.PaymentDate, arg, "PaymentDate"))"
                                         style="min-width: 150px;" />
-                            <HrmTableTh Id="Note" SortColumnId="@currentSortColumn" Text="Ghi chú" Sort="true"
-                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Note, arg, "Note"))"
+                            <HrmTableTh Id="Notes" SortColumnId="@currentSortColumn" Text="Ghi chú" Sort="true"
+                                        OnSortClick="@((arg) => OrderColumnClick(m => m.Notes, arg, "Notes"))"
                                         />
                             <HrmTableTh Text="" Sort="false" style="width: 100px;" />
                         </HrmTableTr>
@@ -73,7 +73,7 @@
                                             @item.PaymentDate
                                         </HrmTableTd>
                                         <HrmTableTd>
-                                            @item.Note
+                                            @item.Notes
                                         </HrmTableTd>
                                         <HrmTableTd TextAlign="@Constant.Enums.TextAlign.Center">
                                             <HrmButtonGroup Text="Chọn">
