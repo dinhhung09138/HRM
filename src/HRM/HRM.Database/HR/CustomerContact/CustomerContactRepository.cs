@@ -10,16 +10,16 @@ using DotNetCore.Objects;
 
 namespace HRM.Database.HR
 {
-    public sealed class VendorRepository : EFRepository<Vendor>, IVendorRepository
+    public class CustomerContactRepository : EFRepository<CustomerContact>, ICustomerContactRepository
     {
-        public VendorRepository(Context context) : base(context) { }
+        public CustomerContactRepository(Context context) : base(context) { }
 
-        public async Task<VendorModel> FindByIdAsync(long id)
+        public async Task<CustomerContactModel> FindByIdAsync(long id)
         {
-            return await Queryable.Where(m => m.Id == id && m.Deleted == false).Select(VendorExpression.FindByIdAsync).FirstOrDefaultAsync();
+            return await Queryable.Where(m => m.Id == id && m.Deleted == false).Select(CustomerContactExpression.FindByIdAsync).FirstOrDefaultAsync();
         }
 
-        public async Task<Model.Grid<VendorGridModel>> GridAsync(VendorGridParameterModel paramters)
+        public async Task<Model.Grid<CustomerContactGridModel>> GridAsync(CustomerContactGridParameterModel paramters)
         {
             var query = Queryable.Where(m => m.Deleted == false).AsQueryable();
 
@@ -28,14 +28,14 @@ namespace HRM.Database.HR
                 query = query.Where(m => m.Name.ToLower().Contains(paramters.TextSearch)
                                         || m.Phone.ToLower().Contains(paramters.TextSearch)
                                         || m.Email.ToLower().Contains(paramters.TextSearch)
-                                        || m.Address.ToLower().Contains(paramters.TextSearch));
+                                        || m.Position.ToLower().Contains(paramters.TextSearch));
             }
 
             query = query.OrderBy(m => m.Name);
 
-            var grid = await query.Select(VendorExpression.GridAsync).GridAsync(paramters);
+            var grid = await query.Select(CustomerContactExpression.GridAsync).GridAsync(paramters);
 
-            var result = new Model.Grid<VendorGridModel>();
+            var result = new Model.Grid<CustomerContactGridModel>();
 
             result.Count = grid.Count;
             result.List = grid.List;
@@ -44,7 +44,7 @@ namespace HRM.Database.HR
             return result;
         }
 
-        public async Task<bool> SaveAsync(Vendor model, bool isCreate)
+        public async Task<bool> SaveAsync(CustomerContact model, bool isCreate)
         {
             if (isCreate == true)
             {
@@ -58,9 +58,8 @@ namespace HRM.Database.HR
                     model.Name,
                     model.Phone,
                     model.Email,
-                    model.Address,
-                    model.TaxCode,
-                    model.Notes,
+                    model.Position,
+                    model.CustomerId,
                     model.IsActive,
                     model.UpdateBy,
                     model.UpdateDate
@@ -70,7 +69,7 @@ namespace HRM.Database.HR
             return true;
         }
 
-        public async Task<bool> DeleteAsync(Vendor model)
+        public async Task<bool> DeleteAsync(CustomerContact model)
         {
             await UpdatePartialAsync(new
             {

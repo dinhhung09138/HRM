@@ -2,20 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
 namespace HRM.Database.HR
 {
-    public sealed class VendorConfiguration : IEntityTypeConfiguration<Vendor>
+    public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
-        public void Configure(EntityTypeBuilder<Vendor> builder)
+        public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.ToTable(nameof(Vendor), MessageConstant.SchemaName);
-
+            builder.ToTable(nameof(Customer), MessageConstant.SchemaName);
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
             builder.Property(m => m.Name).HasMaxLength(100).IsRequired();
 
-            builder.Property(m => m.Phone).HasMaxLength(20);
+            builder.Property(m => m.Phone).HasMaxLength(20).IsRequired();
 
             builder.Property(m => m.Email).HasMaxLength(50);
 

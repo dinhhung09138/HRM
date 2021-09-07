@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DotNetCore.Domain;
-using HRM.Domain.Assets;
 
 namespace HRM.Domain.HR
 {
-    public class Vendor : Entity<long>
+    public class CustomerContact : Entity<long>
     {
-        public Vendor(
+        public CustomerContact(
             long id,
+            long customerId,
             string name,
             string phone,
             string email,
-            string address,
-            string taxCode,
-            string notes,
+            string position,
             bool isActive,
             long createBy,
             DateTime createDate,
@@ -23,12 +20,11 @@ namespace HRM.Domain.HR
             DateTime? updateDate)
         {
             Id = id;
+            CustomerId = customerId;
             Name = name;
             Phone = phone;
             Email = email;
-            Address = address;
-            TaxCode = taxCode;
-            Notes = notes;
+            Position = position;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
@@ -38,10 +34,14 @@ namespace HRM.Domain.HR
         }
 
         [Required]
+        public long CustomerId { get; set; }
+
+        public Customer Customer { get; set; }
+
+        [Required]
         [MaxLength(100)]
         public string Name { get; set; }
 
-        [Required]
         [MaxLength(20)]
         public string Phone { get; set; }
 
@@ -49,13 +49,7 @@ namespace HRM.Domain.HR
         public string Email { get; set; }
 
         [MaxLength(100)]
-        public string Address { get; set; }
-
-        [MaxLength(20)]
-        public string TaxCode { get; set; }
-
-        [MaxLength(500)]
-        public string Notes { get; set; }
+        public string Position { get; set; }
 
         [Required]
         public bool IsActive { get; set; }
@@ -75,14 +69,5 @@ namespace HRM.Domain.HR
 
         [Required]
         public byte[] RowVersion { get; set; }
-
-        public virtual List<Asset> Assets { get; set; }
-
-        public virtual List<AssetContract> AssetContracts { get; set; }
-
-        public virtual List<AssetFixing> AssetFixings { get; set; }
-
-        public virtual List<AssetLiquidation> AssetLiquidations { get; set; }
-
     }
 }

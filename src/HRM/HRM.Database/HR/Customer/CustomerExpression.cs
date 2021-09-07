@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using HRM.Model.HR;
 using HRM.Domain.HR;
 using System.Linq.Expressions;
 
 namespace HRM.Database.HR
 {
-    public static class VendorExpression
+    public static class CustomerExpression
     {
-        public static Expression<Func<Vendor, VendorModel>> FindByIdAsync => m => new VendorModel()
+        public static Expression<Func<Customer, CustomerModel>> FindByIdAsync => m => new CustomerModel()
         {
             Id = m.Id,
             Name = m.Name,
@@ -22,7 +20,7 @@ namespace HRM.Database.HR
             RowVersion = m.RowVersion,
         };
 
-        public static Expression<Func<Vendor, VendorGridModel>> GridAsync => m => new VendorGridModel()
+        public static Expression<Func<Customer, CustomerGridModel>> GridAsync => m => new CustomerGridModel()
         {
             Id = m.Id,
             Name = m.Name,

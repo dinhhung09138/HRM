@@ -7,29 +7,28 @@ using System.Linq.Expressions;
 
 namespace HRM.Database.HR
 {
-    public static class VendorExpression
+    public static class CustomerContactExpression
     {
-        public static Expression<Func<Vendor, VendorModel>> FindByIdAsync => m => new VendorModel()
+        public static Expression<Func<CustomerContact, CustomerContactModel>> FindByIdAsync => m => new CustomerContactModel()
         {
             Id = m.Id,
+            CustomerId = m.CustomerId,
             Name = m.Name,
             Phone = m.Phone,
             Email = m.Email,
-            Address = m.Address,
-            Notes = m.Notes,
+            Position = m.Position,
             IsActive = m.IsActive,
             Deleted = m.Deleted,
             RowVersion = m.RowVersion,
         };
 
-        public static Expression<Func<Vendor, VendorGridModel>> GridAsync => m => new VendorGridModel()
+        public static Expression<Func<CustomerContact, CustomerContactGridModel>> GridAsync => m => new CustomerContactGridModel()
         {
             Id = m.Id,
             Name = m.Name,
-            Phone = m.Phone,
+            Phone = m.Position,
             Email = m.Email,
-            Address = m.Address,
-            IsActive = m.IsActive
+            Position = m.Position
         };
     }
 }

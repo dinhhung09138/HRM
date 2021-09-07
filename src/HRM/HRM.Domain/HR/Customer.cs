@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DotNetCore.Domain;
-using HRM.Domain.Assets;
 
 namespace HRM.Domain.HR
 {
-    public class Vendor : Entity<long>
+    public class Customer : Entity<long>
     {
-        public Vendor(
+        public Customer(
             long id,
             string name,
             string phone,
@@ -76,13 +75,6 @@ namespace HRM.Domain.HR
         [Required]
         public byte[] RowVersion { get; set; }
 
-        public virtual List<Asset> Assets { get; set; }
-
-        public virtual List<AssetContract> AssetContracts { get; set; }
-
-        public virtual List<AssetFixing> AssetFixings { get; set; }
-
-        public virtual List<AssetLiquidation> AssetLiquidations { get; set; }
-
+        public virtual List<CustomerContact> CustomerContacts { get; set; }
     }
 }
