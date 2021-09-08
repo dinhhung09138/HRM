@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\hungtd\publish\New folder</_PublishTargetUrl>
+    <History>True|2021-09-07T09:32:48.8255119Z;True|2021-09-07T16:31:58.6148277+07:00;</History>
+  </PropertyGroup>
+</Project>
