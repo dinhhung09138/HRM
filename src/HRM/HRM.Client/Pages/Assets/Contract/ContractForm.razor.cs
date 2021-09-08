@@ -42,6 +42,7 @@ namespace HRM.Client.Pages.Assets.Contract
         private List<BaseSelectboxModel> vendorList = new List<BaseSelectboxModel>();
         private List<BaseSelectboxModel> assetTypeList = new List<BaseSelectboxModel>();
 
+        private Form<AssetContractModel> form;
         private AssetContractModel model = new AssetContractModel();
 
 
@@ -264,6 +265,11 @@ namespace HRM.Client.Pages.Assets.Contract
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }

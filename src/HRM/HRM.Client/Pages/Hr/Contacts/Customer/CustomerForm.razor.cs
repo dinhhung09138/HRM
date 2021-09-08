@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 namespace HRM.Client.Pages.Hr.Contacts.Customer
 {
@@ -33,6 +34,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
         [Parameter]
         public long? Id { get; set; }
 
+        private Form<CustomerModel> form;
         private CustomerModel model = new CustomerModel();
 
         private string pageTitle = "Thêm mới";
@@ -153,6 +155,11 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }

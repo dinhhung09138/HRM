@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 namespace HRM.Client.Pages.Assets.Type
 {
@@ -27,6 +28,7 @@ namespace HRM.Client.Pages.Assets.Type
         [Parameter]
         public long? Id { get; set; }
 
+        private Form<AssetTypeModel> form;
         private AssetTypeModel model = new AssetTypeModel();
 
         private string pageTitle = "Thêm mới";
@@ -143,6 +145,11 @@ namespace HRM.Client.Pages.Assets.Type
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }

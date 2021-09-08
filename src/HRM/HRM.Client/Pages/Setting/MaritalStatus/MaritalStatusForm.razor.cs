@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 namespace HRM.Client.Pages.Setting.MaritalStatus
 {
@@ -34,6 +35,7 @@ namespace HRM.Client.Pages.Setting.MaritalStatus
         [Parameter]
         public long? Id { get; set; }
 
+        private Form<MaritalStatusModel> form;
         private MaritalStatusModel model = new MaritalStatusModel();
 
         private string pageTitle = "Thêm mới";
@@ -144,6 +146,11 @@ namespace HRM.Client.Pages.Setting.MaritalStatus
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }

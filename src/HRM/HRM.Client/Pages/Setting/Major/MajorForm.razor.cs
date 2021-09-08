@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 namespace HRM.Client.Pages.Setting.Major
 {
@@ -34,6 +35,7 @@ namespace HRM.Client.Pages.Setting.Major
         [Parameter]
         public long? Id { get; set; }
 
+        private Form<MajorModel> form;
         private MajorModel model = new MajorModel();
 
         private string pageTitle = "Thêm mới";
@@ -144,6 +146,11 @@ namespace HRM.Client.Pages.Setting.Major
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }

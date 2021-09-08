@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 
 namespace HRM.Client.Pages.Assets.Asset
@@ -39,6 +40,7 @@ namespace HRM.Client.Pages.Assets.Asset
         private List<BaseSelectboxModel> assetTypeList = new List<BaseSelectboxModel>();
         private List<BaseSelectboxModel> assetStatusList = new List<BaseSelectboxModel>();
 
+        private Form<AssetModel> form;
         private AssetModel model = new AssetModel();
 
         private string pageTitle = "Thêm mới";
@@ -198,6 +200,11 @@ namespace HRM.Client.Pages.Assets.Asset
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }

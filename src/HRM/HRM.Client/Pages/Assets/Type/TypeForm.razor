@@ -4,9 +4,13 @@
 <AuthorizeView Context="Auth">
     <Authorized>
         <HRMPanel Title="@pageTitle">
+            <ButtonGroup>
+                <Button Type="@ButtonType.Primary" OnClick="@OnSubmitClick">Lưu</Button>
+                <Button Type="@ButtonType.Default" OnClick="@BackToTheListClick">Danh sách</Button>
+            </ButtonGroup>
             <PanelContent>
                 <Spin Spinning="@pageLoading">
-                    <Form Model="@model" OnFinish="@OnFinish">
+                    <Form @ref="@form" Model="@model" OnFinish="@OnFinish">
                         <div class="row">
                             <div class="col-md-4 col-sm-12 col-xs-12">
                                 <div class="mb-1">
@@ -25,12 +29,6 @@
                                         <Checkbox @bind-Value="@model.IsActive" class="form-check-input" tabindex="2" />
                                     </FormItem>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12 col-xs-12 mb-1">
-                                <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
-                                <Button Type="@ButtonType.Default" OnClick="BackToTheListClick">Danh sách</Button>
                             </div>
                         </div>
                     </Form>

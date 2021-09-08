@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 namespace HRM.Client.Pages.Setting.School
 {
@@ -34,6 +35,7 @@ namespace HRM.Client.Pages.Setting.School
         [Parameter]
         public long? Id { get; set; }
 
+        private Form<SchoolModel> form;
         private SchoolModel model = new SchoolModel();
 
         private string pageTitle = "Thêm mới";
@@ -69,6 +71,11 @@ namespace HRM.Client.Pages.Setting.School
         protected void BackToTheListClick()
         {
             navigationManager.NavigateTo("setting/school");
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
         protected async Task OnFinish(EditContext editContext)

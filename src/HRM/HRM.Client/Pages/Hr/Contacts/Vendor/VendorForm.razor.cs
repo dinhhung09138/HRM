@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 namespace HRM.Client.Pages.Hr.Contacts.Vendor
 {
@@ -32,6 +33,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
         [Parameter]
         public long? Id { get; set; }
 
+        private Form<VendorModel> form;
         private VendorModel model = new VendorModel();
 
         private string pageTitle = "Thêm mới";
@@ -142,6 +144,11 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }

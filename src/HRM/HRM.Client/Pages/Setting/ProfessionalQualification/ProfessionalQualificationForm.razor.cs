@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 namespace HRM.Client.Pages.Setting.ProfessionalQualification
 {
@@ -34,6 +35,7 @@ namespace HRM.Client.Pages.Setting.ProfessionalQualification
         [Parameter]
         public long? Id { get; set; }
 
+        private Form<ProfessionalQualificationModel> form;
         private ProfessionalQualificationModel model = new ProfessionalQualificationModel();
 
         private string pageTitle = "Thêm mới";
@@ -144,6 +146,11 @@ namespace HRM.Client.Pages.Setting.ProfessionalQualification
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }

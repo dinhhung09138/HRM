@@ -4,9 +4,13 @@
 <AuthorizeView Context="Auth">
     <Authorized>
         <HRMPanel Title="@pageTitle">
+            <ButtonGroup>
+                <Button Type="@ButtonType.Primary" OnClick="@OnSubmitClick">Lưu</Button>
+                <Button Type="@ButtonType.Default" OnClick="@BackToTheListClick">Danh sách</Button>
+            </ButtonGroup>
             <PanelContent>
                 <Spin Spinning="@pageLoading">
-                    <Form Model="@model" OnFinish="@OnFinish">
+                    <Form @ref="@form" Model="@model" OnFinish="@OnFinish">
                         <ObjectGraphDataAnnotationsValidator />
                         <div class="row">
                             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -127,7 +131,7 @@
                                                 <AntDesign.InputNumber @bind-Value="@model.Details.FirstOrDefault(m => m.RowId == detailContext.RowId).Quantity" Size="@InputSize.Small"
                                                                        DefaultValue="0" MaxLength="4" tabindex="2" class="form-control"
                                                                        Formatter="@FormatMoney" Parser="@ParseMoney" TValue="float"
-                                                                       OnChange="@(value => DetailValueChange(value))"/>
+                                                                       OnChange="@(value => DetailValueChange(value))" />
                                             </FormItem>
                                         </Column>
                                         <Column @bind-Field="@detailContext.RowId" Title="VAT (%)"
@@ -136,7 +140,7 @@
                                                 <AntDesign.InputNumber @bind-Value="@model.Details.FirstOrDefault(m => m.RowId == detailContext.RowId).Vat" Size="@InputSize.Small"
                                                                        DefaultValue="0" MaxLength="5" tabindex="3" class="form-control"
                                                                        Formatter="@FormatMoney" Parser="@ParseMoney" TValue="float"
-                                                                       OnChange="@(value => DetailValueChange(value))"/>
+                                                                       OnChange="@(value => DetailValueChange(value))" />
                                             </FormItem>
                                         </Column>
                                         <Column @bind-Field="@detailContext.RowId" Title="Thành tiền"
@@ -160,12 +164,6 @@
                                         </ActionColumn>
                                     </ChildContent>
                                 </Table>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 mb-1">
-                                <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
-                                <Button Type="@ButtonType.Default" OnClick="BackToTheListClick">Danh sách</Button>
                             </div>
                         </div>
                     </Form>

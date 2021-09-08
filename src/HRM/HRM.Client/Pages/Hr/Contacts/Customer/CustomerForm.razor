@@ -4,9 +4,13 @@
 <AuthorizeView Context="Auth">
     <Authorized>
         <HRMPanel Title="@pageTitle">
+            <ButtonGroup>
+                <Button Type="@ButtonType.Primary" OnClick="@OnSubmitClick">Lưu</Button>
+                <Button Type="@ButtonType.Default" OnClick="@BackToTheListClick">Danh sách</Button>
+            </ButtonGroup>
             <PanelContent>
                 <Spin Spinning="@pageLoading">
-                    <Form Model="@model" OnFinish="@OnFinish">
+                    <Form @ref="@form" Model="@model" OnFinish="@OnFinish">
                         <div class="row">
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="mb-1">
@@ -69,12 +73,6 @@
                                         <TextArea @bind-Value="@model.Notes" ShowCount="true" class="form-control" row="5" tabindex="7" />
                                     </FormItem>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 mb-1">
-                                <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
-                                <Button Type="@ButtonType.Default" OnClick="BackToTheListClick">Danh sách</Button>
                             </div>
                         </div>
                     </Form>

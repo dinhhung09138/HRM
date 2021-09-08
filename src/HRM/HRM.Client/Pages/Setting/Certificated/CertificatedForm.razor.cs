@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using AntDesign;
 
 namespace HRM.Client.Pages.Setting.Certificated
 {
@@ -34,6 +35,7 @@ namespace HRM.Client.Pages.Setting.Certificated
         [Parameter]
         public long? Id { get; set; }
 
+        private Form<CertificatedModel> form;
         private CertificatedModel model = new CertificatedModel();
 
         private string pageTitle = "Thêm mới";
@@ -139,6 +141,11 @@ namespace HRM.Client.Pages.Setting.Certificated
                 });
             }
             StateHasChanged();
+        }
+
+        protected void OnSubmitClick()
+        {
+            form.Submit();
         }
 
     }
