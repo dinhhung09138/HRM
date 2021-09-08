@@ -1,0 +1,88 @@
+﻿@page "/customer/create"
+@page "/customer/update/{Id:long}"
+
+<AuthorizeView Context="Auth">
+    <Authorized>
+        <HRMPanel Title="@pageTitle">
+            <PanelContent>
+                <Spin Spinning="@pageLoading">
+                    <Form Model="@model" OnFinish="@OnFinish">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Tên KH</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Name" class="form-control" MaxLength="100" tabindex="1" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Số điện thoại</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Phone" class="form-control" MaxLength="20" tabindex="2" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Email</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Email" class="form-control" MaxLength="50" tabindex="3" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Mã số thuế</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.TaxCode" class="form-control" MaxLength="20" tabindex="4" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-sm-6 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Địa chỉ</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Address" class="form-control" MaxLength="100" tabindex="5" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="mb-1">
+                                    <label>Sử dụng</label>
+                                    <FormItem>
+                                        <Checkbox @bind-Value="@model.IsActive" class="form-check-input" tabindex="6" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-1">
+                                    <label>Ghi chú</label>
+                                    <FormItem>
+                                        <TextArea @bind-Value="@model.Notes" ShowCount="true" class="form-control" row="5" tabindex="7" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-1">
+                                <Button Type="@ButtonType.Primary" HtmlType="submit">Lưu</Button>
+                                <Button Type="@ButtonType.Default" OnClick="BackToTheListClick">Danh sách</Button>
+                            </div>
+                        </div>
+                    </Form>
+                </Spin>
+            </PanelContent>
+        </HRMPanel>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>
