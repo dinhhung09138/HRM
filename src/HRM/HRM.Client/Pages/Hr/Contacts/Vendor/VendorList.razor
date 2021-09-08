@@ -1,4 +1,4 @@
-﻿@page "/asset/list"
+﻿@page "/hr/contacts/vendor"
 
 <AuthorizeView>
     <Authorized Context="Auth">
@@ -11,10 +11,6 @@
                     <div class="col-md-4">
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <Select DataSource="@assetTypeList" @bind-Value="@parameterModel.AssetTypeId" DefaultValue="@("")"
-                                ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
-                                AllowClear="true" class="form-group">
-                        </Select>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <Search Placeholder="Tìm kiếm" EnterButton="@("Tìm kiếm")" DefaultValue="@("")"
@@ -24,20 +20,14 @@
                 </div>
                 <Table DataSource="@listData" Bordered="true" Loading="@tableLoading" PageSize="@parameterModel.Page.Size">
                     <ChildContent>
-                        <Column @bind-Field="@context.Code" Title="Mã"
-                                Sortable="true" Width="100px" ShowSorterTooltip="false" />
-                        <Column @bind-Field="@context.Name" Title="Tên"
-                                Sortable="true" ShowSorterTooltip="false" />
-                        <Column @bind-Field="@context.AssetTypeName" Title="Phân loại"
+                        <Column @bind-Field="@context.Name" Title="Tên KH"
                                 Sortable="true" Width="200px" ShowSorterTooltip="false" />
-                        <Column @bind-Field="@context.Status" Title="Trạng thái"
-                                Sortable="true" Width="120px" ShowSorterTooltip="false">
-                            @context.Status.GetEnumDescription()
-                        </Column>
-                        <Column @bind-Field="@context.BuyingDate" Format="MM/dd/yyyy" Title="Ngày mua"
-                                Sortable="true" Width="120px" ShowSorterTooltip="false" />
-                        <Column @bind-Field="@context.WarrantyExpiryDate" Format="MM/dd/yyyy" Title="Ngày hết hạn bảo hành"
-                                Sortable="true" Width="120px" ShowSorterTooltip="false" />
+                        <Column @bind-Field="@context.Phone" Title="SDT"
+                                Sortable="true" Width="150px" ShowSorterTooltip="false" />
+                        <Column @bind-Field="@context.Email" Title="Email"
+                                Sortable="true" Width="250px" ShowSorterTooltip="false" />
+                        <Column @bind-Field="@context.Address" Title="Địa chỉ"
+                                Sortable="true" ShowSorterTooltip="false" />
                         <Column Field="@context.IsActive" Title="Sử dụng" Width="100px" Sortable="false">
                             <Switch @bind-Value="@context.IsActive" Disabled="true" />
                         </Column>
