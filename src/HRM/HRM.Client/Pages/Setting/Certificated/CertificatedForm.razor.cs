@@ -41,29 +41,11 @@ namespace HRM.Client.Pages.Setting.Certificated
 
         protected override async Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thiết lập",
-                Href = "setting",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách chứng chỉ",
-                Href = "setting/certificated",
-                IsActive = false,
-            });
+            DefineBreadcumb();
 
             if (Id.HasValue)
             {
                 pageTitle = "Cập nhật";
-
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Cập nhật",
-                    IsActive = true,
-                });
 
                 var result = await httpClientService.Get<CertificatedModel, HttpDataResponseWrapper<CertificatedModel>>($"certificated/{Id.Value}");
 
@@ -78,14 +60,6 @@ namespace HRM.Client.Pages.Setting.Certificated
                         await toastMessageHelper.Error(result.Message);
                     }
                 }
-            }
-            else
-            {
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Thêm mới",
-                    IsActive = true,
-                });
             }
 
             pageLoading = false;
@@ -128,6 +102,41 @@ namespace HRM.Client.Pages.Setting.Certificated
                     await toastMessageHelper.Error(response.Message);
                     pageLoading = false;
                 }
+            }
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Thiết lập",
+                Href = "setting",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách chứng chỉ",
+                Href = "setting/certificated",
+                IsActive = false,
+            });
+
+            if (Id.HasValue)
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Cập nhật",
+                    IsActive = true,
+                });
+            }
+            else
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Thêm mới",
+                    IsActive = true,
+                });
             }
             StateHasChanged();
         }

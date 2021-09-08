@@ -45,19 +45,7 @@ namespace HRM.Client.Pages.Assets.Asset
 
         protected async override Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Quản lý tài sản",
-                Href = "asset",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách tài sản",
-                IsActive = true,
-            });
-
+            DefineBreadcumb();
             await LoadAssetTypeDropdown();
             await LoadGridData();
         }
@@ -133,5 +121,23 @@ namespace HRM.Client.Pages.Assets.Asset
         {
             assetTypeList = await selectboxDataHelper.GetAssetType();
         }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Quản lý tài sản",
+                Href = "asset",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách tài sản",
+                IsActive = true,
+            });
+            StateHasChanged();
+        }
+
     }
 }

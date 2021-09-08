@@ -42,19 +42,7 @@ namespace HRM.Client.Pages.Setting.MaritalStatus
 
         protected override async Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thiết lập",
-                Href = "setting",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách tình trạng hôn nhân",
-                IsActive = true,
-            });
-
+            DefineBreadcumb();
             await LoadGridData();
         }
 
@@ -121,6 +109,23 @@ namespace HRM.Client.Pages.Setting.MaritalStatus
                 totalItems = (int)result.Data.Count;
                 tableLoading = false;
             }
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Thiết lập",
+                Href = "setting",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách tình trạng hôn nhân",
+                IsActive = true,
+            });
             StateHasChanged();
         }
 

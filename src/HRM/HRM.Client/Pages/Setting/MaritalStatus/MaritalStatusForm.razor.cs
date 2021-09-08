@@ -41,29 +41,11 @@ namespace HRM.Client.Pages.Setting.MaritalStatus
 
         protected override async Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thiết lập",
-                Href = "setting",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách tình trạng hôn nhân",
-                Href = "setting/marital-status",
-                IsActive = false,
-            });
+            DefineBreadcumb();
 
             if (Id.HasValue)
             {
                 pageTitle = "Cập nhật";
-
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Cập nhật",
-                    IsActive = true,
-                });
 
                 var result = await httpClientService.Get<MaritalStatusModel, HttpDataResponseWrapper<MaritalStatusModel>>($"marital-status/{Id.Value}");
 
@@ -78,14 +60,6 @@ namespace HRM.Client.Pages.Setting.MaritalStatus
                         await toastMessageHelper.Error(result.Message);
                     }
                 }
-            }
-            else
-            {
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Thêm mới",
-                    IsActive = true,
-                });
             }
 
             pageLoading = false;
@@ -133,6 +107,41 @@ namespace HRM.Client.Pages.Setting.MaritalStatus
                     await toastMessageHelper.Error(response.Message);
                     pageLoading = false;
                 }
+            }
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Thiết lập",
+                Href = "setting",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách tình trạng hôn nhân",
+                Href = "setting/marital-status",
+                IsActive = false,
+            });
+
+            if (Id.HasValue)
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Cập nhật",
+                    IsActive = true,
+                });
+            }
+            else
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Thêm mới",
+                    IsActive = true,
+                });
             }
             StateHasChanged();
         }

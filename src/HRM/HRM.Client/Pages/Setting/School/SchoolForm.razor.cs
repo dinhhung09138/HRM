@@ -41,29 +41,11 @@ namespace HRM.Client.Pages.Setting.School
 
         protected override async Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thiết lập",
-                Href = "setting",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách trường đào tạo",
-                Href = "setting/school",
-                IsActive = false,
-            });
+            DefineBreadcumb();
 
             if (Id.HasValue)
             {
                 pageTitle = "Cập nhật";
-
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Cập nhật",
-                    IsActive = true,
-                });
 
                 var result = await httpClientService.Get<SchoolModel, HttpDataResponseWrapper<SchoolModel>>($"school/{Id.Value}");
 
@@ -78,14 +60,6 @@ namespace HRM.Client.Pages.Setting.School
                         await toastMessageHelper.Error(result.Message);
                     }
                 }
-            }
-            else
-            {
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Thêm mới",
-                    IsActive = true,
-                });
             }
 
             pageLoading = false;
@@ -136,5 +110,41 @@ namespace HRM.Client.Pages.Setting.School
             }
             StateHasChanged();
         }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Thiết lập",
+                Href = "setting",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách trường đào tạo",
+                Href = "setting/school",
+                IsActive = false,
+            });
+
+            if (Id.HasValue)
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Cập nhật",
+                    IsActive = true,
+                });
+            }
+            else
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Thêm mới",
+                    IsActive = true,
+                });
+            }
+            StateHasChanged();
+        }
+
     }
 }

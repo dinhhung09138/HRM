@@ -46,32 +46,14 @@ namespace HRM.Client.Pages.Assets.Asset
 
         protected override async Task OnInitializedAsync()
         {
+            DefineBreadcumb();
             await LoadAssetTypeDropdown().ConfigureAwait(false);
             await LoadVendorDropdown().ConfigureAwait(false);
             LoadAssetStatusDropdown();
 
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Quản lý tài sản",
-                Href = "asset",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách tài sản",
-                Href = "asset/list",
-                IsActive = false,
-            });
             if (Id.HasValue)
             {
                 pageTitle = "Cập nhật";
-
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Cập nhật",
-                    IsActive = true,
-                });
 
                 var result = await httpClientService.Get<AssetModel, HttpDataResponseWrapper<AssetModel>>($"asset/{Id.Value}");
 
@@ -89,14 +71,6 @@ namespace HRM.Client.Pages.Assets.Asset
                         await toastMessageHelper.Error(result.Message);
                     }
                 }
-            }
-            else
-            {
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Thêm mới",
-                    IsActive = true,
-                });
             }
 
             pageLoading = false;
@@ -188,6 +162,41 @@ namespace HRM.Client.Pages.Assets.Asset
         private void LoadAssetStatusDropdown()
         {
             assetStatusList = selectboxDataHelper.GetAssetStatus();
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Quản lý tài sản",
+                Href = "asset",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách tài sản",
+                Href = "asset/list",
+                IsActive = false,
+            });
+
+            if (Id.HasValue)
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Cập nhật",
+                    IsActive = true,
+                });
+            }
+            else
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Thêm mới",
+                    IsActive = true,
+                });
+            }
             StateHasChanged();
         }
 

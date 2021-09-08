@@ -50,32 +50,14 @@ namespace HRM.Client.Pages.Assets.Contract
 
         protected override async Task OnInitializedAsync()
         {
+            DefineBreadcumb();
             await LoadAssetTypeDropdown().ConfigureAwait(false);
             await LoadVendorDropdown().ConfigureAwait(false);
 
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Quản lý tài sản",
-                Href = "asset",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Hợp đồng",
-                Href = "asset/contract",
-                IsActive = false,
-            });
 
             if (Id.HasValue)
             {
                 pageTitle = "Cập nhật";
-
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Cập nhật",
-                    IsActive = true,
-                });
 
                 var result = await httpClientService.Get<AssetContractModel, HttpDataResponseWrapper<AssetContractModel>>($"asset-contract/{Id.Value}");
 
@@ -90,14 +72,6 @@ namespace HRM.Client.Pages.Assets.Contract
                         await toastMessageHelper.Error(result.Message);
                     }
                 }
-            }
-            else
-            {
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Thêm mới",
-                    IsActive = true,
-                });
             }
 
             pageLoading = false;
@@ -256,5 +230,41 @@ namespace HRM.Client.Pages.Assets.Contract
             var confirmResult = await confirmService.Show(content, title, ConfirmButtons.OK, ConfirmIcon.Warning);
 
         }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Quản lý tài sản",
+                Href = "asset",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Hợp đồng",
+                Href = "asset/contract",
+                IsActive = false,
+            });
+
+            if (Id.HasValue)
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Cập nhật",
+                    IsActive = true,
+                });
+            }
+            else
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Thêm mới",
+                    IsActive = true,
+                });
+            }
+            StateHasChanged();
+        }
+
     }
 }

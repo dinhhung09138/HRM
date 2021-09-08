@@ -42,19 +42,7 @@ namespace HRM.Client.Pages.Setting.ProfessionalQualification
 
         protected override async Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thiết lập",
-                Href = "setting",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách trình độ chuyên môn",
-                IsActive = true,
-            });
-
+            DefineBreadcumb();
             await LoadGridData();
         }
 
@@ -121,6 +109,24 @@ namespace HRM.Client.Pages.Setting.ProfessionalQualification
                 totalItems = (int)result.Data.Count;
                 tableLoading = false;
             }
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Thiết lập",
+                Href = "setting",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách trình độ chuyên môn",
+                IsActive = true,
+            });
+
             StateHasChanged();
         }
 

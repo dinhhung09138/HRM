@@ -45,19 +45,7 @@ namespace HRM.Client.Pages.Assets.Contract
 
         protected async override Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Tài sản",
-                Href = "asset",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Hợp đồng",
-                IsActive = true,
-            });
-
+            DefineBreadcumb();
             await LoadVendorDropdown();
             await LoadGridData();
         }
@@ -132,6 +120,23 @@ namespace HRM.Client.Pages.Assets.Contract
         private async Task LoadVendorDropdown()
         {
             vendorList = await selectboxDataHelper.GetVendor();
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Tài sản",
+                Href = "asset",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Hợp đồng",
+                IsActive = true,
+            });
             StateHasChanged();
         }
 

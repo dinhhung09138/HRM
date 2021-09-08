@@ -40,30 +40,11 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
         protected override async Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Quản lý nhân sự",
-                Href = "hr/contacts",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách khách hàng",
-                Href = "hr/contacts/customer",
-                IsActive = false,
-            });
+            DefineBreadcumb();
 
             if (Id.HasValue)
             {
                 pageTitle = "Cập nhật";
-
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Cập nhật",
-                    IsActive = true,
-                });
-                StateHasChanged();
 
                 var result = await httpClientService.Get<CustomerModel, HttpDataResponseWrapper<CustomerModel>>($"customer/{Id.Value}");
 
@@ -78,15 +59,6 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
                         await toastMessageHelper.Error(result.Message);
                     }
                 }
-            }
-            else
-            {
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Thêm mới",
-                    IsActive = true,
-                });
-                StateHasChanged();
             }
 
             pageLoading = false;
@@ -146,6 +118,41 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
         protected string ParseMoney(string value)
         {
             return Regex.Replace(value, @"\$\s?|(,*)", "");
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Quản lý nhân sự",
+                Href = "hr/contacts",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách khách hàng",
+                Href = "hr/contacts/customer",
+                IsActive = false,
+            });
+
+            if (Id.HasValue)
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Cập nhật",
+                    IsActive = true,
+                });
+            }
+            else
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Thêm mới",
+                    IsActive = true,
+                });
+            }
+            StateHasChanged();
         }
 
     }

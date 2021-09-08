@@ -40,30 +40,11 @@ namespace HRM.Client.Pages.Assets.Type
 
         protected override async Task OnInitializedAsync()
         {
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Quản lý tài sản",
-                Href = "asset",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Loại tài sản",
-                Href = "asset/type",
-                IsActive = false,
-            });
+            DefineBreadcumb();
 
             if (Id.HasValue)
             {
                 pageTitle = "Cập nhật";
-
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Cập nhật",
-                    IsActive = true,
-                });
 
                 var result = await httpClientService.Get<AssetTypeModel, HttpDataResponseWrapper<AssetTypeModel>>($"asset-type/{Id.Value}");
 
@@ -78,14 +59,6 @@ namespace HRM.Client.Pages.Assets.Type
                         await toastMessageHelper.Error(result.Message);
                     }
                 }
-            }
-            else
-            {
-                Breadcrumb.Add(new BreadcurmbModel()
-                {
-                    Title = "Thêm mới",
-                    IsActive = true,
-                });
             }
 
             pageLoading = false;
@@ -133,6 +106,41 @@ namespace HRM.Client.Pages.Assets.Type
                     await toastMessageHelper.Error(response.Message);
                     pageLoading = false;
                 }
+            }
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Quản lý tài sản",
+                Href = "asset",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Loại tài sản",
+                Href = "asset/type",
+                IsActive = false,
+            });
+
+            if (Id.HasValue)
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Cập nhật",
+                    IsActive = true,
+                });
+            }
+            else
+            {
+                Breadcrumb.Add(new BreadcurmbModel()
+                {
+                    Title = "Thêm mới",
+                    IsActive = true,
+                });
             }
             StateHasChanged();
         }

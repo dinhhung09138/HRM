@@ -149,6 +149,23 @@ namespace HRM.Api
             services.AddScoped<IRefreshTokenFactory, RefreshTokenFactory>();
             services.AddScoped<ISystemUserRepository, SystemUserRepository>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+
+            // ------- HR - Contact ------- //
+
+            services.AddScoped<IVendorRepository, VendorRepository>();
+            services.AddScoped<IVendorFactory, VendorFactory>();
+            services.AddScoped<IVendorService, VendorService>();
+
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerFactory, CustomerFactory>();
+            services.AddScoped<ICustomerService, CustomerService>();
+
+            services.AddScoped<ICustomerContactRepository, CustomerContactRepository>();
+            services.AddScoped<ICustomerContactFactory, CustomerContactFactory>();
+            services.AddScoped<ICustomerContactService, CustomerContactService>();
+
+
         }
     }
 }

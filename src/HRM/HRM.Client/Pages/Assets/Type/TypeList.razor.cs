@@ -38,18 +38,7 @@ namespace HRM.Client.Pages.Assets.Type
 
         protected async override Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Quản lý tài sản",
-                Href = "asset",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Loại tài sản",
-                IsActive = true,
-            });
+            DefineBreadcumb();
             await LoadGridData();
         }
 
@@ -118,6 +107,23 @@ namespace HRM.Client.Pages.Assets.Type
                 tableLoading = false;
                 StateHasChanged();
             }
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Quản lý tài sản",
+                Href = "asset",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Loại tài sản",
+                IsActive = true,
+            });
+            StateHasChanged();
         }
 
     }

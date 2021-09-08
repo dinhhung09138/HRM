@@ -42,19 +42,7 @@ namespace HRM.Client.Pages.Setting.Major
 
         protected override async Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Thiết lập",
-                Href = "setting",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách chuyên ngành đào tạo",
-                IsActive = true,
-            });
-
+            DefineBreadcumb();
             await LoadGridData();
         }
 
@@ -121,6 +109,23 @@ namespace HRM.Client.Pages.Setting.Major
                 totalItems = (int)result.Data.Count;
                 tableLoading = false;
             }
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Thiết lập",
+                Href = "setting",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách chuyên ngành đào tạo",
+                IsActive = true,
+            });
             StateHasChanged();
         }
 

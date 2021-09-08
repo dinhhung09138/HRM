@@ -43,19 +43,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
         protected async override Task OnInitializedAsync()
         {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Quản lý nhân sự",
-                Href = "hr/contacts",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách khách hàng",
-                IsActive = true,
-            });
-
+            DefineBreadcumb();
             await LoadGridData();
         }
 
@@ -123,6 +111,23 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
                 totalItems = (int)result.Data.Count;
                 tableLoading = false;
             }
+            StateHasChanged();
+        }
+
+        private void DefineBreadcumb()
+        {
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Quản lý nhân sự",
+                Href = "hr/contacts",
+                IsActive = false,
+            });
+
+            Breadcrumb.Add(new BreadcurmbModel()
+            {
+                Title = "Danh sách khách hàng",
+                IsActive = true,
+            });
             StateHasChanged();
         }
 
