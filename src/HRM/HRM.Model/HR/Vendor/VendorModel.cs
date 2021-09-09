@@ -14,6 +14,8 @@ namespace HRM.Model.HR
         [MaxLength(20)]
         public string Phone { get; set; }
 
+        [DataType(DataType.EmailAddress, ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Email")]
+        [EmailAddress(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Email")]
         [MaxLength(50)]
         public string Email { get; set; }
 

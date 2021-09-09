@@ -29,6 +29,7 @@ namespace HRM.Database.HR
             Phone = m.Phone,
             Email = m.Email,
             Address = m.Address,
+            Notes = m.Notes,
             IsActive = m.IsActive
         };
     }

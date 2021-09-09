@@ -23,6 +23,7 @@ namespace HRM.Model.HR
         public void Email()
         {
             RuleFor(m => m.Email).MaximumLength(50);
+            RuleFor(m => m.Email).EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible);
         }
 
         public void Address()

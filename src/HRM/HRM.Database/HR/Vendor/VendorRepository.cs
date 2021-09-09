@@ -28,7 +28,8 @@ namespace HRM.Database.HR
                 query = query.Where(m => m.Name.ToLower().Contains(paramters.TextSearch)
                                         || m.Phone.ToLower().Contains(paramters.TextSearch)
                                         || m.Email.ToLower().Contains(paramters.TextSearch)
-                                        || m.Address.ToLower().Contains(paramters.TextSearch));
+                                        || m.Address.ToLower().Contains(paramters.TextSearch)
+                                        || m.Notes.ToLower().Contains(paramters.TextSearch));
             }
 
             query = query.OrderBy(m => m.Name);

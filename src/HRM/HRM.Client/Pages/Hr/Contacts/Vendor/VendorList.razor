@@ -2,7 +2,7 @@
 
 <AuthorizeView>
     <Authorized Context="Auth">
-        <HRMPanel Title="Danh sách tài sản">
+        <HRMPanel Title="Danh sách nhà cung cấp">
             <ButtonGroup>
                 <Button Type="@ButtonType.Primary" OnClick="@AddNewClick">Thêm mới</Button>
             </ButtonGroup>
@@ -20,13 +20,15 @@
                 </div>
                 <Table DataSource="@listData" Bordered="true" Loading="@tableLoading" PageSize="@parameterModel.Page.Size">
                     <ChildContent>
-                        <Column @bind-Field="@context.Name" Title="Tên KH"
-                                Sortable="true" Width="200px" ShowSorterTooltip="false" />
-                        <Column @bind-Field="@context.Phone" Title="SDT"
-                                Sortable="true" Width="150px" ShowSorterTooltip="false" />
-                        <Column @bind-Field="@context.Email" Title="Email"
+                        <Column @bind-Field="@context.Name" Title="Tên nhà cung cấp"
                                 Sortable="true" Width="250px" ShowSorterTooltip="false" />
+                        <Column @bind-Field="@context.Phone" Title="SDT"
+                                Sortable="true" Width="120px" ShowSorterTooltip="false" />
+                        <Column @bind-Field="@context.Email" Title="Email"
+                                Sortable="true" Width="210px" ShowSorterTooltip="false" />
                         <Column @bind-Field="@context.Address" Title="Địa chỉ"
+                                Sortable="true" Width="250px" ShowSorterTooltip="false" />
+                        <Column @bind-Field="@context.Notes" Title="Ghi chú"
                                 Sortable="true" ShowSorterTooltip="false" />
                         <Column Field="@context.IsActive" Title="Sử dụng" Width="100px" Sortable="false">
                             <Switch @bind-Value="@context.IsActive" Disabled="true" />
