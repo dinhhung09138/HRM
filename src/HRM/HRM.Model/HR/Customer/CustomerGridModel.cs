@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HRM.Model.HR
 {
@@ -15,5 +16,7 @@ namespace HRM.Model.HR
         public string Address { get; set; }
 
         public bool IsActive { get; set; }
+
+        public List<CustomerContactGridModel> Contacts { get; set; } = new List<CustomerContactGridModel>();
     }
 }

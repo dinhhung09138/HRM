@@ -1,7 +1,6 @@
 ﻿using System;
 using HRM.Model;
 using HRM.Model.HR;
-using HRM.Client.Helpers;
 using HRM.Client.Models;
 using HRM.Client.Services;
 using HRM.Infrastructure;
@@ -24,9 +23,6 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
         [Inject]
         public IHttpClientService httpClientService { get; set; }
-
-        [Inject]
-        public SelectboxDataHelper selectboxDataHelper { get; set; }
 
         [CascadingParameter(Name = "Bredcrumb")]
         public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
@@ -69,7 +65,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
         protected void BackToTheListClick()
         {
-            navigationManager.NavigateTo("hr/contacts/Customer");
+            navigationManager.NavigateTo("hr/contacts/customer");
         }
 
         protected async Task OnFinish(EditContext editContext)
@@ -83,31 +79,31 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
             if (Id.HasValue)
             {
-                var response = await httpClientService.Put<CustomerModel, HttpActionResponseWrapper>($"customer/{Id.Value}", model);
+                var response = await httpClientService.Put<CustomerModel, HttpDataResponseWrapper<CustomerModel>> ($"customer/{Id.Value}", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.UpdateSuccess();
-                    BackToTheListClick();
                 }
                 else
                 {
                     await toastMessageHelper.Error(response.Message);
-                    pageLoading = false;
                 }
+                pageLoading = false;
             }
             else
             {
-                var response = await httpClientService.Post<CustomerModel, HttpActionResponseWrapper>("customer", model);
+                var response = await httpClientService.Post<CustomerModel, HttpDataResponseWrapper<CustomerModel>>("customer", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.CreateSuccess();
-                    BackToTheListClick();
+                    model = response.Data;
+                    navigationManager.NavigateTo($"hr/contacts/customer/update/{model.Id}");
                 }
                 else
                 {
                     await toastMessageHelper.Error(response.Message);
-                    pageLoading = false;
                 }
+                pageLoading = false;
             }
             StateHasChanged();
         }

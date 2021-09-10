@@ -12,7 +12,7 @@ namespace HRM.Application.HR
 
         Task<IResult<Grid<CustomerGridModel>>> GridAsync(CustomerGridParameterModel paramters);
 
-        Task<IResult> SaveAsync(CustomerModel model, bool isCreate);
+        Task<IResult<CustomerModel>> SaveAsync(CustomerModel model, bool isCreate);
 
         Task<IResult> DeleteAsync(CustomerModel model);
     }

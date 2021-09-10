@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using HRM.Model.HR;
 using HRM.Domain.HR;
 using System.Linq.Expressions;
@@ -27,7 +28,15 @@ namespace HRM.Database.HR
             Phone = m.Phone,
             Email = m.Email,
             Address = m.Address,
-            IsActive = m.IsActive
+            IsActive = m.IsActive,
+            Contacts = m.CustomerContacts.Where(c => c.Deleted == false)
+                                         .Select(c => new CustomerContactGridModel()
+                                         {
+                                             Name = c.Name,
+                                             Phone = c.Phone,
+                                             Email = c.Email,
+                                             Position = c.Position,
+                                         }).ToList(),
         };
     }
 }

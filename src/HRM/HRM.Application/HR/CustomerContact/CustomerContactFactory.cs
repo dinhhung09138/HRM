@@ -9,7 +9,7 @@ namespace HRM.Application.HR
         public CustomerContact Create(CustomerContactModel model)
         {
             var item = new CustomerContact(model.Id, 
-                model.CustomerId.Value,
+                model.CustomerId,
                 model.Name,
                 model.Phone,
                 model.Email,
@@ -24,7 +24,7 @@ namespace HRM.Application.HR
         public CustomerContact Update(CustomerContactModel model)
         {
             var item = new CustomerContact(model.Id,
-                model.CustomerId.Value,
+                model.CustomerId,
                 model.Name,
                 model.Phone,
                 model.Email,

@@ -26,9 +26,9 @@ namespace HRM.Database.HR
         {
             Id = m.Id,
             Name = m.Name,
-            Phone = m.Position,
+            Phone = m.Phone,
             Email = m.Email,
-            Position = m.Position
+            Position = m.Position,
         };
     }
 }

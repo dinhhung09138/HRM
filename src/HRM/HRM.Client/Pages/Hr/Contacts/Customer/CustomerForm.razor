@@ -1,5 +1,5 @@
-﻿@page "/customer/create"
-@page "/customer/update/{Id:long}"
+﻿@page "/hr/contacts/customer/create"
+@page "/hr/contacts/customer/update/{Id:long}"
 
 <AuthorizeView Context="Auth">
     <Authorized>
@@ -79,6 +79,10 @@
                 </Spin>
             </PanelContent>
         </HRMPanel>
+        @if (Id.HasValue)
+        {
+            <HRM.Client.Pages.Hr.Contacts.CustomerContact.CustomerContactList CustomerId="@Id.Value" />
+        }
     </Authorized>
     <NotAuthorized>
         <HrmNotAuthorize />

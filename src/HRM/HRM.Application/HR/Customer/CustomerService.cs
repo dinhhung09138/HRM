@@ -53,7 +53,7 @@ namespace HRM.Application.HR
             }
         }
 
-        public async Task<IResult> SaveAsync(CustomerModel model, bool isCreate)
+        public async Task<IResult<CustomerModel>> SaveAsync(CustomerModel model, bool isCreate)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace HRM.Application.HR
             }
             catch (Exception ex)
             {
-                return Result.Fail(ex.Message);
+                return Result<CustomerModel>.Fail(ex.Message);
             }
         }
 
@@ -100,13 +100,13 @@ namespace HRM.Application.HR
             }
         }
 
-        private async Task<IResult> Create(CustomerModel model)
+        private async Task<IResult<CustomerModel>> Create(CustomerModel model)
         {
             var validation = await new CreateCustomerModelValidator().ValidateAsync(model);
 
             if (validation.IsValid == false)
             {
-                return Result.Fail(validation.Errors.GetErrorMessage());
+                return Result<CustomerModel>.Fail(validation.Errors.GetErrorMessage());
             }
 
             var md = _customerFactory.Create(model);
@@ -114,29 +114,30 @@ namespace HRM.Application.HR
             await _customerRepository.SaveAsync(md, true);
 
             await _unitOfWork.SaveChangesAsync();
+            model.Id = md.Id;
 
-            return Result.Success();
+            return Result<CustomerModel>.Success(model);
         }
 
-        private async Task<IResult> Update(CustomerModel model)
+        private async Task<IResult<CustomerModel>> Update(CustomerModel model)
         {
             var md = await _customerRepository.GetAsync(model.Id);
 
             if (md == null)
             {
-                return Result.Fail(Constant.Message.WARNING_ITEM_NOT_FOUND);
+                return Result<CustomerModel>.Fail(Constant.Message.WARNING_ITEM_NOT_FOUND);
             }
 
             var checkCurrentVersionResponse = await CheckCurrentVersion(model);
             if (checkCurrentVersionResponse.Succeeded == false)
             {
-                return checkCurrentVersionResponse;
+                return Result<CustomerModel>.Fail(checkCurrentVersionResponse.Message);
             }
 
             var validation = await new UpdateCustomerModelValidator().ValidateAsync(model);
             if (validation.IsValid == false)
             {
-                return Result.Fail(validation.Errors.GetErrorMessage());
+                return Result<CustomerModel>.Fail(validation.Errors.GetErrorMessage());
             }
 
             var item = _customerFactory.Update(model);
@@ -145,7 +146,7 @@ namespace HRM.Application.HR
 
             await _unitOfWork.SaveChangesAsync();
 
-            return Result.Success();
+            return Result<CustomerModel>.Success(model);
         }
 
         private async Task<IResult> CheckCurrentVersion(CustomerModel model)

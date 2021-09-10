@@ -8,5 +8,6 @@ namespace HRM.Model.HR
 {
     public class CustomerContactGridParameterModel : BaseGridParameterModel
     {
+        public long CustomerId { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace HRM.Database.HR
 
         public async Task<Model.Grid<CustomerContactGridModel>> GridAsync(CustomerContactGridParameterModel paramters)
         {
-            var query = Queryable.Where(m => m.Deleted == false).AsQueryable();
+            var query = Queryable.Where(m => m.CustomerId == paramters.CustomerId && m.Deleted == false).AsQueryable();
 
             if (!string.IsNullOrEmpty(paramters.TextSearch))
             {

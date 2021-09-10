@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Components;
 using AntDesign;
 using HRM.Client.Helpers;
 
-namespace HRM.Client.Pages.Hr.Contacts.Customer
+namespace HRM.Client.Pages.Hr.Contacts.CustomerContact
 {
-    partial class CustomerList : ComponentBase
+    partial class CustomerContactList : ComponentBase
     {
         [Inject]
         public ToastMessageHelper toastMessageHelper { get; set; }
@@ -24,29 +24,29 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
         [Inject]
         public IHttpClientService httpClientService { get; set; }
 
-        [Inject]
-        public SelectboxDataHelper selectboxDataHelper { get; set; }
-
-        [CascadingParameter(Name = "Bredcrumb")]
-        public List<BreadcurmbModel> Breadcrumb { get; set; } = new List<BreadcurmbModel>();
+        [Parameter]
+        public long CustomerId { get; set; }
 
         private bool tableLoading = true;
-        private List<CustomerGridModel> listData = new List<CustomerGridModel>();
+        private List<CustomerContactGridModel> listData = new List<CustomerContactGridModel>();
         private int totalItems = 0;
         Func<PaginationTotalContext, string> showTotal = ctr => $"Tổng: {ctr.Total} dòng";
 
-        private CustomerGridParameterModel parameterModel = new CustomerGridParameterModel();
+        private CustomerContactGridParameterModel parameterModel = new CustomerContactGridParameterModel();
 
-        private CustomerGridModel deletedItem = new CustomerGridModel();
+        private CustomerContactGridModel deletedItem = new CustomerContactGridModel();
         private bool isVisibleDeleteModel = false;
 
-        protected async override Task OnInitializedAsync()
+        CustomerContactForm editForm;
+
+        private bool showEditForm = false;
+
+        public CustomerContactList()
         {
-            DefineBreadcumb();
-            await LoadGridData();
+            parameterModel.CustomerId = CustomerId;
         }
 
-        protected async Task SearchClick()
+        protected async override Task OnInitializedAsync()
         {
             await LoadGridData();
         }
@@ -63,15 +63,38 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
         protected void AddNewClick()
         {
-            navigationManager.NavigateTo("hr/contacts/customer/create");
+            showEditForm = true;
+            editForm.OnShowForm(null, CustomerId, true);
         }
 
-        protected void UpdateClick(CustomerGridModel item)
+        protected void OnSubmitClick()
         {
-            navigationManager.NavigateTo($"hr/contacts/customer/update/{item.Id}");
+            editForm.OnSubmitClick();
         }
 
-        protected void DeleteClick(CustomerGridModel item)
+        protected void UpdateClick(CustomerContactGridModel item)
+        {
+            showEditForm = true;
+            editForm.OnShowForm(item.Id, CustomerId, true);
+        }
+
+        protected void OnCancelClick()
+        {
+            editForm.OnShowForm(null, CustomerId, false);
+            showEditForm = false;
+        }
+
+        protected async Task OnFormResonseStatus(bool status)
+        {
+            if (status == true)
+            {
+                showEditForm = false;
+                await LoadGridData();
+                StateHasChanged();
+            }
+        }
+
+        protected void DeleteClick(CustomerContactGridModel item)
         {
             deletedItem = item;
             isVisibleDeleteModel = true;
@@ -79,7 +102,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
         protected async Task AgreeDeleteClick()
         {
-            var result = await httpClientService.Delete<CustomerModel, HttpActionResponseWrapper>($"customer/{deletedItem.Id}");
+            var result = await httpClientService.Delete<CustomerContactModel, HttpActionResponseWrapper>($"customer-contact/{deletedItem.Id}");
             if (result.Succeeded)
             {
                 await toastMessageHelper.DeleteSuccess();
@@ -101,32 +124,16 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
         private async Task LoadGridData()
         {
+            parameterModel.CustomerId = CustomerId;
             tableLoading = true;
 
-            var result = await httpClientService.Post<CustomerGridParameterModel, HttpDataResponseWrapper<Model.Grid<CustomerGridModel>>>("customer/grid", parameterModel);
+            var result = await httpClientService.Post<CustomerContactGridParameterModel, HttpDataResponseWrapper<Model.Grid<CustomerContactGridModel>>>("customer-contact/grid", parameterModel);
             if (result != null)
             {
-                listData = result.Data.List?.ToList() ?? new List<CustomerGridModel>();
+                listData = result.Data.List?.ToList() ?? new List<CustomerContactGridModel>();
                 totalItems = (int)result.Data.Count;
                 tableLoading = false;
             }
-            StateHasChanged();
-        }
-
-        private void DefineBreadcumb()
-        {
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Quản lý nhân sự",
-                Href = "hr/contacts",
-                IsActive = false,
-            });
-
-            Breadcrumb.Add(new BreadcurmbModel()
-            {
-                Title = "Danh sách khách hàng",
-                IsActive = true,
-            });
             StateHasChanged();
         }
 

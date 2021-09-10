@@ -1,0 +1,42 @@
+﻿@if (ShowForm == true)
+{
+    <Spin Spinning="@pageLoading">
+        <Form @ref="@form" Model="@model" OnFinish="@OnFinish">
+            <div class="row mb-5">
+                <div class="col-md-12 col-sm-6 col-xs-12">
+                    <div class="mb-1">
+                        <label>Họ tên</label>
+                        <FormItem>
+                            <Input @bind-Value="@model.Name" class="form-control" MaxLength="100" tabindex="1" />
+                        </FormItem>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="mb-1">
+                        <label>Số điện thoại</label>
+                        <FormItem>
+                            <Input @bind-Value="@model.Phone" class="form-control" MaxLength="20" tabindex="2" />
+                        </FormItem>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="mb-1">
+                        <label>Email</label>
+                        <FormItem>
+                            <Input @bind-Value="@model.Email" class="form-control" MaxLength="50" tabindex="3" />
+                        </FormItem>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="mb-1">
+                        <label>Chức danh</label>
+                        <FormItem>
+                            <Input @bind-Value="@model.Position" class="form-control" MaxLength="100" tabindex="4" />
+                        </FormItem>
+                    </div>
+                </div>
+            </div>
+        </Form>
+    </Spin>
+}
+

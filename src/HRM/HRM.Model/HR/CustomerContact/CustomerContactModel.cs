@@ -7,10 +7,7 @@ namespace HRM.Model.HR
     public class CustomerContactModel : BaseModel
     {
         [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
-        public long? CustomerId { get; set; }
-
-        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
-        public string CustomerIdValue { get; set; }
+        public long CustomerId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
         [MaxLength(100)]
@@ -19,6 +16,7 @@ namespace HRM.Model.HR
         [MaxLength(20)]
         public string Phone { get; set; }
 
+        [EmailAddress(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Email")]
         [MaxLength(50)]
         public string Email { get; set; }
 
