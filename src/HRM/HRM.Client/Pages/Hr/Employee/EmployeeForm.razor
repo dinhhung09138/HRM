@@ -1,0 +1,60 @@
+﻿@page "/hr/employee/create"
+@page "/hr/employee/update/{Id:long}"
+
+<div class="card-container">
+    <Tabs TabPosition="@TabPosition.Left" Type="@TabType.Card">
+        <ChildContent>
+            <TabPane Key="offical" Tab="Thông tin công việc">
+                <HRMPanel Title="Hồ sơ nhân sự">
+                    <PanelContent>
+                        <Official />
+                    </PanelContent>
+                </HRMPanel>
+            </TabPane>
+            <TabPane Key="personalInfo" Tab="TabThông tin cá nhân">
+                <HRMPanel Title="Thông tin cá nhân">
+                    <PanelContent>
+                        <PersonalInfo />
+                    </PanelContent>
+                </HRMPanel>
+            </TabPane>
+            <TabPane Key="contact" Tab="Thông tin liên hệ">
+                <HRMPanel Title="Thông tin liên hệ">
+                    <PanelContent>
+                        <Contact />
+                    </PanelContent>
+                </HRMPanel>
+            </TabPane>
+            <TabPane Key="education" Tab="Chứng chỉ và đào tạo">
+                <HRMPanel Title="Chứng chỉ và đào tạo">
+
+                </HRMPanel>
+            </TabPane>
+            <TabPane Key="workingHistory" Tab="Thông tin hợp đồng">
+                <HRMPanel Title="">
+
+                </HRMPanel>
+            </TabPane>
+            <TabPane Key="dependency" Tab="Người phụ thuộc">
+                <HRMPanel Title="Người phụ thuộc">
+
+                </HRMPanel>
+            </TabPane>
+            <TabPane Key="commendation" Tab="Thông tin khen thưởng">
+                <HRMPanel Title="Thông tin khen thưởng">
+
+                </HRMPanel>
+            </TabPane>
+            <TabPane Key="dispiline" Tab="Thông tin kỷ luật">
+                <HRMPanel Title="Thông tin kỷ luật">
+
+                </HRMPanel>
+            </TabPane>
+            <TabPane Key="contrat" Tab="Thông tin hợp đồng">
+                <HRMPanel Title="Thông tin hợp đồng">
+
+                </HRMPanel>
+            </TabPane>
+        </ChildContent>
+    </Tabs>
+</div>
