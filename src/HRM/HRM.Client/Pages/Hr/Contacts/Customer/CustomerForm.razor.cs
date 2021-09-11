@@ -44,7 +44,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
             {
                 pageTitle = "Cập nhật";
 
-                var result = await httpClientService.Get<CustomerModel, HttpDataResponseWrapper<CustomerModel>>($"customer/{Id.Value}");
+                var result = await httpClientService.Get<CustomerModel, HttpDataResponseWrapper<CustomerModel>>($"hr/customer/{Id.Value}");
 
                 if (result != null)
                 {
@@ -79,7 +79,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
 
             if (Id.HasValue)
             {
-                var response = await httpClientService.Put<CustomerModel, HttpDataResponseWrapper<CustomerModel>> ($"customer/{Id.Value}", model);
+                var response = await httpClientService.Put<CustomerModel, HttpDataResponseWrapper<CustomerModel>> ($"hr/customer/{Id.Value}", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.UpdateSuccess();
@@ -92,7 +92,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
             }
             else
             {
-                var response = await httpClientService.Post<CustomerModel, HttpDataResponseWrapper<CustomerModel>>("customer", model);
+                var response = await httpClientService.Post<CustomerModel, HttpDataResponseWrapper<CustomerModel>>("hr/customer", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.CreateSuccess();

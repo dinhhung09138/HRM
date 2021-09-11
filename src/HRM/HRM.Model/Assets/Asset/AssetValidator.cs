@@ -15,12 +15,6 @@ namespace HRM.Model.Assets
             RuleFor(m => m.Code).MaximumLength(50);
         }
 
-        public void Name()
-        {
-            RuleFor(m => m.Name).NotEmpty().NotNull();
-            RuleFor(m => m.Name).MaximumLength(150);
-        }
-
         public void SerialNumber()
         {
             RuleFor(m => m.SerialNumber).MaximumLength(50);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HRM.Api.Controllers.Assets
 {
-    [Route("api/asset-type")]
+    [Route("api/asset/type")]
     [ApiController]
     public class AssetTypeController : BaseController
     {

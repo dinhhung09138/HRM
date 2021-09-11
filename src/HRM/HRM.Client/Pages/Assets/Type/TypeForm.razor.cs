@@ -48,7 +48,7 @@ namespace HRM.Client.Pages.Assets.Type
             {
                 pageTitle = "Cập nhật";
 
-                var result = await httpClientService.Get<AssetTypeModel, HttpDataResponseWrapper<AssetTypeModel>>($"asset-type/{Id.Value}");
+                var result = await httpClientService.Get<AssetTypeModel, HttpDataResponseWrapper<AssetTypeModel>>($"asset/type/{Id.Value}");
 
                 if (result != null)
                 {
@@ -83,7 +83,7 @@ namespace HRM.Client.Pages.Assets.Type
 
             if (Id.HasValue)
             {
-                var response = await httpClientService.Put<AssetTypeModel, HttpActionResponseWrapper>($"asset-type/{Id.Value}", model);
+                var response = await httpClientService.Put<AssetTypeModel, HttpActionResponseWrapper>($"asset/type/{Id.Value}", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.UpdateSuccess();
@@ -97,7 +97,7 @@ namespace HRM.Client.Pages.Assets.Type
             }
             else
             {
-                var response = await httpClientService.Post<AssetTypeModel, HttpActionResponseWrapper>("asset-type", model);
+                var response = await httpClientService.Post<AssetTypeModel, HttpActionResponseWrapper>("asset/type", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.CreateSuccess();

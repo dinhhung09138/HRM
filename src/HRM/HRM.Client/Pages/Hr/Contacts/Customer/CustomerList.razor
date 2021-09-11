@@ -48,45 +48,20 @@
                         </ActionColumn>
                     </RowTemplate>
                     <ExpandTemplate>
-                        <div class="clearfix">
-                            <div class="row">
-                                <div class="col-md-2 col-sm-1"></div>
-                                <div class="col-md-8 col-sm-10">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <h4>Thông tin liên hệ</h4>
-                                            <table class="table table-bordered table-striped" style="border: 1px solid #f0f0f0;">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th style="width: 250px;">Họ tên</th>
-                                                        <th>Số ĐT</th>
-                                                        <th>Email</th>
-                                                        <th>Chức danh</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @if (context.Data.Contacts != null && context.Data.Contacts.Count() > 0)
-                                                    {
-                                                        foreach (var item in context.Data.Contacts)
-                                                        {
-                                                            <tr>
-                                                                <td>@item.Name</td>
-                                                                <td>@item.Phone</td>
-                                                                <td>@item.Email</td>
-                                                                <td>@item.Position</td>
-                                                            </tr>
-                                                        }
-                                                    }
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 col-sm-1"></div>
-                            </div>
-                        </div>
-
+                        <HRMPanel Title="Thông tin liên hệ">
+                            <PanelContent>
+                                <Table DataSource="@context.Data.Contacts" Context="contact" Bordered="true" HidePagination="true">
+                                    <Column @bind-Field="@contact.Name" Title="Tên KH"
+                                            Sortable="false" ShowSorterTooltip="false" />
+                                    <Column @bind-Field="@contact.Phone" Title="Số ĐT"
+                                            Sortable="false" ShowSorterTooltip="false" />
+                                    <Column @bind-Field="@contact.Email" Title="Email"
+                                            Sortable="false" ShowSorterTooltip="false" />
+                                    <Column @bind-Field="@contact.Position" Title="Chức danh"
+                                            Sortable="false" ShowSorterTooltip="false" />
+                                </Table>
+                            </PanelContent>
+                        </HRMPanel>
                     </ExpandTemplate>
                     <PaginationTemplate>
                         <div class="mt-3 mb-3 hrm-table-navigation">

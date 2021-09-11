@@ -4,6 +4,7 @@ using HRM.Model.HR;
 using HRM.Domain.HR;
 using DotNetCore.Repositories;
 using HRM.Model;
+using System.Collections.Generic;
 
 namespace HRM.Database.HR
 {
@@ -12,6 +13,8 @@ namespace HRM.Database.HR
         Task<VendorModel> FindByIdAsync(long id);
 
         Task<Grid<VendorGridModel>> GridAsync(VendorGridParameterModel paramters);
+
+        Task<List<BaseSelectboxModel>> DropdownAsync();
 
         Task<bool> SaveAsync(Vendor model, bool isCreate);
 

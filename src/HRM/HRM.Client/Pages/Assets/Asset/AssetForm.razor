@@ -22,17 +22,9 @@
                             </div>
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="mb-1">
-                                    <label>Tên tài sản</label>
-                                    <FormItem>
-                                        <Input @bind-Value="@model.Name" class="form-control" MaxLength="150" tabindex="2" />
-                                    </FormItem>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="mb-1">
                                     <label>Serial Number</label>
                                     <FormItem>
-                                        <Input @bind-Value="@model.SerialNumber" class="form-control" MaxLength="50" tabindex="3" />
+                                        <Input @bind-Value="@model.SerialNumber" class="form-control" MaxLength="50" tabindex="2" />
                                     </FormItem>
                                 </div>
                             </div>
@@ -45,7 +37,7 @@
                                         <Select DataSource="@assetTypeList" @bind-Value="@model.AssetTypeIdValue" DefaultValue="@("")"
                                                 ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
                                                 AllowClear="true" class="form-group" tabindex="4"
-                                                OnSelectedItemChanged="@(item => { model.AssetTypeId = item != null ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                                OnSelectedItemChanged="@(item => { model.AssetTypeId = (item != null && !string.IsNullOrEmpty(item.Id)) ? long.Parse(item.Id) : null; StateHasChanged(); })">
                                         </Select>
                                     </FormItem>
                                 </div>
@@ -57,7 +49,7 @@
                                         <Select DataSource="@vendorList" @bind-Value="@model.VendorIdValue" DefaultValue="@("")"
                                                 ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
                                                 AllowClear="true" class="form-group" tabindex="5"
-                                                OnSelectedItemChanged="@(item => { model.VendorId = item != null ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                                OnSelectedItemChanged="@(item => { model.VendorId = (item != null && !string.IsNullOrEmpty(item.Id)) ? long.Parse(item.Id) : null; StateHasChanged(); })">
                                         </Select>
                                     </FormItem>
                                 </div>

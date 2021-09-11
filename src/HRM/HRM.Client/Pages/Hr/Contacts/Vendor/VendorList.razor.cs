@@ -80,7 +80,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
 
         protected async Task AgreeDeleteClick()
         {
-            var result = await httpClientService.Delete<VendorModel, HttpActionResponseWrapper>($"vendor/{deletedItem.Id}");
+            var result = await httpClientService.Delete<VendorModel, HttpActionResponseWrapper>($"hr/vendor/{deletedItem.Id}");
             if (result.Succeeded)
             {
                 await toastMessageHelper.DeleteSuccess();
@@ -104,7 +104,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
         {
             tableLoading = true;
 
-            var result = await httpClientService.Post<VendorGridParameterModel, HttpDataResponseWrapper<Model.Grid<VendorGridModel>>>("vendor/grid", parameterModel);
+            var result = await httpClientService.Post<VendorGridParameterModel, HttpDataResponseWrapper<Model.Grid<VendorGridModel>>>("hr/vendor/grid", parameterModel);
             if (result != null)
             {
                 listData = result.Data.List?.ToList() ?? new List<VendorGridModel>();

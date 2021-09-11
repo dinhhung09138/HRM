@@ -61,10 +61,10 @@ namespace HRM.Client.Pages.Hr.Contacts.CustomerContact
             await LoadGridData();
         }
 
-        protected void AddNewClick()
+        protected async Task AddNewClick()
         {
             showEditForm = true;
-            editForm.OnShowForm(null, CustomerId, true);
+            await editForm.OnShowForm(null, CustomerId, true);
         }
 
         protected void OnSubmitClick()
@@ -72,15 +72,15 @@ namespace HRM.Client.Pages.Hr.Contacts.CustomerContact
             editForm.OnSubmitClick();
         }
 
-        protected void UpdateClick(CustomerContactGridModel item)
+        protected async Task UpdateClick(CustomerContactGridModel item)
         {
             showEditForm = true;
-            editForm.OnShowForm(item.Id, CustomerId, true);
+            await editForm.OnShowForm(item.Id, CustomerId, true);
         }
 
-        protected void OnCancelClick()
+        protected async Task OnCancelClick()
         {
-            editForm.OnShowForm(null, CustomerId, false);
+            await editForm.OnShowForm(null, CustomerId, false);
             showEditForm = false;
         }
 
@@ -102,7 +102,7 @@ namespace HRM.Client.Pages.Hr.Contacts.CustomerContact
 
         protected async Task AgreeDeleteClick()
         {
-            var result = await httpClientService.Delete<CustomerContactModel, HttpActionResponseWrapper>($"customer-contact/{deletedItem.Id}");
+            var result = await httpClientService.Delete<CustomerContactModel, HttpActionResponseWrapper>($"hr/customer-contact/{deletedItem.Id}");
             if (result.Succeeded)
             {
                 await toastMessageHelper.DeleteSuccess();
@@ -127,7 +127,7 @@ namespace HRM.Client.Pages.Hr.Contacts.CustomerContact
             parameterModel.CustomerId = CustomerId;
             tableLoading = true;
 
-            var result = await httpClientService.Post<CustomerContactGridParameterModel, HttpDataResponseWrapper<Model.Grid<CustomerContactGridModel>>>("customer-contact/grid", parameterModel);
+            var result = await httpClientService.Post<CustomerContactGridParameterModel, HttpDataResponseWrapper<Model.Grid<CustomerContactGridModel>>>("hr/customer-contact/grid", parameterModel);
             if (result != null)
             {
                 listData = result.Data.List?.ToList() ?? new List<CustomerContactGridModel>();

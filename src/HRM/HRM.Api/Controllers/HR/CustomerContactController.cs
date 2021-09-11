@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HRM.Api.Controllers.HR
 {
-    [Route("api/customer-contact")]
+    [Route("api/hr/customer-contact")]
     [ApiController]
     public class CustomerContactController : BaseController
     {

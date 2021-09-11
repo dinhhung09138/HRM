@@ -7,6 +7,7 @@ using HRM.Domain.HR;
 using DotNetCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using DotNetCore.Objects;
+using HRM.Model;
 
 namespace HRM.Database.HR
 {
@@ -43,6 +44,18 @@ namespace HRM.Database.HR
             result.Parameters = grid.Parameters;
 
             return result;
+        }
+
+        public async Task<List<BaseSelectboxModel>> DropdownAsync()
+        {
+            return await Queryable.Where(m => m.IsActive && !m.Deleted)
+                                   .OrderBy(m => m.Name)
+                                   .Select(m => new BaseSelectboxModel()
+                                   {
+                                       Id = m.Id.ToString(),
+                                       Name = m.Name
+                                   })
+                                   .ToListAsync();
         }
 
         public async Task<bool> SaveAsync(Vendor model, bool isCreate)

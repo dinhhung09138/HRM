@@ -13,7 +13,6 @@ namespace HRM.Database.Assets
         {
             Id = m.Id,
             Code = m.Code,
-            Name = m.Name,
             SerialNumber = m.SerialNumber,
             AssetTypeId = m.AssetTypeId,
             VendorId = m.VendorId,
@@ -35,7 +34,7 @@ namespace HRM.Database.Assets
         {
             Id = m.Id,
             Code = m.Code,
-            Name = m.Name,
+            VendorName = m.Vendor.Name,
             AssetTypeName = m.AssetType.Name,
             Status = m.AssetStatus,
             BuyingDate = m.BuyingDate,

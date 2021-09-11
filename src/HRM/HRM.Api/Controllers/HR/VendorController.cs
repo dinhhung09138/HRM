@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HRM.Api.Controllers.HR
 {
-    [Route("api/[controller]")]
+    [Route("api/hr/[controller]")]
     [ApiController]
     public class VendorController : BaseController
     {
@@ -24,6 +24,12 @@ namespace HRM.Api.Controllers.HR
         public async Task<IActionResult> Grid([FromBody] VendorGridParameterModel model)
         {
             return Ok(await _vendorService.GridAsync(model));
+        }
+
+        [HttpGet("dropdown")]
+        public async Task<IActionResult> Dropdown()
+        {
+            return Ok(await _vendorService.DropdownAsync());
         }
 
         [HttpGet("{id}")]

@@ -22,7 +22,7 @@ namespace HRM.Client.Helpers
 
         public async Task<List<BaseSelectboxModel>> GetAssetType()
         {
-            var response = await _httpClientService.Get<HttpDataResponseWrapper<List<BaseSelectboxModel>>>($"asset-type/dropdown");
+            var response = await _httpClientService.Get<HttpDataResponseWrapper<List<BaseSelectboxModel>>>($"asset/type/dropdown");
             List<BaseSelectboxModel> listData = new List<BaseSelectboxModel>();
             listData.Add(new BaseSelectboxModel() { Id = "", Name = "Phân loại" });
             if (response.Succeeded)
@@ -35,14 +35,13 @@ namespace HRM.Client.Helpers
 
         public async Task<List<BaseSelectboxModel>> GetVendor()
         {
-            //var response = await _httpClientService.Get<HttpDataResponseWrapper<List<BaseSelectboxModel>>>($"asset-type/dropdown");
+            var response = await _httpClientService.Get<HttpDataResponseWrapper<List<BaseSelectboxModel>>>($"hr/vendor/dropdown");
             List<BaseSelectboxModel> listData = new List<BaseSelectboxModel>();
             listData.Add(new BaseSelectboxModel() { Id = "", Name = "Đơn vị cung cấp" });
-            listData.Add(new BaseSelectboxModel() { Id = "1", Name = "Hung" });
-            //if (response.Succeeded)
-            //{
-            //    listData.AddRange(response.Data);
-            //}
+            if (response.Succeeded)
+            {
+                listData.AddRange(response.Data);
+            }
 
             return listData;
         }

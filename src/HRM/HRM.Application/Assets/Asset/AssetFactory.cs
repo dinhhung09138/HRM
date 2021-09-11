@@ -10,7 +10,7 @@ namespace HRM.Application.Assets
         {
             var item = new Asset(model.Id, 
                 model.Code,
-                model.Name,
+                string.Empty,
                 model.SerialNumber,
                 model.AssetTypeId.Value,
                 model.VendorId.Value,
@@ -34,7 +34,7 @@ namespace HRM.Application.Assets
         {
             var item = new Asset(model.Id,
                 model.Code,
-                model.Name,
+                string.Empty,
                 model.SerialNumber,
                 model.AssetTypeId.Value,
                 model.VendorId.Value,

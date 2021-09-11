@@ -9,7 +9,7 @@ namespace HRM.Model.Assets
 
         public string Code { get; set; }
 
-        public string Name { get; set; }
+        public string VendorName { get; set; }
 
         public string AssetTypeName { get; set; }
 

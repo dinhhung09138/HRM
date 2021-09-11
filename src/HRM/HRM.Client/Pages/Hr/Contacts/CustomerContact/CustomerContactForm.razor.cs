@@ -54,7 +54,7 @@ namespace HRM.Client.Pages.Hr.Contacts.CustomerContact
 
             if (Id.HasValue)
             {
-                var response = await httpClientService.Put<CustomerContactModel, HttpActionResponseWrapper>($"customer-contact/{Id.Value}", model);
+                var response = await httpClientService.Put<CustomerContactModel, HttpActionResponseWrapper>($"hr/customer-contact/{Id.Value}", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.UpdateSuccess();
@@ -72,7 +72,7 @@ namespace HRM.Client.Pages.Hr.Contacts.CustomerContact
             }
             else
             {
-                var response = await httpClientService.Post<CustomerContactModel, HttpActionResponseWrapper>("customer-contact", model);
+                var response = await httpClientService.Post<CustomerContactModel, HttpActionResponseWrapper>("hr/customer-contact", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.CreateSuccess();
@@ -113,7 +113,7 @@ namespace HRM.Client.Pages.Hr.Contacts.CustomerContact
         private async Task loadData(long id)
         {
             pageLoading = true;
-            var result = await httpClientService.Get<CustomerContactModel, HttpDataResponseWrapper<CustomerContactModel>>($"customer-contact/{id}");
+            var result = await httpClientService.Get<CustomerContactModel, HttpDataResponseWrapper<CustomerContactModel>>($"hr/customer-contact/{id}");
 
             if (result != null)
             {

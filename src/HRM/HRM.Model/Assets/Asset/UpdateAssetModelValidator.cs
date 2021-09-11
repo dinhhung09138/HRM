@@ -6,7 +6,6 @@
         {
             Id();
             Code();
-            Name();
             SerialNumber();
             AssetTypeId();
             VendorId();

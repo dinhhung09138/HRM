@@ -75,7 +75,7 @@ namespace HRM.Client.Pages.Assets.Type
 
         protected async Task AgreeDeleteClick()
         {
-            var result = await httpClientService.Delete<AssetTypeModel, HttpActionResponseWrapper>($"asset-type/{deletedItem.Id}");
+            var result = await httpClientService.Delete<AssetTypeModel, HttpActionResponseWrapper>($"asset/type/{deletedItem.Id}");
             if (result.Succeeded)
             {
                 await toastMessageHelper.DeleteSuccess();
@@ -99,7 +99,7 @@ namespace HRM.Client.Pages.Assets.Type
         {
             tableLoading = true;
             
-            var result = await httpClientService.Post<AssetTypeGridParameterModel, HttpDataResponseWrapper<Model.Grid<AssetTypeGridModel>>>("asset-type/grid", parameterModel);
+            var result = await httpClientService.Post<AssetTypeGridParameterModel, HttpDataResponseWrapper<Model.Grid<AssetTypeGridModel>>>("asset/type/grid", parameterModel);
             if (result != null)
             {
                 listData = result.Data.List?.ToList() ?? new List<AssetTypeGridModel>();

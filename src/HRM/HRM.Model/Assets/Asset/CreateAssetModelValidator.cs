@@ -6,7 +6,6 @@ namespace HRM.Model.Assets
         public CreateAssetModelValidator()
         {
             Code();
-            Name();
             SerialNumber();
             AssetTypeId();
             VendorId();

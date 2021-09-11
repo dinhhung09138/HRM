@@ -10,10 +10,6 @@ namespace HRM.Model.Assets
         [MaxLength(50)]
         public string Code { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
-        [MaxLength(150)]
-        public string Name { get; set; }
-
         [MaxLength(50)]
         public string SerialNumber { get; set; }
 

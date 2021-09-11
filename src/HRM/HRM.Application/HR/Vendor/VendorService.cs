@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DotNetCore.Results;
 using HRM.Infrastructure.Extension;
 using HRM.Infrastructure.Services;
+using System.Collections.Generic;
 
 namespace HRM.Application.HR
 {
@@ -52,6 +53,12 @@ namespace HRM.Application.HR
             {
                 return null;
             }
+        }
+
+        public async Task<IResult<List<BaseSelectboxModel>>> DropdownAsync()
+        {
+            var data = await _vendorRepository.DropdownAsync();
+            return Result<List<BaseSelectboxModel>>.Success(data);
         }
 
         public async Task<IResult> SaveAsync(VendorModel model, bool isCreate)

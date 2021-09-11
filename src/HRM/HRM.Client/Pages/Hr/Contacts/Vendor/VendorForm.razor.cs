@@ -46,7 +46,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
             {
                 pageTitle = "Cập nhật";
 
-                var result = await httpClientService.Get<VendorModel, HttpDataResponseWrapper<VendorModel>>($"vendor/{Id.Value}");
+                var result = await httpClientService.Get<VendorModel, HttpDataResponseWrapper<VendorModel>>($"hr/vendor/{Id.Value}");
 
                 if (result != null)
                 {
@@ -82,7 +82,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
 
             if (Id.HasValue)
             {
-                var response = await httpClientService.Put<VendorModel, HttpActionResponseWrapper>($"vendor/{Id.Value}", model);
+                var response = await httpClientService.Put<VendorModel, HttpActionResponseWrapper>($"hr/vendor/{Id.Value}", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.UpdateSuccess();
@@ -96,7 +96,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
             }
             else
             {
-                var response = await httpClientService.Post<VendorModel, HttpActionResponseWrapper>("vendor", model);
+                var response = await httpClientService.Post<VendorModel, HttpActionResponseWrapper>("hr/vendor", model);
                 if (response.Succeeded)
                 {
                     await toastMessageHelper.CreateSuccess();
