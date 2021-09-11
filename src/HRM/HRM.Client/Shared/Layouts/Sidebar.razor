@@ -153,14 +153,14 @@
                                     <li data-level="4" class=""><a href="javascript:{}">Đăng ký nghỉ phép</a></li>
                                 </ul>
                             </li>
-                            <li data-level="3" class="active">
-                                <a href="javascript:{}" data-level="3">
+                            <li id="hrEmployeeMenu" data-level="3">
+                                <a href="javascript:{}" @onclick="@(() => MenuClick("hrEmployeeMenu"))">
                                     <span>Nhân viên</span>
                                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li data-level="4" class=""><a href="javascript:{}">Danh sách nhân viên</a></li>
-                                    <li data-level="4" class=""><a href="javascript:{}">Danh sách trả</a></li>
+                                    <li id="hrEmployeeListMenu" data-level="4" class=""><a href="hr/employees" @onclick="@(() => MenuClick("hrEmployeeListMenu"))">Danh sách nhân viên</a></li>
+                                    <li id="hrEmployeeContractMenu" data-level="4" class=""><a href="hr/contract" @onclick="@(() => MenuClick("hrEmployeeContractMenu"))">Danh sách hợp đồng</a></li>
                                 </ul>
                             </li>
                             <li id="hrContactMenu" data-level="3">
@@ -169,7 +169,7 @@
                                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu ">
-                                    <li data-level="4" class=""><a href="#">Nhân sự thuê ngoài</a></li>
+                                    <li data-level="4" class=""><a href="javascript:{}">Nhân sự thuê ngoài</a></li>
                                     <li id="hrContactVendorMenu" data-level="4" class=""><a href="hr/contacts/vendor" @onclick="@(() => MenuClick("hrContactVendorMenu"))">Nhà cung cấp</a></li>
                                     <li id="hrContactCustomerMenu" data-level="4" class=""><a href="hr/contacts/customer" @onclick="@(() => MenuClick("hrContactCustomerMenu"))">Khách hàng</a></li>
                                     <li id="hrContactProjectMenu" data-level="4" class=""><a href="hr/contacts/project" @onclick="@(() => MenuClick("hrContactProjectMenu"))">Dự án</a></li>
