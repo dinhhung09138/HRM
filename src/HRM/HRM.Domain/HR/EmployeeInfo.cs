@@ -6,10 +6,6 @@ using HRM.Domain.Common;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Thong tin cá nhân
-    /// </summary>
     public class EmployeeInfo : Entity<long>
     {
         public EmployeeInfo(
@@ -96,19 +92,15 @@ namespace HRM.Domain.HR
         public DateTime? IdExpireDate { get; set; }
 
         [MaxLength(20)]
-        [Required]
         public string PassportCode { get; set; }
 
-        [Required]
         public DateTime? PassportStartDate { get; set; }
 
         public DateTime? PassportExpireDate { get; set; }
 
         [MaxLength(20)]
-        [Required]
         public string DriverLicenseCode { get; set; }
 
-        [Required]
         public DateTime? DriverLicenseStartDate { get; set; }
 
         public DateTime? DriverLicenseExpireDate { get; set; }

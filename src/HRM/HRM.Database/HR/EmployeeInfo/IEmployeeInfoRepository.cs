@@ -8,5 +8,10 @@ namespace HRM.Database.HR
 {
     public interface IEmployeeInfoRepository
     {
+        Task<EmployeeInfoModel> FindByEmployeeIdAsync(long employeeId);
+
+        Task<bool> SaveAsync(EmployeeInfo model, bool isCreate);
+
+        Task<bool> IsCurrentVersion(long id, byte[] rowVersion);
     }
 }
