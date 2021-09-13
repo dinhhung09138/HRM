@@ -5,10 +5,6 @@ using HRM.Domain.Common;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Thông tin liên hệ
-    /// </summary>
     public class EmployeeContact : Entity<long>
     {
         public EmployeeContact(
@@ -31,6 +27,9 @@ namespace HRM.Domain.HR
             long? permanentWardId,
             long? permanentDistrictId,
             long? permanentProvinceId,
+            string emergencyName,
+            string emergencyPhone,
+            string emergencyEmail,
             bool isActive,
             long createBy,
             DateTime createDate)
@@ -54,6 +53,9 @@ namespace HRM.Domain.HR
             PermanentWardId = permanentWardId;
             PermanentDistrictId = permanentDistrictId;
             PermanentProvinceId = permanentProvinceId;
+            EmergencyName = emergencyName;
+            EmergencyPhone = emergencyPhone;
+            EmergencyEmail = emergencyEmail;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
@@ -97,23 +99,32 @@ namespace HRM.Domain.HR
         [MaxLength(250)]
         public string TemporaryAddress { get; set; }
 
-        //TODO
+        //TODO chua gan lien ket.
         public long? TemporaryWardId { get; set; }
 
         public Ward TemporaryWard { get; set; }
 
         public long? TemporaryDistrictId { get; set; }
-        //TODO
+        //TODO chua gan lien ket.
         public long? TemporaryProvinceId { get; set; }
 
         [MaxLength(250)]
         public string PermanentAddress { get; set; }
-        //TODO
+        //TODO chua gan lien ket.
         public long? PermanentWardId { get; set; }
-        //TODO
+        //TODO chua gan lien ket.
         public long? PermanentDistrictId { get; set; }
-        //TODO
+        //TODO chua gan lien ket.
         public long? PermanentProvinceId { get; set; }
+
+        [MaxLength(70)]
+        public string EmergencyName { get; set; }
+
+        [MaxLength(20)]
+        public string EmergencyPhone { get; set; }
+
+        [MaxLength(50)]
+        public string EmergencyEmail { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

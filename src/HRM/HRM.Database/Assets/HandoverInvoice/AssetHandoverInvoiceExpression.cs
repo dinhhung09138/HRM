@@ -25,9 +25,9 @@ namespace HRM.Database.Assets
         {
             Id = m.Id,
             Code = m.Code,
-            HandoverBy = m.Handover.EmployeeInfo.FullName,
+            HandoverBy = m.Handover.FullName,
             HandoverDate = m.HandoverDate,
-            ReceiveBy = m.Receiver.EmployeeInfo.FullName,
+            ReceiveBy = m.Receiver.FullName,
             ReceiveDate = m.ReceiveDate,
         };
     }

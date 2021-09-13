@@ -78,6 +78,12 @@ namespace HRM.Database.HR
 
             builder.Property(m => m.PermanentProvinceId);
 
+            builder.Property(m => m.EmergencyName).HasMaxLength(70);
+
+            builder.Property(m => m.EmergencyPhone).HasMaxLength(20);
+
+            builder.Property(m => m.EmergencyEmail).HasMaxLength(50);
+
             builder.Property(m => m.IsActive).IsRequired();
 
             builder.Property(m => m.CreateBy).IsRequired();

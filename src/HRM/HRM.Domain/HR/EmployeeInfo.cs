@@ -14,29 +14,43 @@ namespace HRM.Domain.HR
     {
         public EmployeeInfo(
             long employeeId,
-            string fullName,
-            Gender gender,
             DateTime? dateOfBirth,
-            long? maritalStatusId,
-            long? religionId,
-            long? ethnicityId,
+            Gender gender,
             long? nationalityId,
-            long? academicLevelId,
+            long? ethnicityId,
+            long? religionId,
+            long? maritalStatusId,
             long? professionalQualificationId,
+            string idCode,
+            DateTime idStartDate,
+            DateTime? idExpireDate,
+            string passportCode,
+            DateTime? passportStartDate,
+            DateTime? passportExpireDate,
+            string driverLicenseCode,
+            DateTime? driverLicenseStartDate,
+            DateTime? driverLicenseExpireDate,
             bool isActive,
             long createBy,
             DateTime createDate)
         {
             EmployeeId = employeeId;
-            FullName = fullName;
-            Gender = gender;
             DateOfBirth = dateOfBirth;
-            MaritalStatusId = maritalStatusId;
-            ReligionId = religionId;
-            EthnicityId = ethnicityId;
+            Gender = gender;
             NationalityId = nationalityId;
-            AcademicLevelId = academicLevelId;
+            EthnicityId = ethnicityId;
+            ReligionId = religionId;
+            MaritalStatusId = maritalStatusId;
             ProfessionalQualificationId = professionalQualificationId;
+            IdCode = idCode;
+            IdStartDate = idStartDate;
+            IdExpireDate = idExpireDate;
+            PassportCode = passportCode;
+            PassportStartDate = passportStartDate;
+            PassportExpireDate = passportExpireDate;
+            DriverLicenseCode = driverLicenseCode;
+            DriverLicenseStartDate = driverLicenseStartDate;
+            DriverLicenseExpireDate = driverLicenseExpireDate;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
@@ -47,36 +61,57 @@ namespace HRM.Domain.HR
 
         public Employee Employee { get; set; }
 
-        [MaxLength(70)]
-        public string FullName { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [Required]
         public Gender Gender { get; set; }
-
-        public DateTime? DateOfBirth { get; set; }
-
-        public long? MaritalStatusId { get; set; }
-
-        public MaritalStatus MaritalStatus { get; set; }
-
-        public long? ReligionId { get; set; }
-
-        public Religion Religion { get; set; }
-
-        public long? EthnicityId { get; set; }
-
-        public Ethnicity Ethnicity { get; set; }
 
         public long? NationalityId { get; set; }
 
         public Nationality Nationality { get; set; }
 
-        //TODO
-        public long? AcademicLevelId { get; set; }
+        public long? EthnicityId { get; set; }
+
+        public Ethnicity Ethnicity { get; set; }
+
+        public long? ReligionId { get; set; }
+
+        public Religion Religion { get; set; }
+
+        public long? MaritalStatusId { get; set; }
+
+        public MaritalStatus MaritalStatus { get; set; }
 
         public long? ProfessionalQualificationId { get; set; }
 
         public ProfessionalQualification ProfessionalQualification { get; set; }
+
+        [MaxLength(20)]
+        [Required]
+        public string IdCode { get; set; }
+
+        [Required]
+        public DateTime IdStartDate { get; set; }
+
+        public DateTime? IdExpireDate { get; set; }
+
+        [MaxLength(20)]
+        [Required]
+        public string PassportCode { get; set; }
+
+        [Required]
+        public DateTime? PassportStartDate { get; set; }
+
+        public DateTime? PassportExpireDate { get; set; }
+
+        [MaxLength(20)]
+        [Required]
+        public string DriverLicenseCode { get; set; }
+
+        [Required]
+        public DateTime? DriverLicenseStartDate { get; set; }
+
+        public DateTime? DriverLicenseExpireDate { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

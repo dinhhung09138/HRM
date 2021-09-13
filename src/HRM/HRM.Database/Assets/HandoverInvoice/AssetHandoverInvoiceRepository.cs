@@ -26,8 +26,8 @@ namespace HRM.Database.Assets
             if (!string.IsNullOrEmpty(paramters.TextSearch))
             {
                 query = query.Where(m => m.Code.ToLower().Contains(paramters.TextSearch)
-                                    || m.Handover.EmployeeInfo.FullName.ToLower().Contains(paramters.TextSearch)
-                                    || m.Receiver.EmployeeInfo.FullName.ToLower().Contains(paramters.TextSearch));
+                                    || m.Handover.FullName.ToLower().Contains(paramters.TextSearch)
+                                    || m.Receiver.FullName.ToLower().Contains(paramters.TextSearch));
             }
 
             var grid = await query.Select(AssetHandoverInvoiceExpression.GridAsync).GridAsync(paramters);

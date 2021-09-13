@@ -7,43 +7,52 @@ using HRM.Domain.System;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Nhân viên
-    /// </summary>
     public class Employee : Entity<long>
     {
         public Employee(
-            string employeeCode, 
+            string employeeCode,
+            string fullName,
+            long branchId,
+            long? departmentId,
+            long? positionId,
+            long? jobPositionId,
+            long? managerId,
+            string email,
+            string phone,
+            string phoneExt,
+            string fax,
+            long? employeeWorkingStatusId,
             DateTime? probationDate, 
             DateTime? startWorkingDate, 
+            DateTime? resignDate,
             string badgeCardNumber, 
             DateTime? dateApplyBadge,
             string fingerSignNumber,
             DateTime? dateApplyFingerSign,
-            string workingEmail,
-            string workingPhone,
-            long? employeeWorkingStatusId,
-            long? currentPositionId,
-            long? currentDepartmentId,
-            decimal basicSalary,
             bool isActive,
             long createBy,
             DateTime createDate)
         {
             EmployeeCode = employeeCode;
+            FullName = fullName;
+            BranchId = branchId;
+            DepartmentId = departmentId;
+            PositionId = positionId;
+            JobPositionId = jobPositionId;
+            ManagerId = managerId;
+            Email = email;
+            Phone = phone;
+            PhoneExt = phoneExt;
+            Fax = fax;
+            EmployeeWorkingStatusId = employeeWorkingStatusId;
+
             ProbationDate = probationDate;
             StartWorkingDate = startWorkingDate;
+            ResignDate = resignDate;
             BadgeCardNumber = badgeCardNumber;
             DateApplyBadge = dateApplyBadge;
             FingerSignNumber = fingerSignNumber;
             DateApplyFingerSign = dateApplyFingerSign;
-            WorkingEmail = workingEmail;
-            WorkingPhone = workingPhone;
-            EmployeeWorkingStatusId = employeeWorkingStatusId;
-            CurrentPositionId = currentPositionId;
-            CurrentDepartmentId = currentDepartmentId;
-            BasicSalary = basicSalary;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
@@ -53,9 +62,55 @@ namespace HRM.Domain.HR
         [Required]
         public string EmployeeCode { get; set; }
 
+        [MaxLength(70)]
+        [Required]
+        public string FullName { get; set; }
+
+        /// <summary>
+        /// TODO, need to add Branch where (ho chi minh, ha noi,...)
+        /// </summary>
+        [Required]
+        public long BranchId { get; set; }
+
+        public long? DepartmentId { get; set; }
+
+        public Department Department { get; set; }
+
+        public long? PositionId { get; set; }
+
+        public Position Position { get; set; }
+
+        /// <summary>
+        /// TODO Vij tri cong viec, cong nhan, Senior Dev, QC
+        /// Can tao bangr JobPosition
+        /// </summary>
+        public long? JobPositionId { get; set; }
+
+        public long? ManagerId { get; set; }
+
+        public Employee Manager { get; set; }
+
+        [MaxLength(50)]
+        public string Email { get; set; }
+
+        [MaxLength(20)]
+        public string Phone { get; set; }
+
+        [MaxLength(10)]
+        public string PhoneExt { get; set; }
+
+        [MaxLength(20)]
+        public string Fax { get; set; }
+
+        public long? EmployeeWorkingStatusId { get; set; }
+
+        public EmployeeWorkingStatus EmployeeWorkingStatus { get; set; }
+
         public DateTime? ProbationDate { get; set; }
 
         public DateTime? StartWorkingDate { get; set; }
+
+        public DateTime? ResignDate { get; set; }
 
         [MaxLength(10)]
         public string BadgeCardNumber { get; set; }
@@ -66,26 +121,6 @@ namespace HRM.Domain.HR
         public string FingerSignNumber { get; set; }
 
         public DateTime? DateApplyFingerSign { get; set; }
-
-        [MaxLength(50)]
-        public string WorkingEmail { get; set; }
-
-        [MaxLength(20)]
-        public string WorkingPhone { get; set; }
-
-        public long? EmployeeWorkingStatusId { get; set; }
-
-        public EmployeeWorkingStatus EmployeeWorkingStatus { get; set; }
-
-        public long? CurrentPositionId { get; set; }
-
-        public Position Position { get; set; }
-
-        public long? CurrentDepartmentId { get; set; }
-
-        public Department Department { get; set; }
-
-        public decimal BasicSalary { get; set; }
 
         [Required]
         public bool IsActive { get; set; }
@@ -134,8 +169,6 @@ namespace HRM.Domain.HR
 
         public virtual List<EmployeeEducation> EmployeeEducations { get; set; }
 
-        public virtual List<EmployeeIdentification> EmployeeIdentifications { get; set; }
-
         public virtual EmployeeInfo EmployeeInfo { get; set; }
 
         public virtual List<EmployeeLeave> EmployeeLeaves { get; set; }
@@ -151,5 +184,7 @@ namespace HRM.Domain.HR
         public virtual List<AssetHandoverInvoice> AssetHandoverInvoiceHandovers { get; set; }
 
         public virtual List<AssetHandoverInvoice> AssetHandoverInvoiceReceivers { get; set; }
+
+        public virtual List<Employee> Employees { get; set; }
     }
 }

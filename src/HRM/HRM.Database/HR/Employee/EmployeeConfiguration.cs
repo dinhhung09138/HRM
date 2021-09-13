@@ -18,21 +18,40 @@ namespace HRM.Database.HR
                    .HasColumnType("varchar")
                    .IsRequired();
 
-            builder.Property(m => m.ProbationDate);
+            builder.Property(m => m.FullName).HasMaxLength(70).IsRequired();
 
-            builder.Property(m => m.StartWorkingDate);
+            builder.Property(m => m.BranchId).IsRequired();
 
-            builder.Property(m => m.BadgeCardNumber).HasMaxLength(10);
+            builder.Property(m => m.DepartmentId);
+            builder.HasOne(m => m.Department)
+                   .WithMany(d => d.Employees)
+                   .HasForeignKey(m => m.DepartmentId)
+                   .HasConstraintName("FK_Employee_DepartmentId")
+                   .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(m => m.DateApplyBadge);
+            builder.Property(m => m.PositionId);
+            builder.HasOne(m => m.Position)
+                   .WithMany(p => p.Employees)
+                   .HasForeignKey(m => m.PositionId)
+                   .HasConstraintName("FK_Employee_PositionId")
+                   .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(m => m.FingerSignNumber).HasMaxLength(10);
+            builder.Property(m => m.JobPositionId);
 
-            builder.Property(m => m.DateApplyFingerSign);
+            builder.Property(m => m.ManagerId);
+            builder.HasOne(m => m.Manager)
+                   .WithMany(p => p.Employees)
+                   .HasForeignKey(m => m.ManagerId)
+                   .HasConstraintName("FK_Employee_ManagerId")
+                   .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(m => m.WorkingEmail).HasMaxLength(50);
+            builder.Property(m => m.Email).HasMaxLength(50);
 
-            builder.Property(m => m.WorkingPhone).HasMaxLength(20);
+            builder.Property(m => m.Phone).HasMaxLength(20);
+
+            builder.Property(m => m.PhoneExt).HasMaxLength(10);
+
+            builder.Property(m => m.Fax).HasMaxLength(20);
 
             builder.Property(m => m.EmployeeWorkingStatusId);
             builder.HasOne(m => m.EmployeeWorkingStatus)
@@ -41,21 +60,19 @@ namespace HRM.Database.HR
                    .HasConstraintName("FK_Employee_EmployeeWorkingStatusId")
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(m => m.CurrentPositionId);
-            builder.HasOne(m => m.Position)
-                   .WithMany(p => p.Employees)
-                   .HasForeignKey(m => m.CurrentPositionId)
-                   .HasConstraintName("FK_Employee_CurrentPositionId")
-                   .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(m => m.ProbationDate);
 
-            builder.Property(m => m.CurrentDepartmentId);
-            builder.HasOne(m => m.Department)
-                   .WithMany(d => d.Employees)
-                   .HasForeignKey(m => m.CurrentDepartmentId)
-                   .HasConstraintName("FK_Employee_CurrentDepartmentId")
-                   .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(m => m.StartWorkingDate);
 
-            builder.Property(m => m.BasicSalary);
+            builder.Property(m => m.ResignDate);
+
+            builder.Property(m => m.BadgeCardNumber).HasMaxLength(10);
+
+            builder.Property(m => m.DateApplyBadge);
+
+            builder.Property(m => m.FingerSignNumber).HasMaxLength(10);
+
+            builder.Property(m => m.DateApplyFingerSign);
 
             builder.Property(m => m.IsActive).IsRequired();
 

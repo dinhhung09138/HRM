@@ -61,6 +61,5 @@ namespace HRM.Domain.Common
 
         public virtual List<District> Districts { get; set; }
 
-        public virtual List<EmployeeIdentification> EmployeeIdentifications { get; set; }
     }
 }
