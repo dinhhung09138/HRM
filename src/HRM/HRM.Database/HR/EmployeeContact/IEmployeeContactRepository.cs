@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HRM.Model.HR;
 using HRM.Domain.HR;
+using DotNetCore.Repositories;
 
 namespace HRM.Database.HR
 {
-    public interface IEmployeeContactRepository
+    public interface IEmployeeContactRepository : IRepository<EmployeeContact>
     {
         Task<EmployeeContactModel> FindByEmployeeIdAsync(long employeeId);
 

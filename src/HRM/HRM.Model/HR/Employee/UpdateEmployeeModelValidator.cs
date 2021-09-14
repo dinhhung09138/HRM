@@ -2,10 +2,11 @@
 
 namespace HRM.Model.HR
 {
-    public class CreateEmployeeValidator : EmployeeValidator
+    public class UpdateEmployeeModelValidator : EmployeeValidator
     {
-        public CreateEmployeeValidator()
+        public UpdateEmployeeModelValidator()
         {
+            Id();
             EmployeeCode();
             FullName();
             BranchId();

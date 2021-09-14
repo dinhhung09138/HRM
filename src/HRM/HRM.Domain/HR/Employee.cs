@@ -10,6 +10,7 @@ namespace HRM.Domain.HR
     public class Employee : Entity<long>
     {
         public Employee(
+            long id,
             string employeeCode,
             string fullName,
             long branchId,
@@ -31,8 +32,11 @@ namespace HRM.Domain.HR
             DateTime? dateApplyFingerSign,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             EmployeeCode = employeeCode;
             FullName = fullName;
             BranchId = branchId;
@@ -56,6 +60,8 @@ namespace HRM.Domain.HR
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [MaxLength(15)]

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace HRM.Database.HR
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : IRepository<Employee>
     {
         Task<EmployeeModel> FindByIdAsync(long id);
 

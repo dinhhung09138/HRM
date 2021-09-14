@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HRM.Model.HR
 {
-    public class CreateEmployeeContactValidator : EmployeeContactValidator
+    public class CreateEmployeeContactModelValidator : EmployeeContactValidator
     {
-        public CreateEmployeeContactValidator()
+        public CreateEmployeeContactModelValidator()
         {
             EmployeeId();
             Phone();

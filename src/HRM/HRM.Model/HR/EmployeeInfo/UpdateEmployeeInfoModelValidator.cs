@@ -2,9 +2,9 @@
 
 namespace HRM.Model.HR
 {
-    public class UpdateEmployeeInfoValidator : EmployeeInfoValidator
+    public class UpdateEmployeeInfoModelValidator : EmployeeInfoValidator
     {
-        public UpdateEmployeeInfoValidator()
+        public UpdateEmployeeInfoModelValidator()
         {
             Id();
             EmployeeId();

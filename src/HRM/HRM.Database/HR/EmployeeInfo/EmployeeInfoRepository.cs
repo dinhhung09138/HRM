@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using HRM.Model.HR;
 using HRM.Domain.HR;
 using DotNetCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using DotNetCore.Objects;
-using HRM.Model;
 
 namespace HRM.Database.HR
 {
@@ -61,6 +58,5 @@ namespace HRM.Database.HR
         {
             return await Queryable.AnyAsync(m => !m.Deleted && m.Id == id && m.RowVersion == rowVersion);
         }
-
     }
 }

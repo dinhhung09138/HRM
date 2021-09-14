@@ -8,6 +8,7 @@ namespace HRM.Domain.HR
     public class EmployeeContact : Entity<long>
     {
         public EmployeeContact(
+            long id,
             long employeeId,
             string phone,
             string mobile,
@@ -32,8 +33,11 @@ namespace HRM.Domain.HR
             string emergencyEmail,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             EmployeeId = employeeId;
             Phone = phone;
             Mobile = mobile;
@@ -59,6 +63,8 @@ namespace HRM.Domain.HR
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [Required]

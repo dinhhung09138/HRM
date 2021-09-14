@@ -9,6 +9,7 @@ namespace HRM.Domain.HR
     public class EmployeeInfo : Entity<long>
     {
         public EmployeeInfo(
+            long id,
             long employeeId,
             DateTime? dateOfBirth,
             Gender gender,
@@ -28,8 +29,11 @@ namespace HRM.Domain.HR
             DateTime? driverLicenseExpireDate,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             EmployeeId = employeeId;
             DateOfBirth = dateOfBirth;
             Gender = gender;
@@ -50,6 +54,8 @@ namespace HRM.Domain.HR
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [Required]
