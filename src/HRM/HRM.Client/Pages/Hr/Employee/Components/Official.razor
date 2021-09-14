@@ -1,0 +1,225 @@
+﻿
+<Spin Spinning="@pageLoading">
+    <HRMPanel Title="Hồ sơ nhân sự">
+        <ButtonGroup>
+            @if (editForm == false)
+            {
+                if (EmployeeId.HasValue)
+                {
+                    <Button Type="@ButtonType.Primary" OnClick="@OnShowFormClick">Cập nhật</Button>
+                }
+                else
+                {
+                    <Button Type="@ButtonType.Primary" OnClick="@OnShowFormClick">Thêm mới</Button>
+                }
+                <Button Type="@ButtonType.Default" OnClick="@BackToTheListClick">Danh sách</Button>
+            }
+            else
+            {
+                <Button Type="@ButtonType.Primary" OnClick="@OnSubmitClick">Lưu</Button>
+                <Button Type="@ButtonType.Default" OnClick="@OnCancelClick">Hủy</Button>
+            }
+        </ButtonGroup>
+        <PanelContent>
+            <Form @ref="@form" Model="@model" OnFinish="@OnFinish">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Mã NV</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.EmployeeCode" class="form-control" 
+                                       Disabled="@(!editForm)" MaxLength="15" tabindex="1" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Họ tên</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.FullName" class="form-control" 
+                                       Disabled="@(!editForm)" MaxLength="70" tabindex="2" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Văn phòng</label>
+                            <FormItem>
+                                <Select DataSource="@listBranch" @bind-Value="@model.BranchIdValue" DefaultValue="@("")"
+                                        ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                        AllowClear="true" class="form-group" tabindex="3" Disabled="@(!editForm)"
+                                        OnSelectedItemChanged="@(item => { model.BranchId = (item != null && !string.IsNullOrEmpty(item.Id)) ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                </Select>
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Phòng ban</label>
+                            <FormItem>
+                                <Select DataSource="@listDepartment" @bind-Value="@model.DepartmentIdValue" DefaultValue="@("")"
+                                        ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                        AllowClear="true" class="form-group" tabindex="4" Disabled="@(!editForm)"
+                                        OnSelectedItemChanged="@(item => { model.DepartmentId = (item != null && !string.IsNullOrEmpty(item.Id)) ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                </Select>
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Chức vụ</label>
+                            <FormItem>
+                                <Select DataSource="@listPosition" @bind-Value="@model.PositionIdValue" DefaultValue="@("")"
+                                        ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                        AllowClear="true" class="form-group" tabindex="5" Disabled="@(!editForm)"
+                                        OnSelectedItemChanged="@(item => { model.PositionId = (item != null && !string.IsNullOrEmpty(item.Id)) ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                </Select>
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Vị trí công việc</label>
+                            <FormItem>
+                                <Select DataSource="@listJobPosition" @bind-Value="@model.JobPositionIdValue" DefaultValue="@("")"
+                                        ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                        AllowClear="true" class="form-group" tabindex="6" Disabled="@(!editForm)"
+                                        OnSelectedItemChanged="@(item => { model.JobPositionId = (item != null && !string.IsNullOrEmpty(item.Id)) ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                </Select>
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Quản lý trực tiếp</label>
+                            <FormItem>
+                                <Select DataSource="@listManager" @bind-Value="@model.ManagerIdValue" DefaultValue="@("")"
+                                        ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                        AllowClear="true" class="form-group" tabindex="7" Disabled="@(!editForm)"
+                                        OnSelectedItemChanged="@(item => { model.ManagerId = (item != null && !string.IsNullOrEmpty(item.Id)) ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                </Select>
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Email</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.Email" class="form-control" 
+                                       Disabled="@(!editForm)" MaxLength="50" tabindex="8" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Số Fax</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.Fax" class="form-control" 
+                                       Disabled="@(!editForm)" MaxLength="20" tabindex="9" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Điện thoại công việc</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.Phone" class="form-control" 
+                                       Disabled="@(!editForm)" MaxLength="20" tabindex="10" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Ext</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.PhoneExt" class="form-control" 
+                                       Disabled="@(!editForm)" MaxLength="10" tabindex="11" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Trạng thái</label>
+                            <FormItem>
+                                <Select DataSource="@listEmployeeWorkingStatus" @bind-Value="@model.EmployeeWorkingStatusIdValue" DefaultValue="@("")"
+                                        ValueName="@nameof(BaseSelectboxModel.Id)" LabelName="@nameof(BaseSelectboxModel.Name)"
+                                        AllowClear="true" class="form-group" tabindex="12" Disabled="@(!editForm)"
+                                        OnSelectedItemChanged="@(item => { model.EmployeeWorkingStatusId = (item != null && !string.IsNullOrEmpty(item.Id)) ? long.Parse(item.Id) : null; StateHasChanged(); })">
+                                </Select>
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Ngày Thử việc</label>
+                            <FormItem>
+                                <DatePicker @bind-Value="@model.ProbationDate" Format="MM/dd/yyyy" 
+                                       Disabled="@(!editForm)" class="form-control" MaxLength="10" tabindex="13" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Ngày vào làm</label>
+                            <FormItem>
+                                <DatePicker @bind-Value="@model.StartWorkingDate" Format="MM/dd/yyyy" 
+                                       Disabled="@(!editForm)" class="form-control" MaxLength="10" tabindex="14" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Ngày kết thúc hợp đồng</label>
+                            <FormItem>
+                                <DatePicker @bind-Value="@model.ResignDate" Format="MM/dd/yyyy" 
+                                       Disabled="@(!editForm)" class="form-control" MaxLength="10" tabindex="15" />
+                            </FormItem>
+                        </div>
+                    </div>
+                </div>
+                <Divider />
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Mã vân tay</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.BadgeCardNumber" class="form-control" 
+                                       Disabled="@(!editForm)" MaxLength="10" tabindex="16" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Ngày cấp</label>
+                            <FormItem>
+                                <DatePicker @bind-Value="@model.DateApplyBadge" Format="MM/dd/yyyy" 
+                                       Disabled="@(!editForm)" class="form-control" MaxLength="10" tabindex="17" />
+                            </FormItem>
+                        </div>
+                    </div>
+                </div>
+                <Divider />
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Mã thẻ từ</label>
+                            <FormItem>
+                                <Input @bind-Value="@model.FingerSignNumber" class="form-control" 
+                                       Disabled="@(!editForm)" MaxLength="10" tabindex="18" />
+                            </FormItem>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="mb-1">
+                            <label>Ngày cấp</label>
+                            <FormItem>
+                                <DatePicker @bind-Value="@model.DateApplyFingerSign" Format="MM/dd/yyyy" 
+                                       Disabled="@(!editForm)" class="form-control" MaxLength="10" tabindex="19" />
+                            </FormItem>
+                        </div>
+                    </div>
+                </div>
+            </Form>
+        </PanelContent>
+    </HRMPanel>
+</Spin>
