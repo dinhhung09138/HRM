@@ -1,15 +1,13 @@
 ﻿@page "/hr/employee/create"
 @page "/hr/employee/update/{Id:long}"
 
+@using HRM.Client.Pages.Hr.Employee.Components;
+
 <div class="card-container">
     <Tabs TabPosition="@TabPosition.Left" Type="@TabType.Card">
         <ChildContent>
             <TabPane Key="offical" Tab="Thông tin công việc">
-                <HRMPanel Title="Hồ sơ nhân sự">
-                    <PanelContent>
-                        <Official />
-                    </PanelContent>
-                </HRMPanel>
+                <Official />
             </TabPane>
             <TabPane Key="personalInfo" Tab="TabThông tin cá nhân">
                 <HRMPanel Title="Thông tin cá nhân">
