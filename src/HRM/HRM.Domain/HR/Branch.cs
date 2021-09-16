@@ -5,9 +5,9 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    public class Department : Entity<long>
+    public class Branch : Entity<long>
     {
-        public Department(
+        public Branch(
             long id,
             string name,
             string description,
@@ -28,11 +28,11 @@ namespace HRM.Domain.HR
             UpdateDate = updateDate;
         }
 
+        [MaxLength(100)]
         [Required]
-        [MaxLength(200)]
         public string Name { get; set; }
 
-        [MaxLength(255)]
+        [MaxLength(250)]
         public string Description { get; set; }
 
         [Required]
@@ -55,6 +55,5 @@ namespace HRM.Domain.HR
         public byte[] RowVersion { get; set; }
 
         public virtual List<Employee> Employees { get; set; }
-
     }
 }

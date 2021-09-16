@@ -21,6 +21,12 @@ namespace HRM.Database.HR
             builder.Property(m => m.FullName).HasMaxLength(70).IsRequired();
 
             builder.Property(m => m.BranchId).IsRequired();
+            builder.HasOne(m => m.Branch)
+                   .WithMany(d => d.Employees)
+                   .HasForeignKey(m => m.BranchId)
+                   .HasConstraintName("FK_Employee_BranchId")
+                   .OnDelete(DeleteBehavior.Restrict);
+
 
             builder.Property(m => m.DepartmentId);
             builder.HasOne(m => m.Department)
@@ -37,6 +43,12 @@ namespace HRM.Database.HR
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(m => m.JobPositionId);
+            builder.HasOne(m => m.JobPosition)
+                   .WithMany(d => d.Employees)
+                   .HasForeignKey(m => m.JobPositionId)
+                   .HasConstraintName("FK_Employee_JobPositionId")
+                   .OnDelete(DeleteBehavior.Restrict);
+
 
             builder.Property(m => m.ManagerId);
             builder.HasOne(m => m.Manager)

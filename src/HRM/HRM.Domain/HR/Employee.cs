@@ -72,11 +72,10 @@ namespace HRM.Domain.HR
         [Required]
         public string FullName { get; set; }
 
-        /// <summary>
-        /// TODO, need to add Branch where (ho chi minh, ha noi,...)
-        /// </summary>
         [Required]
         public long BranchId { get; set; }
+
+        public Branch Branch { get; set; }
 
         public long? DepartmentId { get; set; }
 
@@ -86,11 +85,9 @@ namespace HRM.Domain.HR
 
         public Position Position { get; set; }
 
-        /// <summary>
-        /// TODO Vij tri cong viec, cong nhan, Senior Dev, QC
-        /// Can tao bangr JobPosition
-        /// </summary>
         public long? JobPositionId { get; set; }
+
+        public JobPosition JobPosition { get; set; }
 
         public long? ManagerId { get; set; }
 

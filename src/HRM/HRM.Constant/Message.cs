@@ -12,6 +12,7 @@ namespace HRM.Constant
         public static readonly string WARNING_ITEM_NOT_FOUND = "Không tìm thấy thông tin đang xử lý";
         public static readonly string DATA_IS_NOT_CURRENT_VERSION = "Dữ liệu đã được thay đổi trước đó, vui lòng tải lại trang";
         public static readonly string CODE_IS_EXISTS = "Mã đã tồn tại";
+        public static readonly string EMPLOYEE_NOT_FOUND = "Không tìm thấy thông tin nhân viên";
 
         public static class ToastMessage
         {
