@@ -5,26 +5,27 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Chức vụ
-    /// </summary>
     public class Position : Entity<long>
     {
         public Position(
+            long id,
             string name,
             string description,
-            int precedence,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             Name = name;
             Description = description;
-            Precedence = precedence;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            Deleted = false;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [Required]
@@ -33,9 +34,6 @@ namespace HRM.Domain.HR
 
         [MaxLength(255)]
         public string Description { get; set; }
-
-        [Required]
-        public int Precedence { get; set; }
 
         [Required]
         public bool IsActive { get; set; }

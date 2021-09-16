@@ -9,5 +9,22 @@ namespace HRM.Database.HR
 {
     public static class PositionExpression
     {
+        public static Expression<Func<Position, PositionModel>> FindByIdAsync => m => new PositionModel()
+        {
+            Id = m.Id,
+            Name = m.Name,
+            Description = m.Description,
+            IsActive = m.IsActive,
+            Deleted = m.Deleted,
+            RowVersion = m.RowVersion,
+        };
+
+        public static Expression<Func<Position, PositionGridModel>> GridAsync => m => new PositionGridModel()
+        {
+            Id = m.Id,
+            Name = m.Name,
+            Description = m.Description,
+            IsActive = m.IsActive
+        };
     }
 }

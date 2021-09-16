@@ -181,6 +181,21 @@
                                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                 </a>
                                 <ul class="treeview-menu ">
+                                    <li id="hrSettingBranchMenu" data-level="4" class="">
+                                        <a href="hr/setting/branch" @onclick="@(() => MenuClick("hrSettingBranchMenu"))">Văn phòng</a>
+                                    </li>
+                                    <li id="hrSettingDepartmentMenu" data-level="4" class="">
+                                        <a href="hr/setting/department" @onclick="@(() => MenuClick("hrSettingDepartmentMenu"))">Phòng ban</a>
+                                    </li>
+                                    <li id="hrSettingPositionMenu" data-level="4" class="">
+                                        <a href="hr/setting/position" @onclick="@(() => MenuClick("hrSettingPositionMenu"))">Chức vụ</a>
+                                    </li>
+                                    <li id="hrSettingJobPositionMenu" data-level="4" class="">
+                                        <a href="hr/setting/job-position" @onclick="@(() => MenuClick("hrSettingJobPositionMenu"))">Vị trí công việc</a>
+                                    </li>
+                                    <li id="hrSettingEmployeeWorkingStatusMenu" data-level="4" class="">
+                                        <a href="hr/setting/employee-working-status" @onclick="@(() => MenuClick("hrSettingEmployeeWorkingStatusMenu"))">Trạng thái nhân viên</a>
+                                    </li>
                                     <li data-level="4" class=""><a href="hr/setting/holiday">Kỷ luật</a></li>
                                     <li data-level="4" class=""><a href="hr/setting/holiday">Khen thưởng</a></li>
                                     <li data-level="4" class=""><a href="hr/setting/holiday">Thiết lập ngày nghỉ</a></li>
@@ -290,7 +305,7 @@
                         Href = "/counter",
                         Icon = "",
                     }
-                                                },
+                                                    },
             }
         );
         models.Add(
@@ -322,7 +337,7 @@
                         Href = "/counter",
                         Icon = "",
                     }
-                                                },
+                                                    },
             }
         );
     }

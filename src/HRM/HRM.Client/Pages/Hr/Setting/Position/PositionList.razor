@@ -1,0 +1,68 @@
+﻿@page "/hr/setting/position"
+
+<AuthorizeView>
+    <Authorized Context="Auth">
+        <HRMPanel Title="Danh sách chức vụ">
+            <ButtonGroup>
+                <Button Type="@ButtonType.Primary" OnClick="@AddNewClick">Thêm mới</Button>
+            </ButtonGroup>
+            <PanelContent>
+                <div class="row mb-2">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <Search Placeholder="Tìm kiếm" EnterButton="@("Tìm kiếm")" DefaultValue="@("")"
+                                @bind-Value="@parameterModel.TextSearch"
+                                OnSearch="SearchClick" Disabled="@tableLoading" />
+                    </div>
+                </div>
+                <Table DataSource="@listData" Bordered="true" Loading="@tableLoading" PageSize="@parameterModel.Page.Size">
+                    <ChildContent>
+                        <Column @bind-Field="@context.Name" Title="Tên chức vụ"
+                                Sortable="true" Width="300px" ShowSorterTooltip="false" />
+                        <Column @bind-Field="@context.Description" Title="Ghi chú"
+                                Sortable="true" ShowSorterTooltip="false" />
+                        <Column Field="@context.IsActive" Title="Sử dụng" Width="100px" Sortable="false">
+                            <Switch @bind-Value="@context.IsActive" Disabled="true" />
+                        </Column>
+                        <ActionColumn Width="90" Fixed="right">
+                            <Dropdown Placement="@PlacementType.BottomRight">
+                                <ChildContent>Chọn <i class="fa fa-angle-down" aria-hidden="true" style="margin-left: 10px;"></i></ChildContent>
+                                <Overlay>
+                                    <Menu>
+                                        <MenuItem>
+                                            <Button Type="@ButtonType.Text" OnClick="@(() => UpdateClick(context))">Cập nhật</Button>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <Button Type="@ButtonType.Text" OnClick="@(() => DeleteClick(context))" Danger="true">Xóa</Button>
+                                        </MenuItem>
+                                    </Menu>
+                                </Overlay>
+                            </Dropdown>
+                        </ActionColumn>
+                    </ChildContent>
+                    <PaginationTemplate>
+                        <div class="mt-3 mb-3 hrm-table-navigation">
+                            <Pagination ShowSizeChanger="true" Responsive="true"
+                                        DefaultCurrent="5" Total="@totalItems" ShowTotal="@showTotal"
+                                        PageSize="@parameterModel.Page.Size" DefaultPageSize="@parameterModel.Page.Index"
+                                        OnChange="@PageChange" />
+                        </div>
+                    </PaginationTemplate>
+                </Table>
+            </PanelContent>
+        </HRMPanel>
+        <Modal Visible="@isVisibleDeleteModel" Draggable="false" Closable="false" Centered="true" Keyboard="false" MaskClosable="false"
+               OnOk="@AgreeDeleteClick" OkText="@("Đồng ý")" OkType="danger"
+               OnCancel="@((e) => { isVisibleDeleteModel = false; deletedItem = null; })" CancelText="@("Hủy")">
+            <ChildContent>
+                Bạn có muốn xóa dòng dữ liệu đang chọn?
+            </ChildContent>
+        </Modal>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>

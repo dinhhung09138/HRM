@@ -10,5 +10,8 @@ namespace HRM.Application.HR
 {
     public interface IPositionFactory
     {
+        Position Create(PositionModel model);
+
+        Position Update(PositionModel model);
     }
 }
