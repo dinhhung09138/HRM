@@ -15,9 +15,7 @@ namespace HRM.Database.HR
 
             builder.Property(m => m.Name).HasMaxLength(100).IsRequired();
 
-            builder.Property(m => m.Description).HasMaxLength(250).IsRequired();
-
-            builder.Property(m => m.Precedence).IsRequired();
+            builder.Property(m => m.Description).HasMaxLength(250);
 
             builder.Property(m => m.IsActive).IsRequired();
 
