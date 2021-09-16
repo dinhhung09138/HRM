@@ -8,19 +8,24 @@ namespace HRM.Domain.HR
     public class EmployeeWorkingStatus : Entity<long>
     {
         public EmployeeWorkingStatus(
+            long id,
             string name,
             string description,
-            int precedence,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             Name = name;
             Description = description;
-            Precedence = precedence;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            Deleted = false;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [MaxLength(100)]
@@ -29,9 +34,6 @@ namespace HRM.Domain.HR
 
         [MaxLength(250)]
         public string Description { get; set; }
-
-        [Required]
-        public int Precedence { get; set; }
 
         [Required]
         public bool IsActive { get; set; }
