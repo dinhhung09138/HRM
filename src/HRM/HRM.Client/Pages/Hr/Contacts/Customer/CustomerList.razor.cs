@@ -118,7 +118,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Customer
             Breadcrumb.Add(new BreadcurmbModel()
             {
                 Title = "Quản lý nhân sự",
-                Href = "hr/contacts",
+                Href = "hr",
                 IsActive = false,
             });
 

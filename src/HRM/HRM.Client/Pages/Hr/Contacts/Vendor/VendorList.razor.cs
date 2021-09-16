@@ -64,12 +64,12 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
 
         protected void AddNewClick()
         {
-            navigationManager.NavigateTo("vendor/create");
+            navigationManager.NavigateTo("hr/contacts/vendor/create");
         }
 
         protected void UpdateClick(VendorGridModel item)
         {
-            navigationManager.NavigateTo($"vendor/update/{item.Id}");
+            navigationManager.NavigateTo($"hr/contacts/vendor/update/{item.Id}");
         }
 
         protected void DeleteClick(VendorGridModel item)
@@ -119,7 +119,7 @@ namespace HRM.Client.Pages.Hr.Contacts.Vendor
             Breadcrumb.Add(new BreadcurmbModel()
             {
                 Title = "Quản lý nhân sự",
-                Href = "hr/contacts",
+                Href = "hr",
                 IsActive = false,
             });
 

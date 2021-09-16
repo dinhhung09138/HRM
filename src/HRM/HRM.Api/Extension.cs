@@ -87,9 +87,15 @@ namespace HRM.Api
             services.AddJsonWebTokenService(appSettings.SecretKey, TimeSpan.FromHours(0));
             //services.AddAuthenticationJwtBearer();
 
+            services.AddingAssetServices(config);
+            services.AddingCommonSettingServices(config);
+            services.AddingHRContactsServices(config);
+            services.AddingHRSettingServices(config);
 
-            // ------- Asset ------- //
+        }
 
+        private static void AddingAssetServices(this IServiceCollection services, IConfiguration config)
+        {
             services.AddScoped<IAssetTypeRepository, AssetTypeRepository>();
             services.AddScoped<IAssetTypeFactory, AssetTypeFactory>();
             services.AddScoped<IAssetTypeService, AssetTypeService>();
@@ -110,9 +116,10 @@ namespace HRM.Api
             services.AddScoped<IAssetContractPaymentFactory, AssetContractPaymentFactory>();
             services.AddScoped<IAssetContractPaymentService, AssetContractPaymentService>();
 
+        }
 
-            // ------- Common - Setting ------- //
-
+        private static void AddingCommonSettingServices(this IServiceCollection services, IConfiguration config)
+        {
             services.AddScoped<ICertificatedRepository, CertificatedRepository>();
             services.AddScoped<ICertificatedFactory, CertificatedFactory>();
             services.AddScoped<ICertificatedService, CertificatedService>();
@@ -149,10 +156,10 @@ namespace HRM.Api
             services.AddScoped<IRefreshTokenFactory, RefreshTokenFactory>();
             services.AddScoped<ISystemUserRepository, SystemUserRepository>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+        }
 
-
-            // ------- HR - Contact ------- //
-
+        private static void AddingHRContactsServices(this IServiceCollection services, IConfiguration config)
+        {
             services.AddScoped<IVendorRepository, VendorRepository>();
             services.AddScoped<IVendorFactory, VendorFactory>();
             services.AddScoped<IVendorService, VendorService>();
@@ -164,8 +171,29 @@ namespace HRM.Api
             services.AddScoped<ICustomerContactRepository, CustomerContactRepository>();
             services.AddScoped<ICustomerContactFactory, CustomerContactFactory>();
             services.AddScoped<ICustomerContactService, CustomerContactService>();
+        }
 
+        private static void AddingHRSettingServices(this IServiceCollection services, IConfiguration config)
+        {
+            services.AddScoped<IBranchRepository, BranchRepository>();
+            services.AddScoped<IBranchFactory, BranchFactory>();
+            services.AddScoped<IBranchService, BranchService>();
 
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IDepartmentFactory, DepartmentFactory>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+
+            services.AddScoped<IPositionRepository, PositionRepository>();
+            services.AddScoped<IPositionFactory, PositionFactory>();
+            services.AddScoped<IPositionService, PositionService>();
+
+            services.AddScoped<IJobPositionRepository, JobPositionRepository>();
+            services.AddScoped<IJobPositionFactory, JobPositionFactory>();
+            services.AddScoped<IJobPositionService, JobPositionService>();
+
+            services.AddScoped<IEmployeeWorkingStatusRepository, EmployeeWorkingStatusRepository>();
+            services.AddScoped<IEmployeeWorkingStatusFactory, EmployeeWorkingStatusFactory>();
+            services.AddScoped<IEmployeeWorkingStatusService, EmployeeWorkingStatusService>();
         }
     }
 }
