@@ -12,6 +12,7 @@ namespace HRM.Domain.HR
     public class ContractType : Entity<long>
     {
         public ContractType(
+            long id,
             string code,
             string name,
             string description,
@@ -20,8 +21,11 @@ namespace HRM.Domain.HR
             int precedence,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             Code = code;
             Name = name;
             Description = description;
@@ -31,7 +35,9 @@ namespace HRM.Domain.HR
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
-
+            Deleted = false;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [Required]

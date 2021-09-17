@@ -1176,6 +1176,78 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContractType", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            AllowInsurance = true,
+                            AllowLeaveDate = false,
+                            Code = "Probation",
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Description = "",
+                            IsActive = true,
+                            Name = "HD thử việc",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            AllowInsurance = true,
+                            AllowLeaveDate = true,
+                            Code = "1Year",
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Description = "",
+                            IsActive = true,
+                            Name = "HĐ 1 năm",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            AllowInsurance = true,
+                            AllowLeaveDate = true,
+                            Code = "2Year",
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Description = "",
+                            IsActive = true,
+                            Name = "HD 2 năm",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            AllowInsurance = true,
+                            AllowLeaveDate = false,
+                            Code = "3Year",
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Description = "",
+                            IsActive = true,
+                            Name = "HĐ 3 năm",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            AllowInsurance = true,
+                            AllowLeaveDate = true,
+                            Code = "Forever",
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Description = "",
+                            IsActive = true,
+                            Name = "HĐ vô thời hạn",
+                            Precedence = 1
+                        });
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.Customer", b =>
@@ -2503,8 +2575,8 @@ namespace HRM.Database.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Precedence")
                         .HasColumnType("int");
@@ -2524,6 +2596,38 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ethnicity", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Kinh",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Chăm",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Bana",
+                            Precedence = 1
+                        });
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.JobPosition", b =>
@@ -2628,6 +2732,50 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LeaveType", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Code = "NoPaid",
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Description = "Thời gian nghỉ sẽ được trừ vào lương",
+                            IsActive = true,
+                            IsDeductible = false,
+                            Name = "Nghỉ không lương",
+                            NumOfDay = 0,
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Code = "Paid",
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Description = "Thời gian nghỉ sẽ không bị trừ lương mà được tính vào ngày phép",
+                            IsActive = true,
+                            IsDeductible = true,
+                            Name = "Nghỉ phép",
+                            NumOfDay = 12,
+                            Precedence = 2
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Code = "Pregnant",
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Description = "Thời gian nghỉ thai sản có tính lương (Bảo hiểm xã hội chi trả)",
+                            IsActive = true,
+                            IsDeductible = false,
+                            Name = "Nghỉ thai sản",
+                            NumOfDay = 0,
+                            Precedence = 3
+                        });
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.ModelOfStudy", b =>
@@ -2672,6 +2820,38 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ModelOfStudy", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Chính quy",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Vừa học vừa làm",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "E-Learning",
+                            Precedence = 1
+                        });
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.Nationality", b =>
@@ -2716,6 +2896,98 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Nationality", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Việt Nam",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Nhật Bản",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Hàn Quốc",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Trung Quốc",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Campuchia",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Ấn độ",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Anh",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Đức",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Canada",
+                            Precedence = 1
+                        });
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.Position", b =>
@@ -2805,6 +3077,58 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ranking", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Xuất sắc",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Giỏi",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Khá",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Trung bình",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Yếu",
+                            Precedence = 1
+                        });
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.RelationshipType", b =>
@@ -2849,6 +3173,48 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RelationshipType", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Cha/Mẹ",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Vợ/Chồng",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Cô/Chú",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Con",
+                            Precedence = 1
+                        });
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.Religion", b =>
@@ -2893,6 +3259,78 @@ namespace HRM.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Religion", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Công giáo",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Phật giáo",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Tin lành",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Cao đài",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Hồi giáo",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Hòa hảo",
+                            Precedence = 1
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CreateBy = 1L,
+                            CreateDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            IsActive = true,
+                            Name = "Ấn độ giáo",
+                            Precedence = 1
+                        });
                 });
 
             modelBuilder.Entity("HRM.Domain.HR.Vendor", b =>

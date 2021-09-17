@@ -13,10 +13,9 @@ namespace HRM.Database.HR
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
-            builder.Property(m => m.Code)
-                    .HasMaxLength(10)
-                    .HasColumnType("varchar")
-                    .IsRequired();
+            builder.Property(m => m.Code).HasMaxLength(10)
+                                         .HasColumnType("varchar")
+                                         .IsRequired();
 
             builder.Property(m => m.Name).HasMaxLength(100).IsRequired();
 
@@ -25,6 +24,8 @@ namespace HRM.Database.HR
             builder.Property(m => m.AllowInsurance).IsRequired();
 
             builder.Property(m => m.AllowLeaveDate).IsRequired();
+
+            builder.Property(m => m.Precedence).IsRequired();
 
             builder.Property(m => m.Precedence).IsRequired();
 

@@ -12,17 +12,24 @@ namespace HRM.Domain.HR
     public class Religion : Entity<long>
     {
         public Religion(
+            long id,
             string name,
             int precedence,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             Name = name;
             Precedence = precedence;
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            Deleted = false;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [MaxLength(50)]

@@ -7,7 +7,6 @@ using HRM.Database;
 using System.Threading.Tasks;
 using DotNetCore.Results;
 using HRM.Infrastructure.Extension;
-using HRM.Infrastructure.Services;
 using System.Collections.Generic;
 
 namespace HRM.Application.HR

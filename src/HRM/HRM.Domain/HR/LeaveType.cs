@@ -12,6 +12,7 @@ namespace HRM.Domain.HR
     public class LeaveType : Entity<long>
     {
         public LeaveType(
+            long id,
             string code,
             string name,
             int numOfDay,
@@ -20,8 +21,11 @@ namespace HRM.Domain.HR
             int precedence,
             bool isActive,
             long createBy,
-            DateTime createDate)
+            DateTime createDate,
+            long? updateBy,
+            DateTime? updateDate)
         {
+            Id = id;
             Code = code;
             Name = name;
             NumOfDay = numOfDay;
@@ -31,6 +35,9 @@ namespace HRM.Domain.HR
             IsActive = isActive;
             CreateBy = createBy;
             CreateDate = createDate;
+            Deleted = false;
+            UpdateBy = updateBy;
+            UpdateDate = updateDate;
         }
 
         [MaxLength(10)]

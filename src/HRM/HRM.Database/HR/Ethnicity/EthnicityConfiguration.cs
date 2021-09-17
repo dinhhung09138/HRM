@@ -13,7 +13,7 @@ namespace HRM.Database.HR
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Id).ValueGeneratedOnAdd().IsRequired();
 
-            builder.Property(m => m.Name).HasMaxLength(100).IsRequired();
+            builder.Property(m => m.Name).HasMaxLength(50).IsRequired();
 
             builder.Property(m => m.Precedence).IsRequired();
 
@@ -30,6 +30,7 @@ namespace HRM.Database.HR
             builder.Property(m => m.Deleted).IsRequired();
 
             builder.Property(m => m.RowVersion).IsRowVersion();
+
         }
     }
 }
