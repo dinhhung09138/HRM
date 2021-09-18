@@ -191,6 +191,10 @@ namespace HRM.Api
             services.AddScoped<IJobPositionFactory, JobPositionFactory>();
             services.AddScoped<IJobPositionService, JobPositionService>();
 
+            services.AddScoped<IReligionRepository, ReligionRepository>();
+            services.AddScoped<IReligionFactory, ReligionFactory>();
+            services.AddScoped<IReligionService, ReligionService>();
+
             services.AddScoped<IEmployeeWorkingStatusRepository, EmployeeWorkingStatusRepository>();
             services.AddScoped<IEmployeeWorkingStatusFactory, EmployeeWorkingStatusFactory>();
             services.AddScoped<IEmployeeWorkingStatusService, EmployeeWorkingStatusService>();

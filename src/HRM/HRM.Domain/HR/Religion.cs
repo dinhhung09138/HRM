@@ -5,10 +5,6 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Tôn giáo
-    /// </summary>
     public class Religion : Entity<long>
     {
         public Religion(
