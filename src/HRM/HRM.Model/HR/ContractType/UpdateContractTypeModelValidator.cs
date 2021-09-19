@@ -10,8 +10,6 @@ namespace HRM.Model.HR
             Code();
             Name();
             Description();
-            AllowLeaveDate();
-            AllowInsurance();
         }
     }
 }

@@ -79,6 +79,15 @@ namespace HRM.Model {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vui lòng nhập giá trị trong khoảng từ 1 đến 100.
+        /// </summary>
+        public static string OneTo100 {
+            get {
+                return ResourceManager.GetString("OneTo100", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vui lòng nhập số từ 1 đến 999.
         /// </summary>
         public static string Precedence {

@@ -123,6 +123,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email không hợp lệ</value>
   </data>
+  <data name="OneTo100" xml:space="preserve">
+    <value>Vui lòng nhập giá trị trong khoảng từ 1 đến 100</value>
+  </data>
   <data name="Precedence" xml:space="preserve">
     <value>Vui lòng nhập số từ 1 đến 999</value>
   </data>

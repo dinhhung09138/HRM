@@ -15,10 +15,11 @@ namespace HRM.Model.HR
         public string Name { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
+        [Range(1, 100, ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "OneTo100")]
         public int NumOfDay { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "Required")]
-        public bool IsDeductible { get; set; }
+        public bool IsDeductible { get; set; } = false;
 
         [MaxLength(255)]
         public string Description { get; set; }

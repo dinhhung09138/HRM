@@ -23,12 +23,8 @@ namespace HRM.Model.HR
 
         public void NumOfDay()
         {
-            RuleFor(m => m.NumOfDay).NotEmpty().NotNull();
-        }
-
-        public void IsDeductible()
-        {
-            RuleFor(m => m.IsDeductible).NotEmpty().NotNull();
+            RuleFor(m => m.NumOfDay).NotNull();
+            RuleFor(m => m.NumOfDay).GreaterThan(0).WithMessage("not null");
         }
 
         public void Description()

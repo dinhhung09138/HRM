@@ -5,10 +5,6 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Loại hợp đồng
-    /// </summary>
     public class ContractType : Entity<long>
     {
         public ContractType(

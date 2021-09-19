@@ -1,0 +1,87 @@
+﻿@page "/hr/setting/contract-type/create"
+@page "/hr/setting/contract-type/update/{Id:long}"
+
+<AuthorizeView Context="Auth">
+    <Authorized>
+        <HRMPanel Title="@pageTitle">
+            <ButtonGroup>
+                <Button Type="@ButtonType.Primary" OnClick="@OnSubmitClick">Lưu</Button>
+                <Button Type="@ButtonType.Default" OnClick="@BackToTheListClick">Danh sách</Button>
+            </ButtonGroup>
+            <PanelContent>
+                <Spin Spinning="@pageLoading">
+                    <Form @ref="@form" Model="@model" OnFinish="@OnFinish">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-1">
+                                    <label>Mã</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Code" class="form-control" MaxLength="10" tabindex="1" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-1">
+                                    <label>Tên</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Name" class="form-control" MaxLength="100" tabindex="2" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-1">
+                                    <label>Ghi chú</label>
+                                    <FormItem>
+                                        <Input @bind-Value="@model.Description" class="form-control" MaxLength="255" tabindex="3" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-1">
+                                    <label>Được đóng bảo hiểm</label>
+                                    <FormItem>
+                                        <Checkbox @bind-Value="@model.AllowInsurance" class="form-check-input" tabindex="4" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-1">
+                                    <label>Được đăng ký nghỉ phép</label>
+                                    <FormItem>
+                                        <Checkbox @bind-Value="@model.AllowLeaveDate" class="form-check-input" tabindex="5" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-1">
+                                    <label>Thứ tự hiển thị</label>
+                                    <FormItem>
+                                        <AntDesign.InputNumber @bind-Value="@model.Precedence" Size="@InputSize.Small"
+                                                               DefaultValue="0" MaxLength="3" tabindex="6" class="form-control" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-1">
+                                    <label>Sử dụng</label>
+                                    <FormItem>
+                                        <Checkbox @bind-Value="@model.IsActive" class="form-check-input" tabindex="7" />
+                                    </FormItem>
+                                </div>
+                            </div>
+                        </div>
+                    </Form>
+                </Spin>
+            </PanelContent>
+        </HRMPanel>
+    </Authorized>
+    <NotAuthorized>
+        <HrmNotAuthorize />
+    </NotAuthorized>
+</AuthorizeView>

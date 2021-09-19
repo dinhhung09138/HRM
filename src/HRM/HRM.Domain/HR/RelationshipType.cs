@@ -5,10 +5,6 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Mối quan hệ trong gia đình
-    /// </summary>
     public class RelationshipType : Entity<long>
     {
         public RelationshipType(

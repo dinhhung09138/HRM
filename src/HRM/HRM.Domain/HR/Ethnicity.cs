@@ -5,10 +5,6 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO 
-    /// Dân tộc
-    /// </summary>
     public class Ethnicity : Entity<long>
     {
         public Ethnicity(

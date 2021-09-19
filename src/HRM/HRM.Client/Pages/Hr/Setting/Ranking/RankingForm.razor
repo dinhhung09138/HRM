@@ -1,5 +1,5 @@
-﻿@page "/hr/setting/religion/create"
-@page "/hr/setting/religion/update/{Id:long}"
+﻿@page "/hr/setting/ranking/create"
+@page "/hr/setting/ranking/update/{Id:long}"
 
 <AuthorizeView Context="Auth">
     <Authorized>
@@ -14,9 +14,9 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-1">
-                                    <label>Tên</label>
+                                    <label>Tên xếp loại</label>
                                     <FormItem>
-                                        <Input @bind-Value="@model.Name" class="form-control" MaxLength="50" tabindex="1" />
+                                        <Input @bind-Value="@model.Name" class="form-control" MaxLength="100" tabindex="1" />
                                     </FormItem>
                                 </div>
                             </div>

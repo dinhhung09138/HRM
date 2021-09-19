@@ -13,7 +13,6 @@ namespace HRM.Model.HR
             Code();
             Name();
             NumOfDay();
-            IsDeductible();
             Description();
             Precedence();
         }

@@ -5,10 +5,6 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Xếp hạng học tập
-    /// </summary>
     public class Ranking : Entity<long>
     {
         public Ranking(

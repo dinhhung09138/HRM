@@ -1,8 +1,8 @@
-﻿@page "/hr/setting/religion"
+﻿@page "/hr/setting/nationality"
 
 <AuthorizeView>
     <Authorized Context="Auth">
-        <HRMPanel Title="Danh sách tôn giáo">
+        <HRMPanel Title="Danh sách quốc tịch">
             <ButtonGroup>
                 <Button Type="@ButtonType.Primary" OnClick="@AddNewClick">Thêm mới</Button>
             </ButtonGroup>
@@ -20,7 +20,7 @@
                 </div>
                 <Table DataSource="@listData" Bordered="true" Loading="@tableLoading" PageSize="@parameterModel.Page.Size">
                     <ChildContent>
-                        <Column @bind-Field="@context.Name" Title="Tên"
+                        <Column @bind-Field="@context.Name" Title="Tên quốc tịch"
                                 Sortable="true" ShowSorterTooltip="false" />
                         <Column @bind-Field="@context.Precedence" Title="Thứ tự hiển thị"
                                 Sortable="true" Width="200px" ShowSorterTooltip="false" />

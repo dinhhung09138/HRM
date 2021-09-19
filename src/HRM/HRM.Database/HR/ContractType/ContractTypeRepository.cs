@@ -74,7 +74,11 @@ namespace HRM.Database.HR
                 await UpdatePartialAsync(new
                 {
                     model.Id,
+                    model.Code,
                     model.Name,
+                    model.Description,
+                    model.AllowInsurance,
+                    model.AllowLeaveDate,
                     model.IsActive,
                     model.Precedence,
                     model.UpdateBy,

@@ -183,6 +183,10 @@ namespace HRM.Api
             services.AddScoped<IDepartmentFactory, DepartmentFactory>();
             services.AddScoped<IDepartmentService, DepartmentService>();
 
+            services.AddScoped<IContractTypeRepository, ContractTypeRepository>();
+            services.AddScoped<IContractTypeFactory, ContractTypeFactory>();
+            services.AddScoped<IContractTypeService, ContractTypeService>();
+
             services.AddScoped<IPositionRepository, PositionRepository>();
             services.AddScoped<IPositionFactory, PositionFactory>();
             services.AddScoped<IPositionService, PositionService>();
@@ -190,6 +194,30 @@ namespace HRM.Api
             services.AddScoped<IJobPositionRepository, JobPositionRepository>();
             services.AddScoped<IJobPositionFactory, JobPositionFactory>();
             services.AddScoped<IJobPositionService, JobPositionService>();
+
+            services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
+            services.AddScoped<ILeaveTypeFactory, LeaveTypeFactory>();
+            services.AddScoped<ILeaveTypeService, LeaveTypeService>();
+
+            services.AddScoped<INationalityRepository, NationalityRepository>();
+            services.AddScoped<INationalityFactory, NationalityFactory>();
+            services.AddScoped<INationalityService, NationalityService>();
+
+            services.AddScoped<IRankingRepository, RankingRepository>();
+            services.AddScoped<IRankingFactory, RankingFactory>();
+            services.AddScoped<IRankingService, RankingService>();
+
+            services.AddScoped<IEthnicityRepository, EthnicityRepository>();
+            services.AddScoped<IEthnicityFactory, EthnicityFactory>();
+            services.AddScoped<IEthnicityService, EthnicityService>();
+
+            services.AddScoped<IModelOfStudyRepository, ModelOfStudyRepository>();
+            services.AddScoped<IModelOfStudyFactory, ModelOfStudyFactory>();
+            services.AddScoped<IModelOfStudyService, ModelOfStudyService>();
+
+            services.AddScoped<IRelationshipTypeRepository, RelationshipTypeRepository>();
+            services.AddScoped<IRelationshipTypeFactory, RelationshipTypeFactory>();
+            services.AddScoped<IRelationshipTypeService, RelationshipTypeService>();
 
             services.AddScoped<IReligionRepository, ReligionRepository>();
             services.AddScoped<IReligionFactory, ReligionFactory>();

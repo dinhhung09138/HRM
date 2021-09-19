@@ -26,15 +26,5 @@ namespace HRM.Model.HR
             RuleFor(m => m.Description).MaximumLength(250);
         }
 
-        public void AllowInsurance()
-        {
-            RuleFor(m => m.AllowInsurance).NotEmpty().NotNull();
-        }
-
-        public void AllowLeaveDate()
-        {
-            RuleFor(m => m.AllowLeaveDate).NotEmpty().NotNull();
-        }
-
     }
 }

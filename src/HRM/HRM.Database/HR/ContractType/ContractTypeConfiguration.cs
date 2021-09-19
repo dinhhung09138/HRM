@@ -27,8 +27,6 @@ namespace HRM.Database.HR
 
             builder.Property(m => m.Precedence).IsRequired();
 
-            builder.Property(m => m.Precedence).IsRequired();
-
             builder.Property(m => m.IsActive).IsRequired();
 
             builder.Property(m => m.CreateBy).IsRequired();

@@ -5,10 +5,6 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Hình thức đào tạo
-    /// </summary>
     public class ModelOfStudy : Entity<long>
     {
         public ModelOfStudy(

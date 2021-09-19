@@ -5,10 +5,6 @@ using DotNetCore.Domain;
 
 namespace HRM.Domain.HR
 {
-    /// <summary>
-    /// TODO
-    /// Loại phép nghỉ (Thai sản, không lương,...)
-    /// </summary>
     public class LeaveType : Entity<long>
     {
         public LeaveType(
